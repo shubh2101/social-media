@@ -3,7 +3,7 @@ import {
   Diversity1Icon,
   NotificationsIcon,
   Avatar,
-} from "../assets/icons";
+} from "../assets/MUI/icons";
 import { AppBar, Badge, Box, styled, Toolbar, Typography } from "@mui/material";
 
 const Icons = styled(Box)(() => ({
