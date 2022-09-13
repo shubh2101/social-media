@@ -4,7 +4,7 @@ const RightBar = () => {
   return (
     <Box
       bgcolor="pink"
-      flex={1}
+      flex={2}
       p={2}
       sx={{ display: { xs: "none", sm: "none", md: "block" } }}
     >

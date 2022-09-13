@@ -8,7 +8,7 @@ import { AppBar, Badge, Box, styled, Toolbar, Typography } from "@mui/material";
 
 const Icons = styled(Box)(() => ({
   alignItems: "center",
-  gap: "20px",
+  gap: "30px",
   display: "flex",
 }));
 
