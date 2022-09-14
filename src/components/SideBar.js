@@ -6,8 +6,8 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  styled,
   Typography,
+  Avatar,
 } from "@mui/material";
 import {
   AddCircleOutlineIcon,
@@ -15,7 +15,6 @@ import {
   ExploreIcon,
   HomeIcon,
   NightlightIcon,
-  Avatar,
 } from "../assets/MUI/icons";
 import MaterialUISwitch from "../assets/MUI/components/MuiSwitch";
 
