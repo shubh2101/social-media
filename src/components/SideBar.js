@@ -18,7 +18,7 @@ import {
 } from "../assets/MUI/icons";
 import MaterialUISwitch from "../assets/MUI/components/MuiSwitch";
 
-const SideBar = () => {
+const SideBar = ({ onOpen }) => {
   return (
     <Box flex={2} p={2} sx={{ display: { xs: "none", sm: "block" } }}>
       <Box>
@@ -48,7 +48,7 @@ const SideBar = () => {
             </ListItemButton>
           </ListItem>
           <ListItem>
-            <ListItemButton>
+            <ListItemButton onClick={onOpen}>
               <ListItemIcon>
                 <AddCircleOutlineIcon />
               </ListItemIcon>

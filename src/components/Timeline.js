@@ -33,7 +33,7 @@ const Timeline = () => {
             </IconButton>
           }
           title="José Mourinho"
-          subheader="September 14, 2016"
+          subheader="September 14, 2022"
         />
         <CardMedia
           sx={{ objectFit: "contain", maxHeight: 400 }}
@@ -52,10 +52,10 @@ const Timeline = () => {
           <IconButton aria-label="add to favorites">
             <FavoriteIcon />
           </IconButton>
-          <IconButton aria-label="share">
+          <IconButton aria-label="comment">
             <ModeCommentIcon />
           </IconButton>
-          <IconButton aria-label="share">
+          <IconButton aria-label="bookmark">
             <BookmarkBorderIcon />
           </IconButton>
         </CardActions>
@@ -74,7 +74,7 @@ const Timeline = () => {
             </IconButton>
           }
           title="José Mourinho"
-          subheader="September 14, 2016"
+          subheader="September 11, 2022"
         />
         <CardMedia
           sx={{ objectFit: "contain", maxHeight: 400 }}
