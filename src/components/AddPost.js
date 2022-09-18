@@ -1,11 +1,20 @@
 import {
   Avatar,
   Box,
+  Button,
+  IconButton,
   Modal,
+  Stack,
   styled,
   TextField,
   Typography,
 } from "@mui/material";
+import { amber } from "@mui/material/colors";
+import {
+  EmojiEmotionsIcon,
+  InsertPhotoIcon,
+  PersonAddAlt1Icon,
+} from "../assets/MUI/icons";
 
 const AddPost = ({ isOpen, onClose }) => {
   const SytledModal = styled(Modal)({
@@ -13,6 +22,11 @@ const AddPost = ({ isOpen, onClose }) => {
     alignItems: "center",
     justifyContent: "center",
   });
+  const Icons = styled(Box)(() => ({
+    alignItems: "center",
+    gap: "30px",
+    display: "flex",
+  }));
   return (
     <div>
       <SytledModal
@@ -22,7 +36,7 @@ const AddPost = ({ isOpen, onClose }) => {
         aria-describedby="modal-modal-description"
       >
         <Box
-          width={600}
+          width={500}
           height={300}
           bgcolor={"white"}
           color={"text.primary"}
@@ -43,12 +57,33 @@ const AddPost = ({ isOpen, onClose }) => {
           />
           <TextField
             sx={{ width: "100%" }}
+            margin="normal"
             id="standard-multiline-static"
             multiline
-            rows={3}
-            placeholder="What's happening? Jose"
+            rows={6}
+            placeholder="What's happening, Jose?"
             variant="standard"
           />
+          <Stack
+            direction="row"
+            mt={2}
+            mb={2}
+            alignItems="center"
+            justifyContent="space-between"
+          >
+            <Icons>
+              <IconButton>
+                <InsertPhotoIcon color="success" />
+              </IconButton>
+              <IconButton>
+                <EmojiEmotionsIcon sx={{ color: amber[500] }} />
+              </IconButton>
+              <IconButton>
+                <PersonAddAlt1Icon color="primary" />
+              </IconButton>
+            </Icons>
+            <Button variant="contained">Post</Button>
+          </Stack>
         </Box>
       </SytledModal>
     </div>

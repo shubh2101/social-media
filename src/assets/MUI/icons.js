@@ -9,6 +9,9 @@ import NightlightIcon from "@mui/icons-material/Nightlight";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ModeCommentIcon from '@mui/icons-material/ModeComment';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
+import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
+import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 
 export {
   MailIcon,
@@ -22,4 +25,8 @@ export {
   FavoriteIcon,
   ModeCommentIcon,
   MoreVertIcon,
+  InsertPhotoIcon,
+  EmojiEmotionsIcon,
+  PersonAddAlt1Icon,
+  
   };
