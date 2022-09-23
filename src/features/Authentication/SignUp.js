@@ -13,6 +13,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const SignUp = () => {
   return (
@@ -40,12 +41,14 @@ const SignUp = () => {
             label="First Name"
             variant="outlined"
             margin="normal"
+            size="small"
           />
           <TextField
             type="text"
             label="Last Name"
             variant="outlined"
             margin="normal"
+            size="small"
           />
         </Box>
         <TextField
@@ -53,6 +56,7 @@ const SignUp = () => {
           label="Email"
           variant="outlined"
           margin="normal"
+          size="small"
         />
         <TextField
           type="date"
@@ -60,27 +64,31 @@ const SignUp = () => {
           variant="outlined"
           defaultValue="1996-01-01"
           margin="normal"
+          size="small"
         />
         <FormControl>
-          <FormLabel id="demo-row-radio-buttons-group-label">Gender</FormLabel>
+          <FormLabel>Gender</FormLabel>
           <RadioGroup row defaultValue="female">
             <FormControlLabel
               value="female"
-              control={<Radio />}
+              control={<Radio size="small" />}
               label="Female"
             />
-            <FormControlLabel value="male" control={<Radio />} label="Male" />
-            <FormControlLabel value="other" control={<Radio />} label="Other" />
+            <FormControlLabel
+              value="male"
+              control={<Radio size="small" />}
+              label="Male"
+            />
+            <FormControlLabel
+              value="other"
+              control={<Radio size="small" />}
+              label="Other"
+            />
           </RadioGroup>
         </FormControl>
-        <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Country</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            label="Country"
-            defaultValue=""
-          >
+        <FormControl fullWidth size="small">
+          <InputLabel textAlign="center">Country</InputLabel>
+          <Select label="Country" defaultValue="">
             <MenuItem value={"India"}>India</MenuItem>
             <MenuItem value={"USA"}>USA</MenuItem>
             <MenuItem value={"UK"}>UK</MenuItem>
@@ -94,12 +102,14 @@ const SignUp = () => {
           label="Password"
           variant="outlined"
           margin="normal"
+          size="small"
         />
         <TextField
           type="password"
           label="Confirm password"
           variant="outlined"
           margin="normal"
+          size="small"
         />
         <Button
           variant="contained"
@@ -108,6 +118,10 @@ const SignUp = () => {
         >
           SignUp
         </Button>
+        <Typography display="flex" justifyContent="center" gap={2} mt={3}>
+          Already have an account?
+          <Link to="/">Log In</Link>
+        </Typography>
       </Box>
     </Container>
   );
