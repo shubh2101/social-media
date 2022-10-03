@@ -5,6 +5,7 @@ import NavBar from "./components/NavBar";
 import RightBar from "./components/RightBar";
 import SideBar from "./components/SideBar";
 import Timeline from "./components/Timeline";
+import SignUp from "./features/Authentication/SignUp";
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,13 +18,14 @@ function App() {
   };
   return (
     <Box>
-      <NavBar />
+      {/* <NavBar />
       <Stack direction="row" spacing={2} justifyContent="space-between">
         <SideBar onOpen={openHandler} />
         <AddPost onClose={closeHandler} isOpen={isOpen} />
         <Timeline />
         <RightBar />
-      </Stack>
+      </Stack> */}
+      <SignUp/>
     </Box>
   );
 }

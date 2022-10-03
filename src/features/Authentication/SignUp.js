@@ -15,11 +15,33 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 
+import useInput from "./useInput";
+import validate from "./validateInput";
+
 const SignUp = () => {
+  const { values, valueChangeHandler, errors, submitHandler } = useInput(
+    true,
+    validate
+  );
+
+  console.log({ values });
+  console.log({ errors });
+  console.log(errors.lastname);
+  console.log(errors.firstname);
+  console.log(errors.email);
+  //  const firstnameError =  errors.firstname && isTouched
+  //  const lastnameError = errors.lastname && isTouched
+  //  const emailError = errors.email && isTouched
+  //  console.log({firstnameError})
+  //  console.log({lastnameError})
+  //  console.log({emailError})
+  // console.log({isTouched})
+
   return (
     <Container component="main" maxWidth="xs">
       <Box
         component="form"
+        onSubmit={submitHandler}
         borderRadius={5}
         boxShadow={"5px 5px 10px #ccc"}
         p={3}
@@ -38,26 +60,46 @@ const SignUp = () => {
         <Box gap={2} sx={{ display: "flex", flexDirection: "row" }}>
           <TextField
             type="text"
+            name="firstname"
             label="First Name"
             variant="outlined"
             margin="normal"
             size="small"
+            onChange={valueChangeHandler}
+            value={values.firstname}
+            // onBlur={firstnameBlur}
+            // required
           />
+          {errors.firstname && <p>{errors.firstname}</p>}
+
           <TextField
             type="text"
+            name="lastname"
             label="Last Name"
             variant="outlined"
             margin="normal"
             size="small"
+            onChange={valueChangeHandler}
+            value={values.lastname}
+            // onBlur={lastnameBlur}
+            // required
           />
+          {errors.lastname && <p>{errors.lastname}</p>}
         </Box>
         <TextField
           type="email"
+          name="email"
           label="Email"
           variant="outlined"
           margin="normal"
           size="small"
+          onChange={valueChangeHandler}
+          value={values.email}
+          // onBlur={emailBlur}
+          // required
         />
+        {errors.email && <p>{errors.email}</p>}
+
         <TextField
           type="date"
           label="Date of birth"
@@ -87,7 +129,7 @@ const SignUp = () => {
           </RadioGroup>
         </FormControl>
         <FormControl fullWidth size="small">
-          <InputLabel textAlign="center">Country</InputLabel>
+          <InputLabel textalign="center">Country</InputLabel>
           <Select label="Country" defaultValue="">
             <MenuItem value={"India"}>India</MenuItem>
             <MenuItem value={"USA"}>USA</MenuItem>
@@ -112,6 +154,7 @@ const SignUp = () => {
           size="small"
         />
         <Button
+          type="submit"
           variant="contained"
           color="success"
           sx={{ mt: 3, borderRadius: 5 }}
