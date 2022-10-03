@@ -19,23 +19,19 @@ import useInput from "./useInput";
 import validate from "./validateInput";
 
 const SignUp = () => {
-  const { values, valueChangeHandler, errors, submitHandler } = useInput(
-    true,
-    validate
-  );
+  const {
+    values,
+    errors,
+    valueChangeHandler,
+    inputBlurHandler,
+    submitHandler,
+  } = useInput(validate);
 
   console.log({ values });
   console.log({ errors });
-  console.log(errors.lastname);
   console.log(errors.firstname);
+  console.log(errors.lastname);
   console.log(errors.email);
-  //  const firstnameError =  errors.firstname && isTouched
-  //  const lastnameError = errors.lastname && isTouched
-  //  const emailError = errors.email && isTouched
-  //  console.log({firstnameError})
-  //  console.log({lastnameError})
-  //  console.log({emailError})
-  // console.log({isTouched})
 
   return (
     <Container component="main" maxWidth="xs">
@@ -67,7 +63,7 @@ const SignUp = () => {
             size="small"
             onChange={valueChangeHandler}
             value={values.firstname}
-            // onBlur={firstnameBlur}
+            onBlur={inputBlurHandler}
             // required
           />
           {errors.firstname && <p>{errors.firstname}</p>}
@@ -81,7 +77,7 @@ const SignUp = () => {
             size="small"
             onChange={valueChangeHandler}
             value={values.lastname}
-            // onBlur={lastnameBlur}
+            onBlur={inputBlurHandler}
             // required
           />
           {errors.lastname && <p>{errors.lastname}</p>}
@@ -95,7 +91,7 @@ const SignUp = () => {
           size="small"
           onChange={valueChangeHandler}
           value={values.email}
-          // onBlur={emailBlur}
+          onBlur={inputBlurHandler}
           // required
         />
         {errors.email && <p>{errors.email}</p>}
