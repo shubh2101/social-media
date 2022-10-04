@@ -4,6 +4,8 @@ const initialFormValues = {
   firstname: "",
   lastname: "",
   email: "",
+  password: "",
+  confirmpassword: "",
 };
 const useInput = (validate) => {
   const [values, setValues] = useState(initialFormValues);
@@ -15,14 +17,11 @@ const useInput = (validate) => {
       ...values,
       [name]: value,
     });
-    // if (isValidating) {
-    //   const formErrors = validate(name, { [name]: value }, errors);
-    //   setErrors(formErrors);
-    // }
   };
+
   const inputBlurHandler = (event) => {
-    const { name, value } = event.target;
-    const formErrors = validate(name, { [name]: value }, errors);
+    const {name} = event.target;
+    const formErrors = validate(name, values, errors);
     setErrors(formErrors);
   };
 

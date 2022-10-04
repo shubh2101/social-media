@@ -1,5 +1,6 @@
 const Validate = (name, values, errors) => {
   let temp = { ...errors };
+  console.log(values);
 
   switch (name) {
     case "firstname":
@@ -17,6 +18,22 @@ const Validate = (name, values, errors) => {
       const emailRegex =
         /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
       temp.email = emailRegex.test(values.email) ? "" : "Email is not valid.";
+      break;
+
+    case "password":
+      const passwordRegex =
+        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/;
+      console.log({ password: values.password });
+      temp.password = passwordRegex.test(values.password)
+        ? ""
+        : "Min 6 chars, at least 1 letter,1 number and 1 special char";
+      break;
+
+    case "confirmpassword":
+      temp.confirmpassword =
+        values.confirmpassword === values.password
+          ? ""
+          : "Passwords do not match";
       break;
 
     default:

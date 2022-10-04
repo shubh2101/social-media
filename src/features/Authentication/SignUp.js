@@ -27,11 +27,8 @@ const SignUp = () => {
     submitHandler,
   } = useInput(validate);
 
-  console.log({ values });
-  console.log({ errors });
-  console.log(errors.firstname);
-  console.log(errors.lastname);
-  console.log(errors.email);
+  // console.log({ values });
+  // console.log({ errors });
 
   return (
     <Container component="main" maxWidth="xs">
@@ -136,19 +133,29 @@ const SignUp = () => {
         </FormControl>
 
         <TextField
-          type="password"
+          type="text"
+          name="password"
           label="Password"
           variant="outlined"
           margin="normal"
           size="small"
+          onChange={valueChangeHandler}
+          value={values.password}
+          onBlur={inputBlurHandler}
         />
+        {errors.password && <p>{errors.password}</p>}
         <TextField
-          type="password"
+          type="text"
+          name="confirmpassword"
           label="Confirm password"
           variant="outlined"
           margin="normal"
           size="small"
+          onChange={valueChangeHandler}
+          value={values.confirmpassword}
+          onBlur={inputBlurHandler}
         />
+        {errors.confirmpassword && <p>{errors.confirmpassword}</p>}
         <Button
           type="submit"
           variant="contained"
