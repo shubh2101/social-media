@@ -5,8 +5,11 @@ import {
   FormControl,
   FormControlLabel,
   FormLabel,
+  IconButton,
+  InputAdornment,
   InputLabel,
   MenuItem,
+  OutlinedInput,
   Radio,
   RadioGroup,
   Select,
@@ -14,6 +17,8 @@ import {
   Typography,
 } from "@mui/material";
 import { Link } from "react-router-dom";
+import { VisibilityIcon } from "../../assets/MUI/icons";
+import { VisibilityOffIcon } from "../../assets/MUI/icons";
 
 import useInput from "./useInput";
 import validate from "./validateInput";
@@ -25,6 +30,10 @@ const SignUp = () => {
     valueChangeHandler,
     inputBlurHandler,
     submitHandler,
+    passwordShow,
+    passwordShowHandler,
+    confirmPassShow,
+    confirmPassShowHandler,
   } = useInput(validate);
 
   console.log({ values });
@@ -155,36 +164,58 @@ const SignUp = () => {
           <Typography color="red">{errors.country}</Typography>
         )}
 
-        <TextField
-          type="text"
-          name="password"
-          label="Password"
-          variant="outlined"
-          margin="normal"
-          size="small"
-          onChange={valueChangeHandler}
-          value={values.password}
-          onBlur={inputBlurHandler}
-          required
-        />
+        <FormControl sx={{ mt: 3 }} fullWidth size="small">
+          <InputLabel>Password</InputLabel>
+          <OutlinedInput
+            type={passwordShow ? "text" : "password"}
+            name="password"
+            label="Password"
+            variant="outlined"
+            margin="dense"
+            size="small"
+            onChange={valueChangeHandler}
+            value={values.password}
+            onBlur={inputBlurHandler}
+            required
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton onClick={passwordShowHandler} edge="end">
+                  {passwordShow ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                </IconButton>
+              </InputAdornment>
+            }
+          />
+        </FormControl>
         {errors.password && (
           <Typography color="red">{errors.password}</Typography>
         )}
-        <TextField
-          type="text"
-          name="confirmpassword"
-          label="Confirm password"
-          variant="outlined"
-          margin="normal"
-          size="small"
-          onChange={valueChangeHandler}
-          value={values.confirmpassword}
-          onBlur={inputBlurHandler}
-          required
-        />
+
+        <FormControl sx={{ mt: 3 }} fullWidth size="small">
+          <InputLabel>Confirm password</InputLabel>
+          <OutlinedInput
+            type={confirmPassShow ? "text" : "password"}
+            name="confirmpassword"
+            label="Confirm password"
+            variant="outlined"
+            size="small"
+            onChange={valueChangeHandler}
+            value={values.confirmpassword}
+            onBlur={inputBlurHandler}
+            required
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton onClick={confirmPassShowHandler} edge="end">
+                  {confirmPassShow ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                </IconButton>
+              </InputAdornment>
+            }
+          />
+        </FormControl>
+
         {errors.confirmpassword && (
           <Typography color="red">{errors.confirmpassword}</Typography>
         )}
+
         <Button
           type="submit"
           variant="contained"

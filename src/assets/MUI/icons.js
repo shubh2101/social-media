@@ -12,6 +12,8 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
 import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 export {
   MailIcon,
@@ -28,5 +30,6 @@ export {
   InsertPhotoIcon,
   EmojiEmotionsIcon,
   PersonAddAlt1Icon,
-  
+  VisibilityIcon,
+  VisibilityOffIcon,
   };

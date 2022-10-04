@@ -13,6 +13,8 @@ const initialFormValues = {
 const useInput = (validate) => {
   const [values, setValues] = useState(initialFormValues);
   const [errors, setErrors] = useState("");
+  const [passwordShow, setPasswordShow] = useState(false);
+  const [confirmPassShow, setConfirmPassShow] = useState(false);
 
   const valueChangeHandler = (event) => {
     const { name, value } = event.target;
@@ -33,6 +35,13 @@ const useInput = (validate) => {
     // console.log("form submitted");
   };
 
+  const passwordShowHandler = () => {
+    setPasswordShow(!passwordShow);
+  };
+  const confirmPassShowHandler = () => {
+    setConfirmPassShow(!confirmPassShow);
+  };
+
   return {
     values,
     errors,
@@ -40,6 +49,10 @@ const useInput = (validate) => {
     inputBlurHandler,
     submitHandler,
     setErrors,
+    passwordShow,
+    passwordShowHandler,
+    confirmPassShow,
+    confirmPassShowHandler,
   };
 };
 
