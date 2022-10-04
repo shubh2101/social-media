@@ -27,8 +27,8 @@ const SignUp = () => {
     submitHandler,
   } = useInput(validate);
 
-  // console.log({ values });
-  // console.log({ errors });
+  console.log({ values });
+  console.log({ errors });
 
   return (
     <Container component="main" maxWidth="xs">
@@ -42,7 +42,6 @@ const SignUp = () => {
           mt: 5,
           display: "flex",
           flexDirection: "column",
-
           ":hover": { boxShadow: "10px 10px 20px #ccc" },
         }}
       >
@@ -61,9 +60,8 @@ const SignUp = () => {
             onChange={valueChangeHandler}
             value={values.firstname}
             onBlur={inputBlurHandler}
-            // required
+            required
           />
-          {errors.firstname && <p>{errors.firstname}</p>}
 
           <TextField
             type="text"
@@ -75,10 +73,18 @@ const SignUp = () => {
             onChange={valueChangeHandler}
             value={values.lastname}
             onBlur={inputBlurHandler}
-            // required
+            required
           />
-          {errors.lastname && <p>{errors.lastname}</p>}
         </Box>
+        <Box gap={3} sx={{ display: "flex", flexDirection: "row" }}>
+          {errors.firstname && (
+            <Typography color="red">{errors.firstname}</Typography>
+          )}
+          {errors.lastname && (
+            <Typography color="red">{errors.lastname}</Typography>
+          )}
+        </Box>
+
         <TextField
           type="email"
           name="email"
@@ -89,21 +95,29 @@ const SignUp = () => {
           onChange={valueChangeHandler}
           value={values.email}
           onBlur={inputBlurHandler}
-          // required
+          required
         />
-        {errors.email && <p>{errors.email}</p>}
+        {errors.email && <Typography color="red">{errors.email}</Typography>}
 
         <TextField
           type="date"
+          name="dob"
           label="Date of birth"
           variant="outlined"
-          defaultValue="1996-01-01"
           margin="normal"
           size="small"
+          onChange={valueChangeHandler}
+          value={values.dob}
         />
         <FormControl>
           <FormLabel>Gender</FormLabel>
-          <RadioGroup row defaultValue="female">
+          <RadioGroup
+            row
+            defaultValue="female"
+            name="gender"
+            onChange={valueChangeHandler}
+            value={values.gender}
+          >
             <FormControlLabel
               value="female"
               control={<Radio size="small" />}
@@ -123,7 +137,13 @@ const SignUp = () => {
         </FormControl>
         <FormControl fullWidth size="small">
           <InputLabel textalign="center">Country</InputLabel>
-          <Select label="Country" defaultValue="">
+          <Select
+            label="Country"
+            name="country"
+            onChange={valueChangeHandler}
+            value={values.country}
+            onBlur={inputBlurHandler}
+          >
             <MenuItem value={"India"}>India</MenuItem>
             <MenuItem value={"USA"}>USA</MenuItem>
             <MenuItem value={"UK"}>UK</MenuItem>
@@ -131,6 +151,9 @@ const SignUp = () => {
             <MenuItem value={"Portugal"}>Portugal</MenuItem>
           </Select>
         </FormControl>
+        {errors.country && (
+          <Typography color="red">{errors.country}</Typography>
+        )}
 
         <TextField
           type="text"
@@ -142,8 +165,11 @@ const SignUp = () => {
           onChange={valueChangeHandler}
           value={values.password}
           onBlur={inputBlurHandler}
+          required
         />
-        {errors.password && <p>{errors.password}</p>}
+        {errors.password && (
+          <Typography color="red">{errors.password}</Typography>
+        )}
         <TextField
           type="text"
           name="confirmpassword"
@@ -154,8 +180,11 @@ const SignUp = () => {
           onChange={valueChangeHandler}
           value={values.confirmpassword}
           onBlur={inputBlurHandler}
+          required
         />
-        {errors.confirmpassword && <p>{errors.confirmpassword}</p>}
+        {errors.confirmpassword && (
+          <Typography color="red">{errors.confirmpassword}</Typography>
+        )}
         <Button
           type="submit"
           variant="contained"
