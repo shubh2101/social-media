@@ -5,6 +5,7 @@ import NavBar from "./components/NavBar";
 import RightBar from "./components/RightBar";
 import SideBar from "./components/SideBar";
 import Timeline from "./components/Timeline";
+import LogIn from "./features/Authentication/LogIn";
 import SignUp from "./features/Authentication/SignUp";
 
 function App() {
@@ -25,7 +26,8 @@ function App() {
         <Timeline />
         <RightBar />
       </Stack> */}
-      <SignUp/>
+      {/* <SignUp/> */}
+      <LogIn/>
     </Box>
   );
 }
