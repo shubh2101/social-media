@@ -1,34 +1,18 @@
-import { Box, Stack } from "@mui/material";
-import { useState } from "react";
-import AddPost from "./components/AddPost";
-import NavBar from "./components/NavBar";
-import RightBar from "./components/RightBar";
-import SideBar from "./components/SideBar";
-import Timeline from "./components/Timeline";
-import LogIn from "./features/Authentication/LogIn";
-import SignUp from "./features/Authentication/SignUp";
+import { Route, Routes } from "react-router-dom";
+
+import HomePage from "./pages/HomePage";
+import LogInPage from "./pages/LogInPage";
+import SignUpPage from "./pages/SignUpPage";
 
 function App() {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const openHandler = () => {
-    return setIsOpen(true);
-  };
-  const closeHandler = () => {
-    return setIsOpen(false);
-  };
   return (
-    <Box>
-      {/* <NavBar />
-      <Stack direction="row" spacing={2} justifyContent="space-between">
-        <SideBar onOpen={openHandler} />
-        <AddPost onClose={closeHandler} isOpen={isOpen} />
-        <Timeline />
-        <RightBar />
-      </Stack> */}
-      {/* <SignUp/> */}
-      <LogIn/>
-    </Box>
+    <div>
+      <Routes>
+        <Route path="/" element={<LogInPage/>}/>
+        <Route path="/signup" element={<SignUpPage/>}/>
+        <Route path="/home" element={<HomePage/>}/>        
+      </Routes>
+    </div>
   );
 }
 
