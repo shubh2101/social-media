@@ -19,17 +19,19 @@ import {
 import { Link } from "react-router-dom";
 import { VisibilityIcon } from "../../assets/MUI/icons";
 import { VisibilityOffIcon } from "../../assets/MUI/icons";
+import { useNavigate } from "react-router-dom";
 
 import useInput from "./useInput";
 import validate from "./validateInput";
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const {
     values,
     errors,
     valueChangeHandler,
     inputBlurHandler,
-    submitHandler,
+    // submitHandler,
     passwordShow,
     passwordShowHandler,
     confirmPassShow,
@@ -38,6 +40,36 @@ const SignUp = () => {
 
   console.log({ values });
   console.log({ errors });
+  const API_KEY = process.env.REACT_APP_apiKey;
+  const url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${API_KEY}`;
+
+  const submitHandler = (event) => {
+    event.preventDefault();
+
+    fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: values.email,
+        password: values.password,
+        returnSecureToken: true,
+      }),
+    }).then((response) => {
+      if (response.ok) {
+        navigate("/");
+        return response.json();
+      } else {
+        return response.json().then((data) => {
+          let errorMessage = "Authentication failed!";
+          if (data && data.error && data.error.message) {
+            errorMessage = data.error.message;
+          }
+          alert(errorMessage);
+          throw new Error(errorMessage);
+        });
+      }
+    });
+  };
 
   return (
     <Container component="main" maxWidth="xs">

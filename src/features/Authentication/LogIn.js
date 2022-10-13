@@ -1,12 +1,19 @@
 import { Box, Button, Container, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { authActions } from "../store/authSlice";
 
 const initialFormValues = {
   email: "",
   password: "",
 };
 const LogIn = () => {
+  const currentToken = useSelector((state) => state.auth.token);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [values, setValues] = useState(initialFormValues);
 
   const valueChangeHandler = (event) => {
@@ -16,8 +23,45 @@ const LogIn = () => {
       [name]: value,
     });
   };
-  const submitHandler = (event) => {
+  const API_KEY = process.env.REACT_APP_apiKey;
+  const url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_KEY}`;
+
+  const submitHandler = async (event) => {
     event.preventDefault();
+
+    fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: values.email,
+        password: values.password,
+        returnSecureToken: true,
+      }),
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          return response.json().then((data) => {
+            let errorMessage = "Authentication failed!";
+            if (data && data.error && data.error.message) {
+              errorMessage = data.error.message;
+            }
+            alert(errorMessage);
+            throw new Error(errorMessage);
+          });
+        }
+      })
+      .then((data) => {
+        dispatch(authActions.loggedIn(data.idToken));
+        console.log({ data });
+        navigate("home");
+        console.log("logged in");
+        console.log({ currentToken });
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
   };
 
   return (
@@ -72,7 +116,7 @@ const LogIn = () => {
           Log In
         </Button>
         <Typography display="flex" justifyContent="center" gap={2} mt={3}>
-          Do you have an account ?<Link to="/">Sign Up</Link>
+          Do you have an account ?<Link to="/signup">Sign Up</Link>
         </Typography>
       </Box>
     </Container>
