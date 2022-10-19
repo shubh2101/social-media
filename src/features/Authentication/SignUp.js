@@ -20,12 +20,15 @@ import { Link } from "react-router-dom";
 import { VisibilityIcon } from "../../assets/MUI/icons";
 import { VisibilityOffIcon } from "../../assets/MUI/icons";
 import { useNavigate } from "react-router-dom";
+import { collection, addDoc } from "firebase/firestore";
+import { db, apiKey } from "../../firebase-config";
 
 import useInput from "./useInput";
 import validate from "./validateInput";
 
 const SignUp = () => {
   const navigate = useNavigate();
+
   const {
     values,
     errors,
@@ -38,15 +41,30 @@ const SignUp = () => {
     confirmPassShowHandler,
   } = useInput(validate);
 
-  console.log({ values });
-  console.log({ errors });
-  const API_KEY = process.env.REACT_APP_apiKey;
-  const url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${API_KEY}`;
+  // console.log({ values });
+  // console.log({ errors });
 
-  const submitHandler = (event) => {
+  const url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${apiKey}`;
+
+  const submitHandler = async (event) => {
     event.preventDefault();
 
-    fetch(url, {
+    try {
+      const docRef = await addDoc(collection(db, "users"), {
+        firstname: values.firstname,
+        lastname: values.lastname,
+        email: values.email,
+        dob: values.dob,
+        gender: values.gender,
+        country: values.country,
+      });
+      console.log("doc send");
+      console.log("The new ID is: " + docRef.id);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+
+    await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

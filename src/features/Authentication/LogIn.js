@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { authActions } from "../store/authSlice";
+import { apiKey } from "../../firebase-config";
 
 const initialFormValues = {
   email: "",
@@ -23,13 +24,11 @@ const LogIn = () => {
       [name]: value,
     });
   };
-  const API_KEY = process.env.REACT_APP_apiKey;
-  const url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_KEY}`;
 
-  const submitHandler = async (event) => {
-    event.preventDefault();
+  const url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${apiKey}`;
 
-    fetch(url, {
+  const logInReq = async () => {
+    const response = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -37,31 +36,34 @@ const LogIn = () => {
         password: values.password,
         returnSecureToken: true,
       }),
-    })
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          return response.json().then((data) => {
-            let errorMessage = "Authentication failed!";
-            if (data && data.error && data.error.message) {
-              errorMessage = data.error.message;
-            }
-            alert(errorMessage);
-            throw new Error(errorMessage);
-          });
+    });
+    if (!response.ok) {
+      return response.json().then((data) => {
+        let errorMessage = "Authentication failed!";
+        if (data.error.message) {
+          errorMessage = data.error.message;
         }
-      })
+        alert(errorMessage);
+        throw new Error(errorMessage);
+      });
+    }
+    return response
+      .json()
       .then((data) => {
         dispatch(authActions.loggedIn(data.idToken));
-        console.log({ data });
         navigate("home");
+        console.log({ data });
         console.log("logged in");
         console.log({ currentToken });
       })
       .catch((err) => {
         alert(err.message);
       });
+  };
+
+  const submitHandler = (event) => {
+    event.preventDefault();
+    logInReq();
   };
 
   return (
