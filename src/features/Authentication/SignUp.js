@@ -21,7 +21,8 @@ import { VisibilityIcon } from "../../assets/MUI/icons";
 import { VisibilityOffIcon } from "../../assets/MUI/icons";
 import { useNavigate } from "react-router-dom";
 import { collection, addDoc } from "firebase/firestore";
-import { db, apiKey } from "../../firebase-config";
+import { db, auth } from "../../firebase-config";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 import useInput from "./useInput";
 import validate from "./validateInput";
@@ -44,10 +45,25 @@ const SignUp = () => {
   // console.log({ values });
   // console.log({ errors });
 
-  const url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${apiKey}`;
-
   const submitHandler = async (event) => {
     event.preventDefault();
+    try {
+      const user = await createUserWithEmailAndPassword(
+        auth,
+        values.email,
+        values.password
+      );
+      navigate("/");
+      console.log({ user });
+      console.log(user.uid);
+    } catch (error) {
+      let errorMessage = "failed to sign up !";
+      if (error.message) {
+        errorMessage = error.message;
+      }
+      alert(errorMessage);
+      throw new Error(errorMessage);
+    }
 
     try {
       const docRef = await addDoc(collection(db, "users"), {
@@ -63,30 +79,6 @@ const SignUp = () => {
     } catch (e) {
       console.error("Error adding document: ", e);
     }
-
-    await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        email: values.email,
-        password: values.password,
-        returnSecureToken: true,
-      }),
-    }).then((response) => {
-      if (response.ok) {
-        navigate("/");
-        return response.json();
-      } else {
-        return response.json().then((data) => {
-          let errorMessage = "Authentication failed!";
-          if (data && data.error && data.error.message) {
-            errorMessage = data.error.message;
-          }
-          alert(errorMessage);
-          throw new Error(errorMessage);
-        });
-      }
-    });
   };
 
   return (

@@ -4,12 +4,14 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { authActions } from "../store/authSlice";
-import { apiKey } from "../../firebase-config";
+import { auth } from "../../firebase-config";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 const initialFormValues = {
   email: "",
   password: "",
 };
+
 const LogIn = () => {
   const currentToken = useSelector((state) => state.auth.token);
 
@@ -25,45 +27,31 @@ const LogIn = () => {
     });
   };
 
-  const url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${apiKey}`;
-
-  const logInReq = async () => {
-    const response = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        email: values.email,
-        password: values.password,
-        returnSecureToken: true,
-      }),
-    });
-    if (!response.ok) {
-      return response.json().then((data) => {
-        let errorMessage = "Authentication failed!";
-        if (data.error.message) {
-          errorMessage = data.error.message;
-        }
-        alert(errorMessage);
-        throw new Error(errorMessage);
-      });
-    }
-    return response
-      .json()
-      .then((data) => {
-        dispatch(authActions.loggedIn(data.idToken));
-        navigate("home");
-        console.log({ data });
-        console.log("logged in");
-        console.log({ currentToken });
-      })
-      .catch((err) => {
-        alert(err.message);
-      });
-  };
-
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
-    logInReq();
+    try {
+      const user = await signInWithEmailAndPassword(
+        auth,
+        values.email,
+        values.password
+      );
+      console.log(user);
+      dispatch(authActions.loggedIn(user._tokenResponse.refreshToken));
+      // await dispatch(authActions.isLoggedIn(currentToken));
+
+      navigate("/home");
+      console.log("logged in");
+      console.log({ user });
+      console.log({ currentToken });
+      console.log(user.user.uid);
+    } catch (error) {
+      let errorMessage = "failed to login !";
+      if (error.message) {
+        errorMessage = error.message;
+      }
+      alert(errorMessage);
+      throw new Error(errorMessage);
+    }
   };
 
   return (
@@ -118,7 +106,7 @@ const LogIn = () => {
           Log In
         </Button>
         <Typography display="flex" justifyContent="center" gap={2} mt={3}>
-          Do you have an account ?<Link to="/signup">Sign Up</Link>
+          Don't have an account ?<Link to="/signup">Sign Up</Link>
         </Typography>
       </Box>
     </Container>
