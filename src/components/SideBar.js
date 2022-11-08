@@ -15,10 +15,20 @@ import {
   ExploreIcon,
   HomeIcon,
   NightlightIcon,
+  LogoutIcon,
 } from "../assets/MUI/icons";
 import MaterialUISwitch from "../assets/MUI/components/MuiSwitch";
+import { useDispatch } from "react-redux";
+import { authActions } from "../features/store/authSlice";
 
 const SideBar = ({ onOpen }) => {
+  const dispatch = useDispatch();
+
+  const logOutHandler = (event) => {
+    event.preventDefault();
+    dispatch(authActions.loggedOut());
+    console.log("logged Out");
+  };
   return (
     <Box flex={2} p={2} sx={{ display: { xs: "none", sm: "block" } }}>
       <Box>
@@ -53,6 +63,14 @@ const SideBar = ({ onOpen }) => {
                 <AddCircleOutlineIcon />
               </ListItemIcon>
               <ListItemText primary="Add Post" />
+            </ListItemButton>
+          </ListItem>
+          <ListItem>
+            <ListItemButton onClick={logOutHandler}>
+              <ListItemIcon>
+                <LogoutIcon />
+              </ListItemIcon>
+              <ListItemText primary="Logout" />
             </ListItemButton>
           </ListItem>
           <ListItem>

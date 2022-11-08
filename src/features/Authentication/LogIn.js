@@ -36,8 +36,7 @@ const LogIn = () => {
         values.password
       );
       console.log(user);
-      dispatch(authActions.loggedIn(user._tokenResponse.refreshToken));
-      // await dispatch(authActions.isLoggedIn(currentToken));
+      dispatch(authActions.loggedIn(user._tokenResponse.idToken));
 
       navigate("/home");
       console.log("logged in");

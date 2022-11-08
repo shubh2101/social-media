@@ -14,6 +14,7 @@ import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 export {
   MailIcon,
@@ -32,4 +33,5 @@ export {
   PersonAddAlt1Icon,
   VisibilityIcon,
   VisibilityOffIcon,
+  LogoutIcon
   };
