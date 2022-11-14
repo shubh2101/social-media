@@ -10,23 +10,44 @@ import {
   Typography,
 } from "@mui/material";
 import { amber } from "@mui/material/colors";
+import { addDoc, collection } from "firebase/firestore";
+import React, { useState } from "react";
 import {
   EmojiEmotionsIcon,
   InsertPhotoIcon,
   PersonAddAlt1Icon,
 } from "../assets/MUI/icons";
+import { db } from "../firebase-config";
+
+const SytledModal = styled(Modal)({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+});
+const Icons = styled(Box)(() => ({
+  alignItems: "center",
+  gap: "30px",
+  display: "flex",
+}));
 
 const AddPost = ({ isOpen, onClose }) => {
-  const SytledModal = styled(Modal)({
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  });
-  const Icons = styled(Box)(() => ({
-    alignItems: "center",
-    gap: "30px",
-    display: "flex",
-  }));
+  const [postText, setPostText] = useState("");
+
+  const addPostHandler = async () => {
+    try {
+      const docRef = await addDoc(collection(db, "posts"), {
+        postText: postText,
+      });
+
+      console.log("Document written with ID: ", docRef.id);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+  };
+  const onChangeHandler = (e) => {
+    setPostText(e.target.value);
+  };
+
   return (
     <div>
       <SytledModal
@@ -63,6 +84,8 @@ const AddPost = ({ isOpen, onClose }) => {
             rows={6}
             placeholder="What's happening, Jose?"
             variant="standard"
+            value={postText}
+            onChange={onChangeHandler}
           />
           <Stack
             direction="row"
@@ -82,7 +105,9 @@ const AddPost = ({ isOpen, onClose }) => {
                 <PersonAddAlt1Icon color="primary" />
               </IconButton>
             </Icons>
-            <Button variant="contained">Post</Button>
+            <Button variant="contained" onClick={addPostHandler}>
+              Post
+            </Button>
           </Stack>
         </Box>
       </SytledModal>
