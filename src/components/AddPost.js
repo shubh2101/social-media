@@ -43,6 +43,8 @@ const AddPost = ({ isOpen, onClose }) => {
     } catch (e) {
       console.error("Error adding document: ", e);
     }
+    setPostText("");
+    onClose();
   };
   const onChangeHandler = (e) => {
     setPostText(e.target.value);
