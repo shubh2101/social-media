@@ -35,11 +35,12 @@ const AddPost = ({ isOpen, onClose }) => {
 
   const addPostHandler = async () => {
     try {
-      const docRef = await addDoc(collection(db, "posts"), {
+      const postsRef = await addDoc(collection(db, "posts"), {
         postText: postText,
+        userName: "jose",
       });
 
-      console.log("Document written with ID: ", docRef.id);
+      console.log("Post Doc written with ID: ", postsRef.id);
     } catch (e) {
       console.error("Error adding document: ", e);
     }

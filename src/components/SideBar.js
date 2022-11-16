@@ -83,7 +83,7 @@ const SideBar = ({ onOpen }) => {
           </ListItem>
         </List>
       </Box>
-      <Box sx={{ marginTop: "200px" }}>
+      <Box sx={{ marginTop: "140px" }}>
         <ListItemButton>
           <Avatar
             alt="Jose"
