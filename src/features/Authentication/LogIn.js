@@ -1,7 +1,7 @@
 import { Box, Button, Container, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { authActions } from "../store/authSlice";
 import { auth } from "../../firebase-config";
@@ -16,7 +16,7 @@ const LogIn = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [values, setValues] = useState(initialFormValues);
-
+  
   const valueChangeHandler = (event) => {
     const { name, value } = event.target;
     setValues({
