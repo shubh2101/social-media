@@ -13,8 +13,6 @@ const initialFormValues = {
 };
 
 const LogIn = () => {
-  const currentToken = useSelector((state) => state.auth.token);
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [values, setValues] = useState(initialFormValues);
@@ -40,9 +38,6 @@ const LogIn = () => {
 
       navigate("/home");
       console.log("logged in");
-      console.log({ user });
-      console.log({ currentToken });
-      console.log(user.user.uid);
     } catch (error) {
       let errorMessage = "failed to login !";
       if (error.message) {

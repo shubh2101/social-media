@@ -21,7 +21,6 @@ const Timeline = () => {
     getPosts();
   }, []);
 
-  console.log({ allPosts });
   return (
     <Box flex={3} p={2}>
       {allPosts?.map((post) => (

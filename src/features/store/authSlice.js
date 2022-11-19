@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { signOut } from "firebase/auth";
+import { auth } from "../../firebase-config";
 
 const initialState = {
   token: localStorage.getItem("token"),
-  isAuthenticated: false,
 };
 
 const authSlice = createSlice({
@@ -10,13 +11,12 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     loggedOut: (state) => {
-      state.isAuthenticated = false;
       state.token = null;
       localStorage.removeItem("token");
+      signOut(auth);
     },
     loggedIn: (state, action) => {
       state.token = action.payload;
-      state.isAuthenticated = true;
       localStorage.setItem("token", action.payload);
     },
   },

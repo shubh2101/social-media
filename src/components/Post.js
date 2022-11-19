@@ -16,7 +16,7 @@ import {
 } from "../assets/MUI/icons";
 const Post = ({ post }) => {
   const { postText } = post?.data || {};
-  console.log({ postText });
+  
   return (
     <Card sx={{ marginBottom: "1em" }}>
       <CardHeader
