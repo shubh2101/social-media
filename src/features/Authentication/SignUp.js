@@ -206,7 +206,7 @@ const SignUp = () => {
           <Typography color="red">{errors.country}</Typography>
         )}
 
-        <FormControl sx={{ mt: 3 }} fullWidth size="small">
+        <FormControl sx={{ mt: 3 }} fullWidth size="small" required>
           <InputLabel>Password</InputLabel>
           <OutlinedInput
             type={passwordShow ? "text" : "password"}
@@ -218,7 +218,6 @@ const SignUp = () => {
             onChange={valueChangeHandler}
             value={values.password}
             onBlur={inputBlurHandler}
-            required
             endAdornment={
               <InputAdornment position="end">
                 <IconButton onClick={passwordShowHandler} edge="end">
@@ -232,7 +231,7 @@ const SignUp = () => {
           <Typography color="red">{errors.password}</Typography>
         )}
 
-        <FormControl sx={{ mt: 3 }} fullWidth size="small">
+        <FormControl sx={{ mt: 3 }} fullWidth size="small" required>
           <InputLabel>Confirm password</InputLabel>
           <OutlinedInput
             type={confirmPassShow ? "text" : "password"}
@@ -243,7 +242,6 @@ const SignUp = () => {
             onChange={valueChangeHandler}
             value={values.confirmpassword}
             onBlur={inputBlurHandler}
-            required
             endAdornment={
               <InputAdornment position="end">
                 <IconButton onClick={confirmPassShowHandler} edge="end">
