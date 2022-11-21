@@ -35,15 +35,11 @@ const SignUp = () => {
     errors,
     valueChangeHandler,
     inputBlurHandler,
-    // submitHandler,
     passwordShow,
     passwordShowHandler,
     confirmPassShow,
     confirmPassShowHandler,
   } = useInput(validate);
-
-  // console.log({ values });
-  // console.log({ errors });
 
   const submitHandler = async (event) => {
     event.preventDefault();
@@ -53,7 +49,7 @@ const SignUp = () => {
         values.email,
         values.password
       );
-      navigate("/");
+      navigate("/login");
       console.log({ user });
       console.log(user.uid);
     } catch (error) {

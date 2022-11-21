@@ -36,7 +36,7 @@ const LogIn = () => {
       console.log(user);
       dispatch(authActions.loggedIn(user._tokenResponse.idToken));
 
-      navigate("/home");
+      navigate("/");
       console.log("logged in");
     } catch (error) {
       let errorMessage = "failed to login !";

@@ -4,7 +4,7 @@ import { auth } from "../../firebase-config";
 
 const initialState = {
   token: localStorage.getItem("token"),
-  isLoggedIn: false,
+  isLoggedIn: !!localStorage.getItem("token"),
 };
 
 const authSlice = createSlice({
