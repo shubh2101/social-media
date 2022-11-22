@@ -22,7 +22,7 @@ const Timeline = () => {
   }, []);
 
   return (
-    <Box flex={3} p={2}>
+    <Box flex={2} p={2}>
       {allPosts?.map((post) => (
         <Post post={post} key={post.id} />
       ))}
