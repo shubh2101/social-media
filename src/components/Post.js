@@ -15,8 +15,22 @@ import {
   MoreVertIcon,
 } from "../assets/MUI/icons";
 const Post = ({ post }) => {
-  const { postText } = post?.data || {};
-  
+  const { postText, dateCreated } = post?.data || {};
+  const postDate = new Date(dateCreated);
+
+  const formatPostDate = (postDate) => {
+    const daysPassed = Math.round(
+      Math.abs((new Date() - postDate) / (1000 * 24 * 3600))
+    );
+    if (daysPassed === 0) return "Today";
+    if (daysPassed === 1) return "Yesterday";
+    if (daysPassed <= 7) return `${daysPassed} days ago`;
+    const day = `${postDate.getDate()}`.padStart(2, 0);
+    const month = `${postDate.getMonth()}`.padStart(2, 0);
+    const year = postDate.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
+
   return (
     <Card sx={{ marginBottom: "1em" }}>
       <CardHeader
@@ -32,15 +46,15 @@ const Post = ({ post }) => {
           </IconButton>
         }
         title="José Mourinho"
-        subheader="September 14, 2022"
+        subheader={formatPostDate(postDate)}
       />
-      <CardMedia
+      {/* <CardMedia
         sx={{ objectFit: "contain", maxHeight: 400 }}
         component="img"
         height="20%"
         image="https://d3nfwcxd527z59.cloudfront.net/content/uploads/2021/10/11111531/jose-mourinho-chelsea-2005-1104x630.jpg"
-        alt="Paella dish"
-      />
+        alt="mourinho"
+      /> */}
       <CardContent>
         <Typography variant="body2" color="text.secondary">
           {postText}

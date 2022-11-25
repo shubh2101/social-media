@@ -37,6 +37,7 @@ const AddPost = ({ isOpen, onClose, getPosts }) => {
     try {
       const postsRef = await addDoc(collection(db, "posts"), {
         postText: postText,
+        dateCreated: new Date().toLocaleString(),
         userName: "jose",
       });
 

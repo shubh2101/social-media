@@ -10,7 +10,7 @@ import { db } from "../firebase-config";
 
 const HomePage = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [allPosts, setAllPosts] = useState(null);
+  const [allPosts, setAllPosts] = useState([]);
 
   const openHandler = () => {
     return setIsOpen(true);
