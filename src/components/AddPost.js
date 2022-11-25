@@ -30,7 +30,7 @@ const Icons = styled(Box)(() => ({
   display: "flex",
 }));
 
-const AddPost = ({ isOpen, onClose }) => {
+const AddPost = ({ isOpen, onClose, getPosts }) => {
   const [postText, setPostText] = useState("");
 
   const addPostHandler = async () => {
@@ -44,6 +44,7 @@ const AddPost = ({ isOpen, onClose }) => {
     } catch (e) {
       console.error("Error adding document: ", e);
     }
+    getPosts();
     setPostText("");
     onClose();
   };
