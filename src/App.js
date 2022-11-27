@@ -10,11 +10,46 @@ import ProtectedRoutes from "./utils/ProtectedRoutes";
 function App() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const currentToken = useSelector((state) => state.auth.token);
+  const API_KEY = process.env.REACT_APP_apiKey;
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(authActions.userLoggedIn(currentToken));
   }, [currentToken, dispatch]);
+
+  currentToken &&
+    fetch(
+      `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${API_KEY}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          idToken: currentToken,
+        }),
+      }
+    )
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          return response.json().then((data) => {
+            let errorMessage = "HTTP request failed!";
+            if (data.error.message) {
+              errorMessage = data.error.message;
+            }
+            alert(errorMessage);
+            dispatch(authActions.loggedOut());
+            throw new Error(errorMessage);
+          });
+        }
+      })
+      .then((data) => {
+        const userId = data.users[0].localId;
+        console.log(userId);
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
 
   return (
     <Routes>

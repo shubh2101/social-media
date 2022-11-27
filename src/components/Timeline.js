@@ -8,6 +8,7 @@ const Timeline = ({ allPosts }) => {
       new Date(a.data.dateCreated).getTime()
     );
   });
+
   return (
     <Box flex={2} p={2}>
       {sortedPosts?.map((post) => (
