@@ -2,14 +2,18 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import LogInPage from "./pages/LogInPage";
 import SignUpPage from "./pages/SignUpPage";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "./features/store/authSlice";
 import ProtectedRoutes from "./utils/ProtectedRoutes";
+import { userActions } from "./features/store/userSlice";
+import { getUserData } from "./firebase-calls";
 
 function App() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const currentToken = useSelector((state) => state.auth.token);
+  const userId = useSelector((state) => state.user.userId);
+  const userdetails = useSelector((state) => state.user.userData);
   const API_KEY = process.env.REACT_APP_apiKey;
   const dispatch = useDispatch();
 
@@ -17,6 +21,21 @@ function App() {
     dispatch(authActions.userLoggedIn(currentToken));
   }, [currentToken, dispatch]);
 
+  // Getting and storing User-Details
+  const getUserDetails = useCallback(
+    async (userId) => {
+      let data = await getUserData(userId);
+      dispatch(userActions.setUserData(data));
+    },
+    [dispatch]
+  );
+  useEffect(() => {
+    if (userId) {
+      getUserDetails(userId);
+    }
+  }, [userId, getUserDetails]);
+
+  // Validating token and getting User-Id
   currentToken &&
     fetch(
       `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${API_KEY}`,
@@ -37,7 +56,6 @@ function App() {
             if (data.error.message) {
               errorMessage = data.error.message;
             }
-            alert(errorMessage);
             dispatch(authActions.loggedOut());
             throw new Error(errorMessage);
           });
@@ -45,12 +63,9 @@ function App() {
       })
       .then((data) => {
         const userId = data.users[0].localId;
-        console.log(userId);
-      })
-      .catch((err) => {
-        alert(err.message);
+        dispatch(userActions.setUserId(userId));
       });
-
+      console.log(userdetails)
   return (
     <Routes>
       <Route path="/" element={<ProtectedRoutes />}>

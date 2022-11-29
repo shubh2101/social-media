@@ -20,12 +20,12 @@ import { Link } from "react-router-dom";
 import { VisibilityIcon } from "../../assets/MUI/icons";
 import { VisibilityOffIcon } from "../../assets/MUI/icons";
 import { useNavigate } from "react-router-dom";
-import { collection, addDoc } from "firebase/firestore";
-import { db, auth } from "../../firebase-config";
+import { auth } from "../../firebase-config";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
 import useInput from "./useInput";
 import validate from "./validateInput";
+import { addUserData } from "../../firebase-calls";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -40,6 +40,8 @@ const SignUp = () => {
     confirmPassShow,
     confirmPassShowHandler,
   } = useInput(validate);
+  const { firstname, lastname, email, dob, country } = values;
+  const username = `${firstname}${lastname}`;
 
   const submitHandler = async (event) => {
     event.preventDefault();
@@ -49,9 +51,9 @@ const SignUp = () => {
         values.email,
         values.password
       );
-      navigate("/login");
-      console.log({ user });
-      console.log(user.uid);
+      navigate("/login");      
+      const userId = user.user.uid;
+      addUserData(firstname, lastname, email, dob, country, username, userId);
     } catch (error) {
       let errorMessage = "failed to sign up !";
       if (error.message) {
@@ -59,21 +61,6 @@ const SignUp = () => {
       }
       alert(errorMessage);
       throw new Error(errorMessage);
-    }
-
-    try {
-      const docRef = await addDoc(collection(db, "users"), {
-        firstname: values.firstname,
-        lastname: values.lastname,
-        email: values.email,
-        dob: values.dob,
-        gender: values.gender,
-        country: values.country,
-      });
-      console.log("doc send");
-      console.log("The new ID is: " + docRef.id);
-    } catch (e) {
-      console.error("Error adding document: ", e);
     }
   };
 

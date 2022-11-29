@@ -33,11 +33,8 @@ const LogIn = () => {
         values.email,
         values.password
       );
-      console.log(user);
       dispatch(authActions.loggedIn(user._tokenResponse.idToken));
-
       navigate("/");
-      console.log("logged in");
     } catch (error) {
       let errorMessage = "failed to login !";
       if (error.message) {
