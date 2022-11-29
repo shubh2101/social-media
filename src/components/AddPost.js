@@ -12,6 +12,7 @@ import {
 import { amber } from "@mui/material/colors";
 import { addDoc, collection } from "firebase/firestore";
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import {
   EmojiEmotionsIcon,
   InsertPhotoIcon,
@@ -32,6 +33,7 @@ const Icons = styled(Box)(() => ({
 
 const AddPost = ({ isOpen, onClose, getPosts }) => {
   const [postText, setPostText] = useState("");
+  const { firstname, lastname } = useSelector((state) => state.user.userData);
 
   const addPostHandler = async () => {
     try {
@@ -78,7 +80,7 @@ const AddPost = ({ isOpen, onClose, getPosts }) => {
             Create Post
           </Typography>
           <Avatar
-            alt="Jose"
+            alt={firstname}
             src="https://editorial.uefa.com/resources/01de-0e7311a0c694-24ea806e4996-1000/format/wide1/jose_mourinho_wants_his_inter_side_to_follow_on_from_their_weekend_victory.jpeg?imwidth=2048"
           />
           <TextField
@@ -87,7 +89,7 @@ const AddPost = ({ isOpen, onClose, getPosts }) => {
             id="standard-multiline-static"
             multiline
             rows={6}
-            placeholder="What's happening, Jose?"
+            placeholder={`What's happening, ${firstname}?`}
             variant="standard"
             value={postText}
             onChange={onChangeHandler}

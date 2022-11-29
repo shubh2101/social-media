@@ -7,6 +7,7 @@ import {
   IconButton,
   Typography,
 } from "@mui/material";
+import { useSelector } from "react-redux";
 import {
   BookmarkBorderIcon,
   FavoriteIcon,
@@ -14,6 +15,8 @@ import {
   MoreVertIcon,
 } from "../assets/MUI/icons";
 const Post = ({ post }) => {
+  const { firstname, lastname } = useSelector((state) => state.user.userData);
+
   const { postText, dateCreated } = post?.data || {};
   const postDate = new Date(dateCreated);
 
@@ -44,7 +47,7 @@ const Post = ({ post }) => {
       <CardHeader
         avatar={
           <Avatar
-            alt="Jose"
+            alt={firstname}
             src="https://editorial.uefa.com/resources/01de-0e7311a0c694-24ea806e4996-1000/format/wide1/jose_mourinho_wants_his_inter_side_to_follow_on_from_their_weekend_victory.jpeg?imwidth=2048"
           />
         }
@@ -53,7 +56,7 @@ const Post = ({ post }) => {
             <MoreVertIcon />
           </IconButton>
         }
-        title="José Mourinho"
+        title={firstname + " " + lastname}
         subheader={formatPostDate(postDate)}
       />
       {/* <CardMedia
