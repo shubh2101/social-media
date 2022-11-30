@@ -7,17 +7,15 @@ import {
   IconButton,
   Typography,
 } from "@mui/material";
-import { useSelector } from "react-redux";
 import {
   BookmarkBorderIcon,
   FavoriteIcon,
   ModeCommentIcon,
   MoreVertIcon,
 } from "../assets/MUI/icons";
-const Post = ({ post }) => {
-  const { firstname, lastname } = useSelector((state) => state.user.userData);
 
-  const { postText, dateCreated } = post?.data || {};
+const Post = ({ post }) => {
+  const { postText, dateCreated, firstname, lastname } = post?.data || {};
   const postDate = new Date(dateCreated);
 
   const formatPostDate = (postDate) => {

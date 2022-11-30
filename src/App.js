@@ -13,7 +13,7 @@ function App() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const currentToken = useSelector((state) => state.auth.token);
   const userId = useSelector((state) => state.user.userId);
-  const userdetails = useSelector((state) => state.user.userData);
+  // const userdetails = useSelector((state) => state.user.userData);
   const API_KEY = process.env.REACT_APP_apiKey;
   const dispatch = useDispatch();
 
@@ -65,7 +65,7 @@ function App() {
         const userId = data.users[0].localId;
         dispatch(userActions.setUserId(userId));
       });
-      console.log(userdetails)
+  // console.log(userdetails)
   return (
     <Routes>
       <Route path="/" element={<ProtectedRoutes />}>
