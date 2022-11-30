@@ -1,16 +1,17 @@
 import { Box, Stack } from "@mui/material";
-import { collection, getDocs } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import AddPost from "../components/AddPost";
 import NavBar from "../components/NavBar";
 import RightBar from "../components/RightBar";
 import SideBar from "../components/SideBar";
 import Timeline from "../components/Timeline";
-import { db } from "../firebase-config";
+import { postActions } from "../features/store/postSlice";
+import { getPosts } from "../firebase-calls";
 
 const HomePage = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [allPosts, setAllPosts] = useState([]);
+  const dispatch = useDispatch();
 
   const openHandler = () => {
     return setIsOpen(true);
@@ -19,25 +20,27 @@ const HomePage = () => {
     return setIsOpen(false);
   };
 
-  const getPosts = async () => {
-    const posts = [];
-    const postData = await getDocs(collection(db, "posts"));
-    postData.forEach((doc) => {
-      posts.push({ data: doc.data(), id: doc.id });
-    });
-    setAllPosts(posts);
-  };
+  const getAllPosts = useCallback(async () => {
+    const data = await getPosts();
+    dispatch(postActions.setPosts(data));
+  }, [dispatch]);
 
   useEffect(() => {
-    getPosts();
-  }, []);
+    getAllPosts();
+  }, [getAllPosts]);
+
   return (
     <Box>
       <NavBar />
       <Stack direction="row" spacing={2} justifyContent="space-between">
         <SideBar onOpen={openHandler} />
-        <AddPost onClose={closeHandler} isOpen={isOpen} getPosts={getPosts} />
-        <Timeline allPosts={allPosts} />
+        <AddPost onClose={closeHandler} isOpen={isOpen} />
+        <AddPost
+          onClose={closeHandler}
+          isOpen={isOpen}
+          getAllPosts={getAllPosts}
+        />
+        <Timeline getAllPosts={getAllPosts} />
         <RightBar />
       </Stack>
     </Box>

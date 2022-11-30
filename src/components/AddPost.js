@@ -10,7 +10,6 @@ import {
   Typography,
 } from "@mui/material";
 import { amber } from "@mui/material/colors";
-import { addDoc, collection } from "firebase/firestore";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import {
@@ -18,7 +17,7 @@ import {
   InsertPhotoIcon,
   PersonAddAlt1Icon,
 } from "../assets/MUI/icons";
-import { db } from "../firebase-config";
+import { addPostData } from "../firebase-calls";
 
 const SytledModal = styled(Modal)({
   display: "flex",
@@ -31,26 +30,19 @@ const Icons = styled(Box)(() => ({
   display: "flex",
 }));
 
-const AddPost = ({ isOpen, onClose, getPosts }) => {
+const AddPost = ({ isOpen, onClose, getAllPosts }) => {
   const [postText, setPostText] = useState("");
-  const { firstname, lastname } = useSelector((state) => state.user.userData);
+  const { firstname, lastname, username, userId } = useSelector(
+    (state) => state.user.userData
+  );
 
   const addPostHandler = async () => {
-    try {
-      const postsRef = await addDoc(collection(db, "posts"), {
-        postText: postText,
-        dateCreated: new Date().toLocaleString(),
-        userName: "jose",
-      });
-
-      console.log("Post Doc written with ID: ", postsRef.id);
-    } catch (e) {
-      console.error("Error adding document: ", e);
-    }
-    getPosts();
+    addPostData(postText, firstname, lastname, username, userId);
+    getAllPosts();
     setPostText("");
     onClose();
   };
+
   const onChangeHandler = (e) => {
     setPostText(e.target.value);
   };
