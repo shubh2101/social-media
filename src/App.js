@@ -7,12 +7,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "./features/store/authSlice";
 import ProtectedRoutes from "./utils/ProtectedRoutes";
 import { userActions } from "./features/store/userSlice";
-import { getUserData } from "./firebase-calls";
+import { getAllUsers, getUserData } from "./firebase-calls";
+import { usersActions } from "./features/Users/usersSlice";
 
 function App() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const currentToken = useSelector((state) => state.auth.token);
   const userId = useSelector((state) => state.user.userId);
+ 
   // const userdetails = useSelector((state) => state.user.userData);
   const API_KEY = process.env.REACT_APP_apiKey;
   const dispatch = useDispatch();
@@ -35,37 +37,54 @@ function App() {
     }
   }, [userId, getUserDetails]);
 
+  // fetch users
+  const fetchUsers = useCallback(
+    async (userId) => {
+      let data = await getAllUsers(userId);
+      dispatch(usersActions.setUsers(data));
+    },
+    [dispatch]
+  );
+  useEffect(() => {
+    if (userId) {
+      fetchUsers(userId);
+    }
+  }, [userId, fetchUsers]);
+
   // Validating token and getting User-Id
-  currentToken &&
-    fetch(
-      `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${API_KEY}`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          idToken: currentToken,
-        }),
-      }
-    )
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          return response.json().then((data) => {
-            let errorMessage = "HTTP request failed!";
-            if (data.error.message) {
-              errorMessage = data.error.message;
-            }
-            dispatch(authActions.loggedOut());
-            throw new Error(errorMessage);
-          });
+  useEffect(() => {
+    currentToken &&
+      fetch(
+        `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${API_KEY}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            idToken: currentToken,
+          }),
         }
-      })
-      .then((data) => {
-        const userId = data.users[0].localId;
-        dispatch(userActions.setUserId(userId));
-      });
-  // console.log(userdetails)
+      )
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            return response.json().then((data) => {
+              let errorMessage = "HTTP request failed!";
+              if (data.error.message) {
+                errorMessage = data.error.message;
+              }
+              dispatch(authActions.loggedOut());
+              throw new Error(errorMessage);
+            });
+          }
+        })
+        .then((data) => {
+          const userId = data.users[0].localId;
+          dispatch(userActions.setUserId(userId));
+        });
+  },[currentToken, dispatch, API_KEY]);
+
+  // console.log(userdetails);
   return (
     <Routes>
       <Route path="/" element={<ProtectedRoutes />}>

@@ -1,14 +1,16 @@
 import {
   Avatar,
   Box,
-  Button,
   List,
   ListItem,
   ListItemButton,
   Typography,
 } from "@mui/material";
+import { useSelector } from "react-redux";
+import FollowUser from "./FollowUser";
 
 const RightBar = () => {
+  const users = useSelector((state) => state.users.users);
   return (
     <Box
       flex={1}
@@ -24,11 +26,11 @@ const RightBar = () => {
             <Box>
               <ListItemButton>
                 <Avatar alt="Ronaldo" src="/" />
-                <Typography p={2}>Cristiano Ronaldo</Typography>
+                <Typography p={2}>Eden Hazard</Typography>
               </ListItemButton>
               <ListItemButton>
                 <Avatar alt="Messi" src="/" />
-                <Typography p={2}>Lionel Messi</Typography>
+                <Typography p={2}></Typography>
               </ListItemButton>
             </Box>
           </ListItem>
@@ -40,28 +42,9 @@ const RightBar = () => {
           <List>
             <ListItem>
               <Box>
-                <ListItemButton
-                  sx={{ display: "flex", justifyContent: "space-between" }}
-                >
-                  <Box sx={{ display: "flex", alignItems: "center" }}>
-                    <Avatar alt="Hazard" src="/" />
-                    <Typography p={2}>Eden Hazard</Typography>
-                  </Box>
-                  <Button variant="contained" sx={{ borderRadius: "30px" }}>
-                    Follow
-                  </Button>
-                </ListItemButton>
-                <ListItemButton
-                  sx={{ display: "flex", justifyContent: "space-between" }}
-                >
-                  <Box sx={{ display: "flex", alignItems: "center" }}>
-                    <Avatar alt="Reus" src="/" />
-                    <Typography p={2}>Marco Reus</Typography>
-                  </Box>
-                  <Button variant="contained" sx={{ borderRadius: "30px" }}>
-                    Follow
-                  </Button>
-                </ListItemButton>
+                {users.map((user) => (
+                  <FollowUser user={user.data} key={user.data.userId} />
+                ))}
               </Box>
             </ListItem>
           </List>

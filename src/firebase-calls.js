@@ -1,4 +1,4 @@
-import { collection, query, where, getDocs, addDoc } from "firebase/firestore";
+import { collection, query, where, getDocs, addDoc, limit } from "firebase/firestore";
 import { db } from "./firebase-config";
 
 export const addUserData = async (
@@ -19,7 +19,7 @@ export const addUserData = async (
     username,
     userId,
   };
-  await addDoc(collection(db, "userData"), userData);    
+  await addDoc(collection(db, "userData"), userData);
 };
 
 export const getUserData = async (userId) => {
@@ -46,9 +46,8 @@ export const addPostData = async (
       firstname,
       lastname,
       username,
-      userId,      
+      userId,
     });
-
   } catch (e) {
     console.error("Error adding Post doc: ", e);
   }
@@ -56,9 +55,19 @@ export const addPostData = async (
 
 export const getPosts = async () => {
   let posts = [];
-  const postData = await getDocs(collection(db, "posts"));
+  const postData = await getDocs(collection(db, "posts") );
   postData.forEach((doc) => {
     posts.push({ data: doc.data(), id: doc.id });
   });
   return posts;
+};
+
+export const getAllUsers = async (userId) => {
+  let users = [];
+  const q = query(collection(db, "userData"), where ("userId", "!=", userId));
+  const allUsers = await getDocs(q);
+  allUsers.forEach((doc) => {
+    users.push( {data: doc.data()});
+  });
+  return users
 };
