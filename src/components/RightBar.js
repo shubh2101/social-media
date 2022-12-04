@@ -25,12 +25,12 @@ const RightBar = () => {
           <ListItem>
             <Box>
               <ListItemButton>
-                <Avatar alt="Ronaldo" src="/" />
+                <Avatar alt="eden" src="/" />
                 <Typography p={2}>Eden Hazard</Typography>
               </ListItemButton>
               <ListItemButton>
-                <Avatar alt="Messi" src="/" />
-                <Typography p={2}></Typography>
+                <Avatar alt="lewy" src="/" />
+                <Typography p={2}>Lewandowski</Typography>
               </ListItemButton>
             </Box>
           </ListItem>

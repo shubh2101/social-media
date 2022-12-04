@@ -21,7 +21,7 @@ import MaterialUISwitch from "../assets/MUI/components/MuiSwitch";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../features/store/authSlice";
 
-const SideBar = ({ onOpen }) => {
+const SideBar = ({ onOpen, setShowBookmarks }) => {
   const dispatch = useDispatch();
   const { firstname, lastname } = useSelector((state) => state.user.userData);
 
@@ -29,6 +29,7 @@ const SideBar = ({ onOpen }) => {
     event.preventDefault();
     dispatch(authActions.loggedOut());
   };
+
   return (
     <Box
       flex={1}
@@ -56,11 +57,11 @@ const SideBar = ({ onOpen }) => {
             </ListItemButton>
           </ListItem>
           <ListItem>
-            <ListItemButton>
+            <ListItemButton >
               <ListItemIcon>
                 <BookmarkBorderIcon />
               </ListItemIcon>
-              <ListItemText primary="Bookmarks" />
+              <ListItemText primary="Bookmarks" onClick={() => setShowBookmarks(true)} />
             </ListItemButton>
           </ListItem>
           <ListItem>
@@ -92,7 +93,7 @@ const SideBar = ({ onOpen }) => {
           <ListItemButton>
             <Avatar
               alt={firstname}
-              src="https://editorial.uefa.com/resources/01de-0e7311a0c694-24ea806e4996-1000/format/wide1/jose_mourinho_wants_his_inter_side_to_follow_on_from_their_weekend_victory.jpeg?imwidth=2048"
+              src="/"
             />
             <Typography p={2}>{firstname + " " + lastname}</Typography>
           </ListItemButton>

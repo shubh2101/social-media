@@ -13,9 +13,7 @@ import { usersActions } from "./features/Users/usersSlice";
 function App() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const currentToken = useSelector((state) => state.auth.token);
-  const userId = useSelector((state) => state.user.userId);
- 
-  // const userdetails = useSelector((state) => state.user.userData);
+  const userId = useSelector((state) => state.user.userId);    
   const API_KEY = process.env.REACT_APP_apiKey;
   const dispatch = useDispatch();
 
@@ -82,7 +80,7 @@ function App() {
           const userId = data.users[0].localId;
           dispatch(userActions.setUserId(userId));
         });
-  },[currentToken, dispatch, API_KEY]);
+  }, [currentToken, dispatch, API_KEY]);
 
   // console.log(userdetails);
   return (

@@ -2,6 +2,7 @@ import { Box, Stack } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import AddPost from "../components/AddPost";
+import Bookmarks from "../components/Bookmarks";
 import NavBar from "../components/NavBar";
 import RightBar from "../components/RightBar";
 import SideBar from "../components/SideBar";
@@ -11,6 +12,7 @@ import { getPosts } from "../firebase-calls";
 
 const HomePage = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [showBookmarks, setShowBookmarks] = useState(false);
   const dispatch = useDispatch();
 
   const openHandler = () => {
@@ -25,22 +27,18 @@ const HomePage = () => {
     dispatch(postActions.setPosts(data));
   }, [dispatch]);
 
-  useEffect(() => {
-    getAllPosts();
-  }, [getAllPosts]);
-
   return (
     <Box>
       <NavBar />
       <Stack direction="row" spacing={2} justifyContent="space-between">
-        <SideBar onOpen={openHandler} />
+        <SideBar onOpen={openHandler} setShowBookmarks={setShowBookmarks} />
         <AddPost onClose={closeHandler} isOpen={isOpen} />
         <AddPost
           onClose={closeHandler}
           isOpen={isOpen}
           getAllPosts={getAllPosts}
         />
-        <Timeline getAllPosts={getAllPosts} />
+        {showBookmarks ? <Bookmarks /> : <Timeline getAllPosts={getAllPosts} />}
         <RightBar />
       </Stack>
     </Box>

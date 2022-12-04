@@ -7,16 +7,22 @@ import {
   IconButton,
   Typography,
 } from "@mui/material";
+import { useSelector } from "react-redux";
 import {
   BookmarkBorderIcon,
   FavoriteIcon,
   ModeCommentIcon,
   MoreVertIcon,
 } from "../assets/MUI/icons";
+import { addBookmarks } from "../firebase-calls";
 
 const Post = ({ post }) => {
   const { postText, dateCreated, firstname, lastname } = post?.data || {};
+  const postId = post?.id || {}
+
   const postDate = new Date(dateCreated);
+  const userId = useSelector((state) => state.user.userId)
+// console.log(postId)
 
   const formatPostDate = (postDate) => {
     const daysPassed = Math.round(
@@ -40,13 +46,17 @@ const Post = ({ post }) => {
     return `${day}/${month}/${year}`;
   };
 
+  const addBookmarkHandler = async() => {
+    await addBookmarks(userId, postId)
+  }
+
   return (
     <Card sx={{ marginBottom: "1em" }}>
       <CardHeader
         avatar={
           <Avatar
             alt={firstname}
-            src="https://editorial.uefa.com/resources/01de-0e7311a0c694-24ea806e4996-1000/format/wide1/jose_mourinho_wants_his_inter_side_to_follow_on_from_their_weekend_victory.jpeg?imwidth=2048"
+            src="/"
           />
         }
         action={
@@ -76,7 +86,7 @@ const Post = ({ post }) => {
         <IconButton aria-label="comment">
           <ModeCommentIcon />
         </IconButton>
-        <IconButton aria-label="bookmark">
+        <IconButton aria-label="bookmark" onClick={addBookmarkHandler} >
           <BookmarkBorderIcon />
         </IconButton>
       </CardActions>
