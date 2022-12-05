@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchBookmarksData, fetchPosts } from "../features/store/postSlice";
 import Post from "./Post";
 
-const Timeline = ({ getAllPosts }) => {
+const Timeline = () => {
   const posts = useSelector((state) => state.post.posts);
   const userId = useSelector((state) => state.user.userId);
   const dispatch = useDispatch();
@@ -21,7 +21,6 @@ const Timeline = ({ getAllPosts }) => {
     }
   }, [dispatch, userId]);
 
-  console.log(posts);
   const sortedPosts = posts?.slice().sort((a, b) => {
     return (
       new Date(b.data.dateCreated).getTime() -

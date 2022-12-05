@@ -2,13 +2,12 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import LogInPage from "./pages/LogInPage";
 import SignUpPage from "./pages/SignUpPage";
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "./features/store/authSlice";
 import ProtectedRoutes from "./utils/ProtectedRoutes";
-import { userActions } from "./features/store/userSlice";
-import { getAllUsers, getUserData } from "./firebase-calls";
-import { usersActions } from "./features/Users/usersSlice";
+import { fetchUserData, userActions } from "./features/store/userDataSlice";
+import { fetchUsers } from "./features/Users/usersSlice";
 
 function App() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
@@ -22,32 +21,18 @@ function App() {
   }, [currentToken, dispatch]);
 
   // Getting and storing User-Details
-  const getUserDetails = useCallback(
-    async (userId) => {
-      let data = await getUserData(userId);
-      dispatch(userActions.setUserData(data));
-    },
-    [dispatch]
-  );
   useEffect(() => {
     if (userId) {
-      getUserDetails(userId);
+      dispatch(fetchUserData(userId));
     }
-  }, [userId, getUserDetails]);
+  }, [userId, dispatch]);
 
   // fetch users
-  const fetchUsers = useCallback(
-    async (userId) => {
-      let data = await getAllUsers(userId);
-      dispatch(usersActions.setUsers(data));
-    },
-    [dispatch]
-  );
   useEffect(() => {
     if (userId) {
-      fetchUsers(userId);
+      dispatch(fetchUsers(userId));
     }
-  }, [userId, fetchUsers]);
+  }, [userId, dispatch]);
 
   // Validating token and getting User-Id
   useEffect(() => {
