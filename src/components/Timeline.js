@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchBookmarksData } from "../features/store/postSlice";
+import { fetchBookmarksData, fetchPosts } from "../features/store/postSlice";
 import Post from "./Post";
 
 const Timeline = ({ getAllPosts }) => {
@@ -13,11 +13,15 @@ const Timeline = ({ getAllPosts }) => {
     if (userId) {
       dispatch(fetchBookmarksData(userId));
     }
-  });
-  useEffect(() => {
-    getAllPosts();
-  }, [getAllPosts]);
+  }, [dispatch, userId]);
 
+  useEffect(() => {
+    if (userId) {
+      dispatch(fetchPosts());
+    }
+  }, [dispatch, userId]);
+
+  console.log(posts);
   const sortedPosts = posts?.slice().sort((a, b) => {
     return (
       new Date(b.data.dateCreated).getTime() -

@@ -11,12 +11,13 @@ import {
 } from "@mui/material";
 import { amber } from "@mui/material/colors";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   EmojiEmotionsIcon,
   InsertPhotoIcon,
   PersonAddAlt1Icon,
 } from "../assets/MUI/icons";
+import { fetchPosts } from "../features/store/postSlice";
 import { addPostData } from "../firebase-calls";
 
 const SytledModal = styled(Modal)({
@@ -30,15 +31,16 @@ const Icons = styled(Box)(() => ({
   display: "flex",
 }));
 
-const AddPost = ({ isOpen, onClose, getAllPosts }) => {
+const AddPost = ({ isOpen, onClose }) => {
   const [postText, setPostText] = useState("");
+  const dispatch = useDispatch();
   const { firstname, lastname, username, userId } = useSelector(
     (state) => state.user.userData
   );
 
   const addPostHandler = async () => {
     addPostData(postText, firstname, lastname, username, userId);
-    getAllPosts();
+    dispatch(fetchPosts());
     setPostText("");
     onClose();
   };
