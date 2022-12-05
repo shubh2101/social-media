@@ -89,11 +89,9 @@ export const addBookmarks = async (userId, postId) => {
 
 export const getBookmarks = async (userId) => {
   let bookmarks = [];
-  const bookmarksById = await getDocs(
-    collection(db, "bookmarks"),
-    where("userId", "==", userId)
-  );
-  bookmarksById.forEach((doc) => {
+  const q = query(collection(db, "bookmarks"), where("userId", "==", userId));
+  const querySnapshot = await getDocs(q);
+  querySnapshot.forEach((doc) => {
     bookmarks.push(doc.data());
   });
   return bookmarks;

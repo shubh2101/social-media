@@ -1,5 +1,5 @@
 import { Box, Stack } from "@mui/material";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 import AddPost from "../components/AddPost";
 import Bookmarks from "../components/Bookmarks";
@@ -13,6 +13,7 @@ import { getPosts } from "../firebase-calls";
 const HomePage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showBookmarks, setShowBookmarks] = useState(false);
+
   const dispatch = useDispatch();
 
   const openHandler = () => {

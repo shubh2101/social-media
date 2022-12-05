@@ -1,10 +1,19 @@
 import { Box } from "@mui/material";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchBookmarksData } from "../features/store/postSlice";
 import Post from "./Post";
 
 const Timeline = ({ getAllPosts }) => {
   const posts = useSelector((state) => state.post.posts);
+  const userId = useSelector((state) => state.user.userId);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (userId) {
+      dispatch(fetchBookmarksData(userId));
+    }
+  });
   useEffect(() => {
     getAllPosts();
   }, [getAllPosts]);

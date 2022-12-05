@@ -7,22 +7,28 @@ import {
   IconButton,
   Typography,
 } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   BookmarkBorderIcon,
   FavoriteIcon,
   ModeCommentIcon,
   MoreVertIcon,
+  BookmarkedIcon,
 } from "../assets/MUI/icons";
+import { fetchBookmarksData } from "../features/store/postSlice";
 import { addBookmarks } from "../firebase-calls";
 
 const Post = ({ post }) => {
   const { postText, dateCreated, firstname, lastname } = post?.data || {};
-  const postId = post?.id || {}
-
+  const postId = post?.id || {};
   const postDate = new Date(dateCreated);
-  const userId = useSelector((state) => state.user.userId)
-// console.log(postId)
+  const bookmarks = useSelector((state) => state.post.bookmarks);
+  const userId = useSelector((state) => state.user.userId);
+  const dispatch = useDispatch();
+
+  const isBookmarked = bookmarks?.find(
+    (bm) => bm.postId === post.id && bm.userId === userId
+  );
 
   const formatPostDate = (postDate) => {
     const daysPassed = Math.round(
@@ -46,19 +52,15 @@ const Post = ({ post }) => {
     return `${day}/${month}/${year}`;
   };
 
-  const addBookmarkHandler = async() => {
-    await addBookmarks(userId, postId)
-  }
+  const addBookmarkHandler = async () => {
+    await addBookmarks(userId, postId);
+    dispatch(fetchBookmarksData(userId));
+  };
 
   return (
     <Card sx={{ marginBottom: "1em" }}>
       <CardHeader
-        avatar={
-          <Avatar
-            alt={firstname}
-            src="/"
-          />
-        }
+        avatar={<Avatar alt={firstname} src="/" />}
         action={
           <IconButton aria-label="settings">
             <MoreVertIcon />
@@ -86,8 +88,8 @@ const Post = ({ post }) => {
         <IconButton aria-label="comment">
           <ModeCommentIcon />
         </IconButton>
-        <IconButton aria-label="bookmark" onClick={addBookmarkHandler} >
-          <BookmarkBorderIcon />
+        <IconButton aria-label="bookmark" onClick={() => addBookmarkHandler()}>
+          {isBookmarked ? <BookmarkedIcon /> : <BookmarkBorderIcon />}
         </IconButton>
       </CardActions>
     </Card>

@@ -13,7 +13,7 @@ import { usersActions } from "./features/Users/usersSlice";
 function App() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const currentToken = useSelector((state) => state.auth.token);
-  const userId = useSelector((state) => state.user.userId);    
+  const userId = useSelector((state) => state.user.userId);
   const API_KEY = process.env.REACT_APP_apiKey;
   const dispatch = useDispatch();
 
