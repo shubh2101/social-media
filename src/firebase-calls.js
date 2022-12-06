@@ -5,6 +5,8 @@ import {
   getDocs,
   addDoc,
   limit,
+  doc,
+  deleteDoc,
 } from "firebase/firestore";
 import { db } from "./firebase-config";
 
@@ -94,5 +96,43 @@ export const getBookmarks = async (userId) => {
   querySnapshot.forEach((doc) => {
     bookmarks.push(doc.data());
   });
+
   return bookmarks;
+};
+
+export const addLikes = async (userId, postId) => {
+  try {
+    const doc = await addDoc(collection(db, "likes"), { userId, postId });
+    return doc.id;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const getLikes = async (postId) => {
+  let data = [];
+  const q = query(collection(db, "likes"), where("postId", "==", postId));
+  const querySnapshot = await getDocs(q);
+  data = querySnapshot.docs.map((doc) => ({
+    userId: doc.data().userId,
+    likeId: doc.id,
+  }));
+  return data;
+};
+
+export const deleteLike = async (postId, userId) => {
+  try {
+    const deleteQuery = query(
+      collection(db, "likes"),
+      where("postId", "==", postId),
+      where("userId", "==", userId)
+    );
+    const data = await getDocs(deleteQuery);
+    const deletePostId = data.docs[0].id;
+    const likeToDelete = doc(db, "likes", deletePostId);
+    await deleteDoc(likeToDelete);
+    return deletePostId;
+  } catch (error) {
+    throw new Error(error);
+  }
 };

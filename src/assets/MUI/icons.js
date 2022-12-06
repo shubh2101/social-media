@@ -16,6 +16,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import LogoutIcon from '@mui/icons-material/Logout';
 import BookmarkedIcon from '@mui/icons-material/BookmarkOutlined';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorderOutlined';
 
 export {
   MailIcon,
@@ -36,4 +37,5 @@ export {
   VisibilityOffIcon,
   LogoutIcon,
   BookmarkedIcon,
+  FavoriteBorderIcon,
   };

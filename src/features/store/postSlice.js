@@ -12,13 +12,10 @@ export const fetchBookmarksData = createAsyncThunk(
     return data;
   }
 );
-export const fetchPosts = createAsyncThunk(
-  "postData/fetchPosts",
-  async () => {
-    const data = await  getPosts();
-    return data;
-  }
-);
+export const fetchPosts = createAsyncThunk("postData/fetchPosts", async () => {
+  const data = await getPosts();
+  return data;
+});
 
 const postSlice = createSlice({
   name: "postData",
@@ -32,9 +29,9 @@ const postSlice = createSlice({
     [fetchBookmarksData.fulfilled]: (state, action) => {
       state.bookmarks = action.payload;
     },
-    [fetchPosts.fulfilled] : (state, action) => {
-      state.posts = action.payload
-    }
+    [fetchPosts.fulfilled]: (state, action) => {
+      state.posts = action.payload;
+    },
   },
 });
 

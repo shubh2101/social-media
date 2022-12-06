@@ -33,6 +33,9 @@ function App() {
       dispatch(fetchUsers(userId));
     }
   }, [userId, dispatch]);
+  
+  
+
 
   // Validating token and getting User-Id
   useEffect(() => {
@@ -66,8 +69,7 @@ function App() {
           dispatch(userActions.setUserId(userId));
         });
   }, [currentToken, dispatch, API_KEY]);
-
-  // console.log(userdetails);
+  
   return (
     <Routes>
       <Route path="/" element={<ProtectedRoutes />}>
