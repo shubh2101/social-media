@@ -23,7 +23,8 @@ import { authActions } from "../features/store/authSlice";
 
 const SideBar = ({ onOpen, setShowBookmarks }) => {
   const dispatch = useDispatch();
-  const { firstname, lastname } = useSelector((state) => state.user.userData);
+  const { firstname, lastname , followers} = useSelector((state) => state.user.userData);
+  console.log(followers)
 
   const logOutHandler = (event) => {
     event.preventDefault();
@@ -57,11 +58,14 @@ const SideBar = ({ onOpen, setShowBookmarks }) => {
             </ListItemButton>
           </ListItem>
           <ListItem>
-            <ListItemButton >
+            <ListItemButton>
               <ListItemIcon>
                 <BookmarkBorderIcon />
               </ListItemIcon>
-              <ListItemText primary="Bookmarks" onClick={() => setShowBookmarks(true)} />
+              <ListItemText
+                primary="Bookmarks"
+                onClick={() => setShowBookmarks(true)}
+              />
             </ListItemButton>
           </ListItem>
           <ListItem>
@@ -91,10 +95,7 @@ const SideBar = ({ onOpen, setShowBookmarks }) => {
         </List>
         <Box sx={{ marginTop: "140px" }}>
           <ListItemButton>
-            <Avatar
-              alt={firstname}
-              src="/"
-            />
+            <Avatar alt={firstname} src="/" />
             <Typography p={2}>{firstname + " " + lastname}</Typography>
           </ListItemButton>
         </Box>

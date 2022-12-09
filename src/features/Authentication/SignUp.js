@@ -41,6 +41,8 @@ const SignUp = () => {
     confirmPassShowHandler,
   } = useInput(validate);
   const { firstname, lastname, email, dob, country } = values;
+  const followers = [];
+  const following = [];
   const username = `${firstname}${lastname}`;
 
   const submitHandler = async (event) => {
@@ -51,9 +53,19 @@ const SignUp = () => {
         values.email,
         values.password
       );
-      navigate("/login");      
+      navigate("/login");
       const userId = user.user.uid;
-      addUserData(firstname, lastname, email, dob, country, username, userId);
+      addUserData(
+        firstname,
+        lastname,
+        email,
+        dob,
+        country,
+        username,
+        userId,
+        followers,
+        following
+      );
     } catch (error) {
       let errorMessage = "failed to sign up !";
       if (error.message) {

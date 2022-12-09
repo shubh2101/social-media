@@ -17,7 +17,9 @@ export const addUserData = async (
   dob,
   country,
   username,
-  userId
+  userId,
+  followers,
+  following
 ) => {
   const userData = {
     firstname,
@@ -27,6 +29,8 @@ export const addUserData = async (
     country,
     username,
     userId,
+    followers,
+    following,
   };
   await addDoc(collection(db, "userData"), userData);
 };
