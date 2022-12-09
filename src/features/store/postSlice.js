@@ -26,7 +26,13 @@ const postSlice = createSlice({
       state.posts = action.payload;
     },
     bookmark: (state, action) => {
-      state.bookmarks = [...state.bookmarks, { postId: action.payload }];
+      const { postId, bookmarkId } = action.payload;
+      state.bookmarks = [...state.bookmarks, { postId, bookmarkId }];
+    },
+    deleteBookmark: (state, action) => {
+      state.bookmarks = state.bookmarks.filter(
+        (bm) => bm.bookmarkId !== action.payload
+      );
     },
   },
   extraReducers: {

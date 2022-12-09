@@ -101,22 +101,22 @@ export const getBookmarks = async (userId) => {
   return bookmarks;
 };
 
-// export const deleteBookmark = async (postId, userId) => {
-//   try {
-//     const deleteQuery = query(
-//       collection(db, "bookmarks"),
-//       where("postId", "==", postId),
-//       where("userId", "==", userId)
-//     );
-//     const data = await getDocs(deleteQuery);
-//     const deleteId = data.docs[0].id;
-//     const BookmarkDoc = doc(db, "bookmarks", deleteId);
-//     await deleteDoc(BookmarkDoc);
-//     return deleteId;
-//   } catch (error) {
-//     throw new Error(error);
-//   }
-// };
+export const deleteBookmark = async (postId, userId) => {
+  try {
+    const deleteQuery = query(
+      collection(db, "bookmarks"),
+      where("postId", "==", postId),
+      where("userId", "==", userId)
+    );
+    const data = await getDocs(deleteQuery);
+    const deleteId = data.docs[0].id;
+    const BookmarkDoc = doc(db, "bookmarks", deleteId);
+    await deleteDoc(BookmarkDoc);
+    return deleteId;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
 
 export const addLikes = async (userId, postId) => {
   try {

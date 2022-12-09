@@ -21,6 +21,7 @@ import { postActions } from "../features/store/postSlice";
 import {
   addBookmarks,
   addLikes,
+  deleteBookmark,
   deleteLike,
   getLikes,
 } from "../firebase-calls";
@@ -61,8 +62,14 @@ const Post = ({ post }) => {
   };
 
   const addBookmarkHandler = async () => {
-    await addBookmarks(userId, postId);
-    dispatch(postActions.bookmark(postId || {}));
+    const docId = await addBookmarks(userId, postId);
+    const payload = { postId: postId, bookmarkId: docId } || {};
+    dispatch(postActions.bookmark(payload));
+  };
+
+  const deleteBookmarkHandler = async () => {
+    const deleteBookmarkId = await deleteBookmark(postId, userId);
+    dispatch(postActions.deleteBookmark(deleteBookmarkId));
   };
 
   const addLikeHandler = async () => {
@@ -138,7 +145,10 @@ const Post = ({ post }) => {
         <IconButton aria-label="comment">
           <ModeCommentIcon />
         </IconButton>
-        <IconButton aria-label="bookmark" onClick={() => addBookmarkHandler()}>
+        <IconButton
+          aria-label="bookmark"
+          onClick={isBookmarked ? deleteBookmarkHandler : addBookmarkHandler}
+        >
           {isBookmarked ? (
             <BookmarkedIcon
               sx={{
