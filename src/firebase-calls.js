@@ -83,7 +83,8 @@ export const getAllUsers = async (userId) => {
 
 export const addBookmarks = async (userId, postId) => {
   try {
-    await addDoc(collection(db, "bookmarks"), { userId, postId });
+    const doc = await addDoc(collection(db, "bookmarks"), { userId, postId });
+    return doc.id;
   } catch (error) {
     throw new Error(error);
   }
@@ -93,12 +94,29 @@ export const getBookmarks = async (userId) => {
   let bookmarks = [];
   const q = query(collection(db, "bookmarks"), where("userId", "==", userId));
   const querySnapshot = await getDocs(q);
-  querySnapshot.forEach((doc) => {
-    bookmarks.push(doc.data());
-  });
+  bookmarks = querySnapshot.docs.map((doc) => ({
+    postId: doc.data().postId,
+  }));
 
   return bookmarks;
 };
+
+// export const deleteBookmark = async (postId, userId) => {
+//   try {
+//     const deleteQuery = query(
+//       collection(db, "bookmarks"),
+//       where("postId", "==", postId),
+//       where("userId", "==", userId)
+//     );
+//     const data = await getDocs(deleteQuery);
+//     const deleteId = data.docs[0].id;
+//     const BookmarkDoc = doc(db, "bookmarks", deleteId);
+//     await deleteDoc(BookmarkDoc);
+//     return deleteId;
+//   } catch (error) {
+//     throw new Error(error);
+//   }
+// };
 
 export const addLikes = async (userId, postId) => {
   try {

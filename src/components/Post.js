@@ -17,7 +17,7 @@ import {
   BookmarkedIcon,
   FavoriteBorderIcon,
 } from "../assets/MUI/icons";
-import { fetchBookmarksData } from "../features/store/postSlice";
+import { postActions } from "../features/store/postSlice";
 import {
   addBookmarks,
   addLikes,
@@ -34,9 +34,7 @@ const Post = ({ post }) => {
   const dispatch = useDispatch();
   const [likes, setLikes] = useState(null);
 
-  const isBookmarked = bookmarks?.find(
-    (bm) => bm.postId === post.id && bm.userId === userId
-  );
+  const isBookmarked = bookmarks?.find((bm) => bm.postId === post.id);
   const isLiked = likes?.find((like) => like.userId === userId);
   const likeCountColor = isLiked ? "#e91e63" : "text.secondary";
 
@@ -64,8 +62,9 @@ const Post = ({ post }) => {
 
   const addBookmarkHandler = async () => {
     await addBookmarks(userId, postId);
-    dispatch(fetchBookmarksData(userId));
+    dispatch(postActions.bookmark(postId || {}));
   };
+
   const addLikeHandler = async () => {
     const addLikeId = await addLikes(userId, post.id);
     if (userId) {
@@ -123,7 +122,7 @@ const Post = ({ post }) => {
             {isLiked ? (
               <FavoriteIcon
                 sx={{
-                  color: "#e91e63",
+                  color: "#ec407a",
                 }}
               />
             ) : (
@@ -143,7 +142,7 @@ const Post = ({ post }) => {
           {isBookmarked ? (
             <BookmarkedIcon
               sx={{
-                color: "#29b6f6",
+                color: "#26a69a",
               }}
             />
           ) : (

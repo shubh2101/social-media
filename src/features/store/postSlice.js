@@ -5,6 +5,7 @@ const initialState = {
   posts: [],
   bookmarks: [],
 };
+
 export const fetchBookmarksData = createAsyncThunk(
   "postData/fetchBookmarks",
   async (userId) => {
@@ -23,6 +24,9 @@ const postSlice = createSlice({
   reducers: {
     setPosts: (state, action) => {
       state.posts = action.payload;
+    },
+    bookmark: (state, action) => {
+      state.bookmarks = [...state.bookmarks, { postId: action.payload }];
     },
   },
   extraReducers: {
