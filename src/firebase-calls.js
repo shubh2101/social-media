@@ -7,6 +7,10 @@ import {
   limit,
   doc,
   deleteDoc,
+  setDoc,
+  updateDoc,
+  arrayUnion,
+  arrayRemove,
 } from "firebase/firestore";
 import { db } from "./firebase-config";
 
@@ -32,7 +36,8 @@ export const addUserData = async (
     followers,
     following,
   };
-  await addDoc(collection(db, "userData"), userData);
+  await setDoc(doc(db, "userData", userId), userData);
+  // await addDoc(collection(db, "userData"), userData);
 };
 
 export const getUserData = async (userId) => {
@@ -157,4 +162,26 @@ export const deleteLike = async (postId, userId) => {
   } catch (error) {
     throw new Error(error);
   }
+};
+
+export const updateFollowData = async (userId, followUserId) => {
+  const followingRef = doc(db, "userData", userId);
+  const followerRef = doc(db, "userData", followUserId);
+  await updateDoc(followingRef, {
+    following: arrayUnion(followUserId),
+  });
+  await updateDoc(followerRef, {
+    followers: arrayUnion(userId),
+  });
+};
+
+export const updateUnfollowData = async (userId, followUserId) => {
+  const followingRef = doc(db, "userData", userId);
+  const followerRef = doc(db, "userData", followUserId);
+  await updateDoc(followingRef, {
+    following: arrayRemove(followUserId),
+  });
+  await updateDoc(followerRef, {
+    followers: arrayRemove(userId),
+  });
 };

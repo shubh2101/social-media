@@ -23,8 +23,7 @@ import { authActions } from "../features/store/authSlice";
 
 const SideBar = ({ onOpen, setShowBookmarks }) => {
   const dispatch = useDispatch();
-  const { firstname, lastname , followers} = useSelector((state) => state.user.userData);
-  console.log(followers)
+  const { firstname, lastname } = useSelector((state) => state.user.userData);
 
   const logOutHandler = (event) => {
     event.preventDefault();
