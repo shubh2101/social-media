@@ -34,13 +34,13 @@ const Icons = styled(Box)(() => ({
 const AddPost = ({ isOpen, onClose }) => {
   const [postText, setPostText] = useState("");
   const dispatch = useDispatch();
-  const { firstname, lastname, username, userId } = useSelector(
+  const { firstname, lastname, username, userId, following } = useSelector(
     (state) => state.user.userData
   );
 
   const addPostHandler = async () => {
     addPostData(postText, firstname, lastname, username, userId);
-    dispatch(fetchPosts());
+    dispatch(fetchPosts({ following, userId }));
     setPostText("");
     onClose();
   };

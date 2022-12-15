@@ -7,6 +7,7 @@ import Post from "./Post";
 const Timeline = () => {
   const posts = useSelector((state) => state.post.posts);
   const userId = useSelector((state) => state.user.userId);
+  const { following } = useSelector((state) => state.user.userData);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -17,9 +18,9 @@ const Timeline = () => {
 
   useEffect(() => {
     if (userId) {
-      dispatch(fetchPosts());
+      dispatch(fetchPosts({ following, userId }));
     }
-  }, [dispatch, userId]);
+  }, [dispatch, userId, following]);
 
   const sortedPosts = posts?.slice().sort((a, b) => {
     return (

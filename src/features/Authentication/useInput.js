@@ -32,7 +32,6 @@ const useInput = (validate) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    // console.log("form submitted");
   };
 
   const passwordShowHandler = () => {

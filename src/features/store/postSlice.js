@@ -13,18 +13,25 @@ export const fetchBookmarksData = createAsyncThunk(
     return data;
   }
 );
-export const fetchPosts = createAsyncThunk("postData/fetchPosts", async () => {
-  const data = await getPosts();
-  return data;
-});
+export const fetchPosts = createAsyncThunk(
+  "postData/fetchPosts",
+  async (ids) => {
+    const { following, userId } = ids;
+    const data = await getPosts();
+    const postsByUser = data.filter((post) => post.data.userId === userId);
+    const postsFollowing = data
+      .filter((post) => {
+        return following.includes(post.data.userId);
+      })
+      .concat(postsByUser);
+    return postsFollowing;
+  }
+);
 
 const postSlice = createSlice({
   name: "postData",
   initialState,
   reducers: {
-    setPosts: (state, action) => {
-      state.posts = action.payload;
-    },
     bookmark: (state, action) => {
       const { postId, bookmarkId } = action.payload;
       state.bookmarks = [...state.bookmarks, { postId, bookmarkId }];
