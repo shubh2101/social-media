@@ -1,4 +1,4 @@
-import { Box, Stack } from "@mui/material";
+import { Box, Divider, Stack } from "@mui/material";
 import { useState } from "react";
 import AddPost from "../components/AddPost";
 import Bookmarks from "../components/Bookmarks";
@@ -21,10 +21,14 @@ const HomePage = () => {
   return (
     <Box>
       <NavBar />
-      <Stack direction="row" spacing={2} justifyContent="space-between">
+      <AddPost onClose={closeHandler} isOpen={isOpen} />
+      <Stack
+        direction="row"
+        spacing={2}
+        justifyContent="space-between"
+        divider={<Divider orientation="vertical" flexItem />}
+      >
         <SideBar onOpen={openHandler} setShowBookmarks={setShowBookmarks} />
-        <AddPost onClose={closeHandler} isOpen={isOpen} />
-        <AddPost onClose={closeHandler} isOpen={isOpen} />
         {showBookmarks ? <Bookmarks /> : <Timeline />}
         <RightBar />
       </Stack>

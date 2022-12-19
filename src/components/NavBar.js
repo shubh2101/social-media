@@ -26,20 +26,19 @@ const StyledToolbar = styled(Toolbar)({
 
 const NavBar = () => {
   return (
-    <AppBar position="sticky">
+    <AppBar position="sticky" color="primary" enableColorOnDark>
       <StyledToolbar>
-        <Badge>
+        <Badge sx={{ px: 10 }}>
           <Diversity1Icon />
           <Typography
             variant="h6"
-            marginX="20px"
-            sx={{ display: { xs: "none", sm: "block" } }}
+            sx={{ display: { xs: "none", sm: "block" }, px: 4 }}
           >
             La familia
           </Typography>
         </Badge>
 
-        <Icons>
+        <Icons sx={{ px: 10 }}>
           <Badge badgeContent={4} color="error">
             <MailIcon />
           </Badge>

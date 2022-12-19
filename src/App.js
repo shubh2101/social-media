@@ -8,6 +8,8 @@ import { authActions } from "./features/store/authSlice";
 import ProtectedRoutes from "./utils/ProtectedRoutes";
 import { fetchUserData, userActions } from "./features/store/userDataSlice";
 import { fetchUsers } from "./features/Users/usersSlice";
+import ProfilePage from "./pages/ProfilePage";
+import { createTheme } from "@mui/material";
 
 function App() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
@@ -15,6 +17,8 @@ function App() {
   const userId = useSelector((state) => state.user.userId);
   const API_KEY = process.env.REACT_APP_apiKey;
   const dispatch = useDispatch();
+
+  
 
   useEffect(() => {
     dispatch(authActions.userLoggedIn(currentToken));
@@ -33,9 +37,6 @@ function App() {
       dispatch(fetchUsers(userId));
     }
   }, [userId, dispatch]);
-  
-  
-
 
   // Validating token and getting User-Id
   useEffect(() => {
@@ -69,11 +70,12 @@ function App() {
           dispatch(userActions.setUserId(userId));
         });
   }, [currentToken, dispatch, API_KEY]);
-  
+
   return (
     <Routes>
       <Route path="/" element={<ProtectedRoutes />}>
         <Route path="/" element={<HomePage />} />
+        <Route path="/profile" element={<ProfilePage />} />
       </Route>
       <Route
         path="/login"

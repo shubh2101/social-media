@@ -6,17 +6,19 @@ import ExploreIcon from "@mui/icons-material/Explore";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import NightlightIcon from "@mui/icons-material/Nightlight";
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ModeCommentIcon from '@mui/icons-material/ModeComment';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
-import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
-import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import LogoutIcon from '@mui/icons-material/Logout';
-import BookmarkedIcon from '@mui/icons-material/BookmarkOutlined';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import ModeCommentIcon from "@mui/icons-material/ModeComment";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
+import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
+import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import LogoutIcon from "@mui/icons-material/Logout";
+import BookmarkedIcon from "@mui/icons-material/BookmarkOutlined";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import LocationIcon from "@mui/icons-material/LocationOnOutlined";
+import DobIcon from '@mui/icons-material/CakeOutlined';
 
 export {
   MailIcon,
@@ -38,4 +40,6 @@ export {
   LogoutIcon,
   BookmarkedIcon,
   FavoriteBorderIcon,
-  };
+  LocationIcon,
+  DobIcon,
+};

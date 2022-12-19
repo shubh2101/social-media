@@ -97,7 +97,10 @@ const Post = ({ post }) => {
   };
 
   return (
-    <Card sx={{ marginBottom: "1em" }}>
+    <Card
+      sx={{ marginBottom: "2em", borderRadius: "20px", maxWidth: 700 }}
+      elevation={8}
+    >
       <CardHeader
         avatar={<Avatar alt={firstname} src="/" />}
         action={
