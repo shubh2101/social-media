@@ -1,5 +1,5 @@
 import { AppBar, Box, styled, Toolbar } from "@mui/material";
-import Button from "@mui/material/Button";
+
 import {
   StyledFollowButton,
   StyledNavButton,

@@ -17,12 +17,15 @@ import {
   NightlightIcon,
   LogoutIcon,
 } from "../assets/MUI/icons";
-import MaterialUISwitch from "../assets/MUI/components/MuiSwitch";
+import MUISwitch from "../assets/MUI/components/MuiSwitch";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../features/store/authSlice";
+import { useContext } from "react";
+import { ColorModeContext } from "./DarkMode";
 
 const SideBar = ({ onOpen, setShowBookmarks }) => {
   const dispatch = useDispatch();
+  const { toggleColorMode } = useContext(ColorModeContext);
   const { firstname, lastname } = useSelector((state) => state.user.userData);
 
   const logOutHandler = (event) => {
@@ -34,6 +37,7 @@ const SideBar = ({ onOpen, setShowBookmarks }) => {
     <Box
       flex={1}
       p={2}
+      marginLeft={6}
       sx={{
         display: { xs: "none", sm: "block" },
       }}
@@ -88,7 +92,15 @@ const SideBar = ({ onOpen, setShowBookmarks }) => {
               <ListItemIcon>
                 <NightlightIcon />
               </ListItemIcon>
-              <FormControlLabel control={<MaterialUISwitch sx={{ m: 1 }} />} />
+              <FormControlLabel
+                control={
+                  <MUISwitch
+                    sx={{ m: 1 }}
+                    onClick={toggleColorMode}
+                    defaultChecked
+                  />
+                }
+              />
             </ListItemButton>
           </ListItem>
         </List>
