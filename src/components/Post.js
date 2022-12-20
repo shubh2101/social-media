@@ -153,11 +153,7 @@ const Post = ({ post }) => {
           onClick={isBookmarked ? deleteBookmarkHandler : addBookmarkHandler}
         >
           {isBookmarked ? (
-            <BookmarkedIcon
-              sx={{
-                color: "#26a69a",
-              }}
-            />
+            <BookmarkedIcon color="secondary" />
           ) : (
             <BookmarkBorderIcon />
           )}

@@ -30,6 +30,7 @@ const MenuBar = () => {
           <Box position="absolute" right={0}>
             <Button
               variant="contained"
+              color="secondary"
               sx={{
                 borderRadius: "30px",
                 ":hover": {

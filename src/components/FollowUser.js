@@ -36,6 +36,7 @@ const FollowUser = ({ user }) => {
       </Box>
       <Button
         variant="contained"
+        color="secondary"
         sx={{
           borderRadius: "30px",
           ":hover": {

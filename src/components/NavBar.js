@@ -17,6 +17,7 @@ const Icons = styled(Box)(() => ({
   alignItems: "center",
   gap: "30px",
   display: "flex",
+  // color : "secondary"
 }));
 
 const StyledToolbar = styled(Toolbar)({
@@ -28,11 +29,12 @@ const NavBar = () => {
   return (
     <AppBar position="sticky" color="primary" enableColorOnDark>
       <StyledToolbar>
-        <Badge sx={{ px: 10 }}>
-          <Diversity1Icon />
+        <Badge sx={{ px: 10, alignItems: "center" }}>
+          <Diversity1Icon color="secondary" />
           <Typography
             variant="h6"
             sx={{ display: { xs: "none", sm: "block" }, px: 4 }}
+            color="secondary"
           >
             La familia
           </Typography>
@@ -40,10 +42,10 @@ const NavBar = () => {
 
         <Icons sx={{ px: 10 }}>
           <Badge badgeContent={4} color="error">
-            <MailIcon />
+            <MailIcon color="secondary" />
           </Badge>
           <Badge badgeContent={17} color="error">
-            <NotificationsIcon />
+            <NotificationsIcon color="secondary" />
           </Badge>
           <Avatar
             alt="Jose"

@@ -254,7 +254,7 @@ const SignUp = () => {
         <Button
           type="submit"
           variant="contained"
-          color="success"
+          color="primary"
           sx={{ mt: 3, borderRadius: 5 }}
         >
           SignUp
