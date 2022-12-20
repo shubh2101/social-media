@@ -1,5 +1,13 @@
-import { Avatar, Box, Button, ListItemButton, Typography } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Button,
+  ListItemButton,
+  styled,
+  Typography,
+} from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
+import { StyledFollowButton } from "../assets/MUI/components/Button";
 import { userActions } from "../features/store/userDataSlice";
 import { updateFollowData, updateUnfollowData } from "../firebase-calls";
 
@@ -34,20 +42,12 @@ const FollowUser = ({ user }) => {
         <Avatar alt={user.firstname} src="/" />
         <Typography p={2}> {followUserName}</Typography>
       </Box>
-      <Button
+      <StyledFollowButton
         variant="contained"
-        color="secondary"
-        sx={{
-          borderRadius: "30px",
-          ":hover": {
-            bgcolor: "#cfd8dc",
-            color: "orangered",
-          },
-        }}
         onClick={isFollowing ? unfollowHandler : followHandler}
       >
         {isFollowing ? "Unfollow" : "Follow"}
-      </Button>
+      </StyledFollowButton>
     </ListItemButton>
   );
 };

@@ -1,14 +1,14 @@
 import { AppBar, Box, styled, Toolbar } from "@mui/material";
 import Button from "@mui/material/Button";
+import {
+  StyledFollowButton,
+  StyledNavButton,
+} from "../assets/MUI/components/Button";
 import CoverProfile from "./CoverProfile";
 
 const StyledToolbar = styled(Toolbar)({
   display: "flex",
   justifyContent: "center",
-});
-const StyledButton = styled(Button)({
-  display: "inline-block",
-  color: "white",
 });
 
 const MenuBar = () => {
@@ -23,25 +23,20 @@ const MenuBar = () => {
       >
         <StyledToolbar sx={{ flexGrow: 1 }}>
           <Box sx={{ ml: 6 }}>
-            <StyledButton sx={{ px: 7 }}>Posts</StyledButton>
-            <StyledButton sx={{ px: 7 }}>Followers</StyledButton>
-            <StyledButton sx={{ px: 7 }}>Following</StyledButton>
+            <StyledNavButton>Posts</StyledNavButton>
+            <StyledNavButton>Followers</StyledNavButton>
+            <StyledNavButton>Following</StyledNavButton>
           </Box>
           <Box position="absolute" right={0}>
-            <Button
+            <StyledFollowButton
               variant="contained"
               color="secondary"
               sx={{
-                borderRadius: "30px",
-                ":hover": {
-                  bgcolor: "#cfd8dc",
-                  color: "orangered",
-                },
                 marginRight: 10,
               }}
             >
               {"Follow"}
-            </Button>
+            </StyledFollowButton>
           </Box>
         </StyledToolbar>
       </AppBar>
