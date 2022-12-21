@@ -22,13 +22,15 @@ import { VisibilityOffIcon } from "../../assets/MUI/icons";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../firebase-config";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-
 import useInput from "./useInput";
 import validate from "./validateInput";
 import { addUserData } from "../../firebase-calls";
+import { useCallback, useEffect, useState } from "react";
+import getCountries from "../../components/Countries";
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const [countries, setCountries] = useState([]);
 
   const {
     values,
@@ -44,6 +46,15 @@ const SignUp = () => {
   const followers = [];
   const following = [];
   const username = `${firstname}${lastname}`;
+
+  const getAllCountries = useCallback(async () => {
+    const data = await getCountries();
+    setCountries(data);
+  }, []);
+
+  useEffect(() => {
+    getAllCountries();
+  }, [getAllCountries]);
 
   const submitHandler = async (event) => {
     event.preventDefault();
@@ -190,11 +201,11 @@ const SignUp = () => {
             value={values.country}
             onBlur={inputBlurHandler}
           >
-            <MenuItem value={"India"}>India</MenuItem>
-            <MenuItem value={"USA"}>USA</MenuItem>
-            <MenuItem value={"UK"}>UK</MenuItem>
-            <MenuItem value={"Brazil"}>Brazil</MenuItem>
-            <MenuItem value={"Portugal"}>Portugal</MenuItem>
+            {countries.sort().map((country) => (
+              <MenuItem value={country} key={country}>
+                {country}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
         {errors.country && (
