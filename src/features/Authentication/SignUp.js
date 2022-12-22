@@ -1,4 +1,5 @@
 import {
+  Autocomplete,
   Box,
   Button,
   Container,
@@ -8,11 +9,9 @@ import {
   IconButton,
   InputAdornment,
   InputLabel,
-  MenuItem,
   OutlinedInput,
   Radio,
   RadioGroup,
-  Select,
   TextField,
   Typography,
 } from "@mui/material";
@@ -41,6 +40,8 @@ const SignUp = () => {
     passwordShowHandler,
     confirmPassShow,
     confirmPassShowHandler,
+    countryValueHandler,
+    countryBlurHandler,
   } = useInput(validate);
   const { firstname, lastname, email, dob, country } = values;
   const followers = [];
@@ -193,20 +194,19 @@ const SignUp = () => {
           </RadioGroup>
         </FormControl>
         <FormControl fullWidth size="small">
-          <InputLabel textalign="center">Country</InputLabel>
-          <Select
-            label="Country"
+          <Autocomplete
+            freeSolo
+            autoHighlight
+            id="countries"
             name="country"
-            onChange={valueChangeHandler}
+            options={countries.sort()}
+            onChange={countryValueHandler}
             value={values.country}
-            onBlur={inputBlurHandler}
-          >
-            {countries.sort().map((country) => (
-              <MenuItem value={country} key={country}>
-                {country}
-              </MenuItem>
-            ))}
-          </Select>
+            onBlur={countryBlurHandler}
+            renderInput={(params, option) => (
+              <TextField {...params} key={option} label="Country" />
+            )}
+          />
         </FormControl>
         {errors.country && (
           <Typography color="red">{errors.country}</Typography>

@@ -11,7 +11,6 @@ const getCountries = async () => {
   getData.forEach((country) => {
     countries.push(country.name.common);
   });
-  console.log(countries)
   return countries;
 };
 

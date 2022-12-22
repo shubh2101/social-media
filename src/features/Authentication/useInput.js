@@ -23,9 +23,21 @@ const useInput = (validate) => {
       [name]: value,
     });
   };
+  const countryValueHandler = (event, val) => {
+    setValues({
+      ...values,
+      country: val,
+    });
+  };
 
   const inputBlurHandler = (event) => {
     const { name } = event.target;
+    const formErrors = validate(name, values, errors);
+    setErrors(formErrors);
+  };
+
+  const countryBlurHandler = () => {
+    const name = "country";
     const formErrors = validate(name, values, errors);
     setErrors(formErrors);
   };
@@ -52,6 +64,8 @@ const useInput = (validate) => {
     passwordShowHandler,
     confirmPassShow,
     confirmPassShowHandler,
+    countryValueHandler,
+    countryBlurHandler,
   };
 };
 
