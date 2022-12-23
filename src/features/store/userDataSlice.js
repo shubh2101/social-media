@@ -14,9 +14,17 @@ const initialState = {
     following: [],
   },
   userId: "",
+  profileData: {},
 };
 export const fetchUserData = createAsyncThunk(
   "userData/fetchUserData",
+  async (userId) => {
+    const data = await getUserData(userId);
+    return data;
+  }
+);
+export const fetchProfileData = createAsyncThunk(
+  "userData/fetchProfileData",
   async (userId) => {
     const data = await getUserData(userId);
     return data;
@@ -42,6 +50,9 @@ const userDataSlice = createSlice({
   extraReducers: {
     [fetchUserData.fulfilled]: (state, action) => {
       state.userData = action.payload;
+    },
+    [fetchProfileData.fulfilled]: (state, action) => {
+      state.profileData = action.payload;
     },
   },
 });

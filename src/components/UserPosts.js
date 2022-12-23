@@ -1,14 +1,14 @@
 import { Box } from "@mui/material";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import { fetchBookmarksData, fetchPosts } from "../features/store/postSlice";
 import Post from "./Post";
 
 const UserPosts = () => {
+  const { userId } = useParams();
   const posts = useSelector((state) => state.post.posts);
-  const userId = useSelector((state) => state.user.userId);
-  const { following } = useSelector((state) => state.user.userData);
-
+  const { following } = useSelector((state) => state.user.profileData);
   const dispatch = useDispatch();
 
   useEffect(() => {

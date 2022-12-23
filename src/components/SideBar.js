@@ -22,11 +22,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../features/store/authSlice";
 import { useContext } from "react";
 import { ColorModeContext } from "./DarkMode";
+import { useNavigate } from "react-router-dom";
 
 const SideBar = ({ onOpen, setShowBookmarks }) => {
   const dispatch = useDispatch();
   const { toggleColorMode } = useContext(ColorModeContext);
   const { firstname, lastname } = useSelector((state) => state.user.userData);
+  const navigate = useNavigate()
+  const userId = useSelector((state) => state.user.userId);
 
   const logOutHandler = (event) => {
     event.preventDefault();
@@ -105,7 +108,7 @@ const SideBar = ({ onOpen, setShowBookmarks }) => {
           </ListItem>
         </List>
         <Box sx={{ marginTop: "140px" }}>
-          <ListItemButton>
+          <ListItemButton onClick={() => {navigate( `/profile/${userId}`)}}>
             <Avatar alt={firstname} src="/" />
             <Typography p={2}>{firstname + " " + lastname}</Typography>
           </ListItemButton>

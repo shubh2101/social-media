@@ -4,8 +4,9 @@ import { DobIcon, LocationIcon } from "../assets/MUI/icons";
 
 const ProfileModal = () => {
   const { firstname, lastname, dob, country } = useSelector(
-    (state) => state.user.userData
+    (state) => state.user.profileData
   );
+
   return (
     <Box flex={1} p={2} position="relative" top={-100} sx={{ ml: 6 }}>
       <Card sx={{ maxWidth: 300, borderRadius: "20px" }} elevation={8}>
@@ -30,7 +31,7 @@ const ProfileModal = () => {
             color="text.secondary"
             sx={{ textAlign: "center" }}
           >
-            "Bio"
+            "Add a Bio"
           </Typography>
           <Box
             sx={{

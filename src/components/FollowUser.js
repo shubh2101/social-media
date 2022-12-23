@@ -1,12 +1,6 @@
-import {
-  Avatar,
-  Box,
-  Button,
-  ListItemButton,
-  styled,
-  Typography,
-} from "@mui/material";
+import { Avatar, Box, ListItemButton, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { StyledFollowButton } from "../assets/MUI/components/Button";
 import { userActions } from "../features/store/userDataSlice";
 import { updateFollowData, updateUnfollowData } from "../firebase-calls";
@@ -18,6 +12,7 @@ const FollowUser = ({ user }) => {
   const followUserId = user.userId;
   const isFollowing = following.includes(followUserId);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const followHandler = async () => {
     try {
@@ -37,7 +32,12 @@ const FollowUser = ({ user }) => {
     }
   };
   return (
-    <ListItemButton sx={{ display: "flex", justifyContent: "space-between" }}>
+    <ListItemButton
+      onClick={() => {
+        navigate(`/profile/${followUserId}`);
+      }}
+      sx={{ display: "flex", justifyContent: "space-between" }}
+    >
       <Box sx={{ display: "flex", alignItems: "center" }}>
         <Avatar alt={user.firstname} src="/" />
         <Typography p={2}> {followUserName}</Typography>

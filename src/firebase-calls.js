@@ -37,7 +37,6 @@ export const addUserData = async (
     following,
   };
   await setDoc(doc(db, "userData", userId), userData);
-  // await addDoc(collection(db, "userData"), userData);
 };
 
 export const getUserData = async (userId) => {
