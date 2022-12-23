@@ -9,6 +9,8 @@ import ProtectedRoutes from "./utils/ProtectedRoutes";
 import { fetchUserData, userActions } from "./features/store/userDataSlice";
 import { fetchUsers } from "./features/Users/usersSlice";
 import ProfilePage from "./pages/ProfilePage";
+import FollowingPage from "./pages/FollowingPage";
+import FollowersPage from "./pages/FollowersPage";
 
 function App() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
@@ -72,7 +74,9 @@ function App() {
     <Routes>
       <Route path="/" element={<ProtectedRoutes />}>
         <Route path="/" element={<HomePage />} />
-        <Route path="/profile/:userId" element={<ProfilePage />} />
+        <Route path="/profile/:userId" element={<ProfilePage />}></Route>
+        <Route path="/profile/:userId/following" element={<FollowingPage />} />
+        <Route path="/profile/:userId/followers" element={<FollowersPage />} />
       </Route>
       <Route
         path="/login"

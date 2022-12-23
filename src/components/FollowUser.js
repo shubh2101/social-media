@@ -12,7 +12,7 @@ import { userActions } from "../features/store/userDataSlice";
 import { updateFollowData, updateUnfollowData } from "../firebase-calls";
 
 const FollowUser = ({ user }) => {
-  const userId = useSelector((state) => state.user.userId);
+  const loggedInUserId = useSelector((state) => state.user.userId);
   const { following } = useSelector((state) => state.user.userData);
   const followUserName = `${user.firstname} ${user.lastname}`;
   const followUserId = user.userId;
@@ -22,7 +22,7 @@ const FollowUser = ({ user }) => {
 
   const followHandler = async () => {
     try {
-      await updateFollowData(userId, followUserId);
+      await updateFollowData(loggedInUserId, followUserId);
       dispatch(userActions.follow(followUserId));
     } catch (error) {
       throw new Error(error);
@@ -31,14 +31,14 @@ const FollowUser = ({ user }) => {
 
   const unfollowHandler = async () => {
     try {
-      await updateUnfollowData(userId, followUserId);
+      await updateUnfollowData(loggedInUserId, followUserId);
       dispatch(userActions.unfollow(followUserId));
     } catch (error) {
       throw new Error(error);
     }
   };
   return (
-    <ListItem>
+    <ListItem disableGutters>
       <ListItemButton
         onClick={() => {
           navigate(`/profile/${followUserId}`);
@@ -46,6 +46,7 @@ const FollowUser = ({ user }) => {
         sx={{
           display: "flex",
           justifyContent: "space-between",
+          paddingLeft: 1,
         }}
       >
         <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -54,7 +55,6 @@ const FollowUser = ({ user }) => {
         </Box>
       </ListItemButton>
       <StyledFollowButton
-        edge="end"
         variant="contained"
         onClick={isFollowing ? unfollowHandler : followHandler}
       >

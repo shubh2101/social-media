@@ -21,8 +21,8 @@ const RightBar = () => {
         <Typography variant="h6" fontWeight="bold">
           Followers
         </Typography>
-        <List>
-          <ListItem>
+        <List dense>
+          <ListItem disableGutters>
             <Box>
               <ListItemButton>
                 <Avatar alt="eden" src="/" />
@@ -39,7 +39,7 @@ const RightBar = () => {
           <Typography variant="h6" fontWeight="bold">
             Who to Follow
           </Typography>
-          <List>
+          <List dense disablePadding>
             {users.map((user) => (
               <FollowUser user={user.data} key={user.data.userId} />
             ))}
