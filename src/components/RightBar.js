@@ -40,13 +40,9 @@ const RightBar = () => {
             Who to Follow
           </Typography>
           <List>
-            <ListItem>
-              <Box>
-                {users.map((user) => (
-                  <FollowUser user={user.data} key={user.data.userId} />
-                ))}
-              </Box>
-            </ListItem>
+            {users.map((user) => (
+              <FollowUser user={user.data} key={user.data.userId} />
+            ))}
           </List>
         </Box>
       </Box>

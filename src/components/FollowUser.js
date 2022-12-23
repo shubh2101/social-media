@@ -1,4 +1,10 @@
-import { Avatar, Box, ListItemButton, Typography } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  ListItem,
+  ListItemButton,
+  Typography,
+} from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { StyledFollowButton } from "../assets/MUI/components/Button";
@@ -32,23 +38,29 @@ const FollowUser = ({ user }) => {
     }
   };
   return (
-    <ListItemButton
-      onClick={() => {
-        navigate(`/profile/${followUserId}`);
-      }}
-      sx={{ display: "flex", justifyContent: "space-between" }}
-    >
-      <Box sx={{ display: "flex", alignItems: "center" }}>
-        <Avatar alt={user.firstname} src="/" />
-        <Typography p={2}> {followUserName}</Typography>
-      </Box>
+    <ListItem>
+      <ListItemButton
+        onClick={() => {
+          navigate(`/profile/${followUserId}`);
+        }}
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          <Avatar alt={user.firstname} src="/" />
+          <Typography p={2}> {followUserName}</Typography>
+        </Box>
+      </ListItemButton>
       <StyledFollowButton
+        edge="end"
         variant="contained"
         onClick={isFollowing ? unfollowHandler : followHandler}
       >
         {isFollowing ? "Unfollow" : "Follow"}
       </StyledFollowButton>
-    </ListItemButton>
+    </ListItem>
   );
 };
 
