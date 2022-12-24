@@ -24,11 +24,11 @@ import { useContext } from "react";
 import { ColorModeContext } from "./DarkMode";
 import { useNavigate } from "react-router-dom";
 
-const SideBar = ({ onOpen, setShowBookmarks }) => {
+const SideBar = ({ onOpen }) => {
   const dispatch = useDispatch();
   const { toggleColorMode } = useContext(ColorModeContext);
   const { firstname, lastname } = useSelector((state) => state.user.userData);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const userId = useSelector((state) => state.user.userId);
 
   const logOutHandler = (event) => {
@@ -48,7 +48,7 @@ const SideBar = ({ onOpen, setShowBookmarks }) => {
       <Box position="fixed">
         <List>
           <ListItem>
-            <ListItemButton>
+            <ListItemButton onClick={() => navigate("/")}>
               <ListItemIcon>
                 <HomeIcon />
               </ListItemIcon>
@@ -64,14 +64,11 @@ const SideBar = ({ onOpen, setShowBookmarks }) => {
             </ListItemButton>
           </ListItem>
           <ListItem>
-            <ListItemButton>
+            <ListItemButton onClick={() => navigate("/bookmarks")}>
               <ListItemIcon>
                 <BookmarkBorderIcon />
               </ListItemIcon>
-              <ListItemText
-                primary="Bookmarks"
-                onClick={() => setShowBookmarks(true)}
-              />
+              <ListItemText primary="Bookmarks" />
             </ListItemButton>
           </ListItem>
           <ListItem>
@@ -108,7 +105,11 @@ const SideBar = ({ onOpen, setShowBookmarks }) => {
           </ListItem>
         </List>
         <Box sx={{ marginTop: "140px" }}>
-          <ListItemButton onClick={() => {navigate( `/profile/${userId}`)}}>
+          <ListItemButton
+            onClick={() => {
+              navigate(`/profile/${userId}`);
+            }}
+          >
             <Avatar alt={firstname} src="/" />
             <Typography p={2}>{firstname + " " + lastname}</Typography>
           </ListItemButton>

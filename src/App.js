@@ -12,6 +12,8 @@ import FollowingPage from "./pages/FollowingPage";
 import FollowersPage from "./pages/FollowersPage";
 import ProfileLayout from "./pages/ProfileLayout";
 import UserPosts from "./components/UserPosts";
+import Bookmarks from "./components/Bookmarks";
+import Timeline from "./components/Timeline";
 
 function App() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
@@ -74,7 +76,10 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<ProtectedRoutes />}>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<HomePage />}>
+          <Route index element={<Timeline />} />
+          <Route path="bookmarks" element={<Bookmarks />} />
+        </Route>
         <Route path="/profile/:userId" element={<ProfileLayout />}>
           <Route index element={<UserPosts />} />
           <Route

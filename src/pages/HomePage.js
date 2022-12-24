@@ -1,15 +1,13 @@
 import { Box, Divider, Stack } from "@mui/material";
 import { useState } from "react";
+import { Outlet } from "react-router-dom";
 import AddPost from "../components/AddPost";
-import Bookmarks from "../components/Bookmarks";
 import NavBar from "../components/NavBar";
 import RightBar from "../components/RightBar";
 import SideBar from "../components/SideBar";
-import Timeline from "../components/Timeline";
 
 const HomePage = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [showBookmarks, setShowBookmarks] = useState(false);
 
   const openHandler = () => {
     return setIsOpen(true);
@@ -28,8 +26,8 @@ const HomePage = () => {
         justifyContent="space-between"
         divider={<Divider orientation="vertical" flexItem />}
       >
-        <SideBar onOpen={openHandler} setShowBookmarks={setShowBookmarks} />
-        {showBookmarks ? <Bookmarks /> : <Timeline />}
+        <SideBar onOpen={openHandler} />
+        {<Outlet />}
         <RightBar />
       </Stack>
     </Box>
