@@ -8,9 +8,10 @@ import { authActions } from "./features/store/authSlice";
 import ProtectedRoutes from "./utils/ProtectedRoutes";
 import { fetchUserData, userActions } from "./features/store/userDataSlice";
 import { fetchUsers } from "./features/Users/usersSlice";
-import ProfilePage from "./pages/ProfilePage";
 import FollowingPage from "./pages/FollowingPage";
 import FollowersPage from "./pages/FollowersPage";
+import ProfileLayout from "./pages/ProfileLayout";
+import UserPosts from "./components/UserPosts";
 
 function App() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
@@ -74,9 +75,17 @@ function App() {
     <Routes>
       <Route path="/" element={<ProtectedRoutes />}>
         <Route path="/" element={<HomePage />} />
-        <Route path="/profile/:userId" element={<ProfilePage />}></Route>
-        <Route path="/profile/:userId/following" element={<FollowingPage />} />
-        <Route path="/profile/:userId/followers" element={<FollowersPage />} />
+        <Route path="/profile/:userId" element={<ProfileLayout />}>
+          <Route index element={<UserPosts />} />
+          <Route
+            path="/profile/:userId/following"
+            element={<FollowingPage />}
+          />
+          <Route
+            path="/profile/:userId/followers"
+            element={<FollowersPage />}
+          />
+        </Route>
       </Route>
       <Route
         path="/login"

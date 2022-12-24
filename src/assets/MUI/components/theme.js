@@ -5,14 +5,14 @@ export const theme = (mode) =>
     palette: {
       mode: mode,
       primary: {
-        main: "#026b77",
+        main: "#003892",
         light: "#348892",
         dark: "#014A53",
       },
       secondary: {
-        main: "#E6B801",
+        main: "#003892",
         light: "#FFCF33",
-        dark: "#B28900",
+        dark: "#003892",
       },
     },
   });

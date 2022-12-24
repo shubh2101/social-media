@@ -1,4 +1,4 @@
-import { Box, List, Paper, Typography } from "@mui/material";
+import { Box, List, Paper } from "@mui/material";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -18,15 +18,8 @@ const FollowersFollowing = ({ connectedPeople }) => {
     dispatch(fetchProfileData(userId));
   }, [userId, dispatch]);
   return (
-    <Box
-      sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
-    >
-      <Box>
-        <Typography variant="h6" fontWeight="bold" mt={8}>
-          `Following List`
-        </Typography>
-      </Box>
-      <Paper elevation={3} sx={{ width: "50%", margin: "auto", marginTop: 8 }}>
+    <Box flex={2} pt={5}>
+      <Paper elevation={3} sx={{ width: "50%" }}>
         <Box>
           <List dense disablePadding>
             {usersReq.map((user) => (

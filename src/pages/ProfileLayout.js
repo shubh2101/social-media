@@ -1,14 +1,13 @@
 import { Box, Stack } from "@mui/material";
 import NavBar from "../components/NavBar";
-import UserPosts from "../components/UserPosts";
 import ProfileModal from "../components/ProfileModal";
 import MenuBar from "../components/ProfileMenu";
 import { useEffect } from "react";
 import { fetchProfileData } from "../features/store/userDataSlice";
 import { useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Outlet, useParams } from "react-router-dom";
 
-const ProfilePage = () => {
+const ProfileLayout = () => {
   const dispatch = useDispatch();
   const { userId } = useParams();
 
@@ -22,10 +21,10 @@ const ProfilePage = () => {
       <MenuBar />
       <Stack direction="row" spacing={1} justifyContent="center">
         <ProfileModal />
-        <UserPosts />
+        <Outlet />
       </Stack>
     </Box>
   );
 };
 
-export default ProfilePage;
+export default ProfileLayout;

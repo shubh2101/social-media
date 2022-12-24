@@ -1,6 +1,6 @@
 import { AppBar, Box, styled, Toolbar } from "@mui/material";
 import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 import { StyledNavButton } from "../assets/MUI/components/Button";
 import CoverProfile from "./CoverProfile";
@@ -28,21 +28,20 @@ const MenuBar = () => {
       >
         <StyledToolbar sx={{ flexGrow: 1 }}>
           <Box sx={{ ml: 6 }}>
-            <StyledNavButton>Posts</StyledNavButton>
             <StyledNavButton
               onClick={() => {
-                navigate(`/profile/${userId}/followers`);
+                navigate(`/profile/${userId}`);
               }}
             >
-              Followers
+              Posts
             </StyledNavButton>
-            <StyledNavButton
-              onClick={() => {
-                navigate(`/profile/${userId}/following`);
-              }}
-            >
-              Following
-            </StyledNavButton>
+
+            <Link to="followers">
+              <StyledNavButton>Followers</StyledNavButton>
+            </Link>
+            <Link to="following">
+              <StyledNavButton>Following</StyledNavButton>
+            </Link>
           </Box>
           <Box position="absolute" right={0}>
             <FollowButton isFollowing={isFollowing} followUserId={userId} />
