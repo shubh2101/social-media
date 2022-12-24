@@ -14,7 +14,17 @@ const initialState = {
     following: [],
   },
   userId: "",
-  profileData: { followers: [], following: [] },
+  profileData: {
+    firstname: "",
+    lastname: "",
+    email: "",
+    dob: "",
+    country: "",
+    username: "",
+    userId: "",
+    followers: [],
+    following: [],
+  },
 };
 export const fetchUserData = createAsyncThunk(
   "userData/fetchUserData",

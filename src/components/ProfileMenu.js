@@ -1,11 +1,10 @@
 import { AppBar, Box, styled, Toolbar } from "@mui/material";
+import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
-import {
-  StyledFollowButton,
-  StyledNavButton,
-} from "../assets/MUI/components/Button";
+import { StyledNavButton } from "../assets/MUI/components/Button";
 import CoverProfile from "./CoverProfile";
+import FollowButton from "./FollowButton";
 
 const StyledToolbar = styled(Toolbar)({
   display: "flex",
@@ -15,6 +14,9 @@ const StyledToolbar = styled(Toolbar)({
 const MenuBar = () => {
   const navigate = useNavigate();
   const { userId } = useParams();
+  const { following } = useSelector((state) => state.user.userData);
+  const isFollowing = following.includes(userId);
+
   return (
     <Box position="relative">
       <CoverProfile />
@@ -43,15 +45,7 @@ const MenuBar = () => {
             </StyledNavButton>
           </Box>
           <Box position="absolute" right={0}>
-            <StyledFollowButton
-              variant="contained"
-              color="secondary"
-              sx={{
-                marginRight: 10,
-              }}
-            >
-              {"Follow"}
-            </StyledFollowButton>
+            <FollowButton isFollowing={isFollowing} followUserId={userId} />
           </Box>
         </StyledToolbar>
       </AppBar>

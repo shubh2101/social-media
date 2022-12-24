@@ -23,7 +23,7 @@ const FollowersFollowing = ({ connectedPeople }) => {
     >
       <Box>
         <Typography variant="h6" fontWeight="bold" mt={8}>
-          Following List
+          `Following List`
         </Typography>
       </Box>
       <Paper elevation={3} sx={{ width: "50%", margin: "auto", marginTop: 8 }}>
