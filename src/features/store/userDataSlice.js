@@ -13,7 +13,7 @@ const initialState = {
     followers: [],
     following: [],
   },
-  userId: "",
+
   profileData: {
     firstname: "",
     lastname: "",
@@ -45,9 +45,6 @@ const userDataSlice = createSlice({
   name: "userData",
   initialState,
   reducers: {
-    setUserId: (state, action) => {
-      state.userId = action.payload;
-    },
     follow: (state, action) => {
       state.userData.following = [...state.userData.following, action.payload];
     },

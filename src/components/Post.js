@@ -31,7 +31,7 @@ const Post = ({ post }) => {
   const postId = post?.id || {};
   const postDate = new Date(dateCreated);
   const bookmarks = useSelector((state) => state.post.bookmarks);
-  const userId = useSelector((state) => state.user.userId);
+  const userId = useSelector((state) => state.auth.userId);
   const dispatch = useDispatch();
   const [likes, setLikes] = useState(null);
 

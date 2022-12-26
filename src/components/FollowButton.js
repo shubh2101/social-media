@@ -5,7 +5,7 @@ import { updateFollowData, updateUnfollowData } from "../firebase-calls";
 
 const FollowButton = ({isFollowing, followUserId}) => {
   const dispatch = useDispatch();
-  const loggedInUserId = useSelector((state) => state.user.userId);
+  const loggedInUserId = useSelector((state) => state.auth.userId);
   const followHandler = async () => {
     try {
       await updateFollowData(loggedInUserId, followUserId);

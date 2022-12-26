@@ -29,7 +29,7 @@ const SideBar = ({ onOpen }) => {
   const { toggleColorMode } = useContext(ColorModeContext);
   const { firstname, lastname } = useSelector((state) => state.user.userData);
   const navigate = useNavigate();
-  const userId = useSelector((state) => state.user.userId);
+  const userId = useSelector((state) => state.auth.userId);
 
   const logOutHandler = (event) => {
     event.preventDefault();

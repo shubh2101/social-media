@@ -59,8 +59,8 @@ const AddPost = ({ isOpen, onClose }) => {
       >
         <Box
           width={500}
-          height={300}
-          bgcolor={"white"}
+          height={320}
+          bgcolor={"background.default"}
           color={"text.primary"}
           p={3}
           borderRadius={5}
@@ -90,7 +90,6 @@ const AddPost = ({ isOpen, onClose }) => {
           />
           <Stack
             direction="row"
-            mt={2}
             mb={2}
             alignItems="center"
             justifyContent="space-between"

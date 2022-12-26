@@ -6,7 +6,7 @@ import Post from "./Post";
 
 const Timeline = () => {
   const posts = useSelector((state) => state.post.posts);
-  const userId = useSelector((state) => state.user.userId);
+  const userId = useSelector((state) => state.auth.userId);
   const { following } = useSelector((state) => state.user.userData);
   const dispatch = useDispatch();
 

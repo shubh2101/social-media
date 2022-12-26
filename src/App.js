@@ -4,9 +4,9 @@ import LogInPage from "./pages/LogInPage";
 import SignUpPage from "./pages/SignUpPage";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { authActions } from "./features/store/authSlice";
+import { authActions, validateToken } from "./features/store/authSlice";
 import ProtectedRoutes from "./utils/ProtectedRoutes";
-import { fetchUserData, userActions } from "./features/store/userDataSlice";
+import { fetchUserData } from "./features/store/userDataSlice";
 import { fetchUsers } from "./features/Users/usersSlice";
 import FollowingPage from "./pages/FollowingPage";
 import FollowersPage from "./pages/FollowersPage";
@@ -17,9 +17,8 @@ import Timeline from "./components/Timeline";
 
 function App() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const userId = useSelector((state) => state.auth.userId);
   const currentToken = useSelector((state) => state.auth.token);
-  const userId = useSelector((state) => state.user.userId);
-  const API_KEY = process.env.REACT_APP_apiKey;
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -42,36 +41,10 @@ function App() {
 
   // Validating token and getting User-Id
   useEffect(() => {
-    currentToken &&
-      fetch(
-        `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${API_KEY}`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            idToken: currentToken,
-          }),
-        }
-      )
-        .then((response) => {
-          if (response.ok) {
-            return response.json();
-          } else {
-            return response.json().then((data) => {
-              let errorMessage = "HTTP request failed!";
-              if (data.error.message) {
-                errorMessage = data.error.message;
-              }
-              dispatch(authActions.loggedOut());
-              throw new Error(errorMessage);
-            });
-          }
-        })
-        .then((data) => {
-          const userId = data.users[0].localId;
-          dispatch(userActions.setUserId(userId));
-        });
-  }, [currentToken, dispatch, API_KEY]);
+    if (currentToken) {
+      dispatch(validateToken(currentToken));
+    }
+  }, [currentToken, dispatch]);
 
   return (
     <Routes>

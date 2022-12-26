@@ -1,11 +1,30 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { signOut } from "firebase/auth";
-import { auth } from "../../firebase-config";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   token: localStorage.getItem("token"),
   isLoggedIn: !!localStorage.getItem("token"),
+  userId: "",
 };
+const API_KEY = process.env.REACT_APP_apiKey;
+
+export const validateToken = createAsyncThunk(
+  "authentication/validateToken",
+  async (currentToken) => {
+    const response = await fetch(
+      `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${API_KEY}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          idToken: currentToken,
+        }),
+      }
+    );
+    const data = await response.json();
+    console.log(data.users[0].localId);
+    return data.users[0].localId;
+  }
+);
 
 const authSlice = createSlice({
   name: "authentication",
@@ -14,7 +33,6 @@ const authSlice = createSlice({
     loggedOut: (state) => {
       state.token = null;
       localStorage.removeItem("token");
-      signOut(auth);
     },
     loggedIn: (state, action) => {
       state.token = action.payload;
@@ -22,6 +40,15 @@ const authSlice = createSlice({
     },
     userLoggedIn: (state) => {
       state.isLoggedIn = !!state.token;
+    },
+  },
+  extraReducers: {
+    [validateToken.rejected]: (state) => {
+      state.token = null;
+      localStorage.removeItem("token");
+    },
+    [validateToken.fulfilled]: (state, action) => {
+      state.userId = action.payload;
     },
   },
 });
