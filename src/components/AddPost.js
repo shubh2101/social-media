@@ -37,9 +37,10 @@ const AddPost = ({ isOpen, onClose }) => {
   const { firstname, lastname, username, userId, following } = useSelector(
     (state) => state.user.userData
   );
+  let comments = [];
 
   const addPostHandler = async () => {
-    addPostData(postText, firstname, lastname, username, userId);
+    addPostData(postText, firstname, lastname, username, userId, comments);
     dispatch(fetchPosts({ following, userId }));
     setPostText("");
     onClose();

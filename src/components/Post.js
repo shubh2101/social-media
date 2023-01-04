@@ -12,10 +12,10 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   BookmarkBorderIcon,
   FavoriteIcon,
-  ModeCommentIcon,
   MoreVertIcon,
   BookmarkedIcon,
   FavoriteBorderIcon,
+  CommentIcon,
 } from "../assets/MUI/icons";
 import { postActions } from "../features/store/postSlice";
 import {
@@ -25,6 +25,7 @@ import {
   deleteLike,
   getLikes,
 } from "../firebase-calls";
+import Comments from "./comments/Comments";
 
 const Post = ({ post }) => {
   const { postText, dateCreated, firstname, lastname } = post?.data || {};
@@ -34,6 +35,7 @@ const Post = ({ post }) => {
   const userId = useSelector((state) => state.auth.userId);
   const dispatch = useDispatch();
   const [likes, setLikes] = useState(null);
+  const [isCommenting, setIsCommenting] = useState(false);
 
   const isBookmarked = bookmarks?.find((bm) => bm.postId === post.id);
   const isLiked = likes?.find((like) => like.userId === userId);
@@ -95,6 +97,9 @@ const Post = ({ post }) => {
     const deletePostId = await deleteLike(post.id, userId);
     setLikes((prev) => prev.filter((like) => like.likeId !== deletePostId));
   };
+  const addCommentHandler = () => {
+    isCommenting ? setIsCommenting(false) : setIsCommenting(true);
+  };
 
   return (
     <Card
@@ -145,8 +150,8 @@ const Post = ({ post }) => {
             </Typography>
           )}
         </CardActions>
-        <IconButton aria-label="comment">
-          <ModeCommentIcon />
+        <IconButton aria-label="comment" onClick={addCommentHandler}>
+          <CommentIcon />
         </IconButton>
         <IconButton
           aria-label="bookmark"
@@ -159,6 +164,7 @@ const Post = ({ post }) => {
           )}
         </IconButton>
       </CardActions>
+      {isCommenting && <Comments post={post} />}
     </Card>
   );
 };

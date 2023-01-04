@@ -7,7 +7,6 @@ import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import NightlightIcon from "@mui/icons-material/Nightlight";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import ModeCommentIcon from "@mui/icons-material/ModeComment";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
 import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
@@ -18,7 +17,8 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import BookmarkedIcon from "@mui/icons-material/BookmarkOutlined";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import LocationIcon from "@mui/icons-material/LocationOnOutlined";
-import DobIcon from '@mui/icons-material/CakeOutlined';
+import DobIcon from "@mui/icons-material/CakeOutlined";
+import CommentIcon from "@mui/icons-material/ModeCommentOutlined";
 
 export {
   MailIcon,
@@ -30,7 +30,6 @@ export {
   AddCircleOutlineIcon,
   NightlightIcon,
   FavoriteIcon,
-  ModeCommentIcon,
   MoreVertIcon,
   InsertPhotoIcon,
   EmojiEmotionsIcon,
@@ -42,4 +41,5 @@ export {
   FavoriteBorderIcon,
   LocationIcon,
   DobIcon,
+  CommentIcon,
 };

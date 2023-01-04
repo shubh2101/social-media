@@ -9,6 +9,7 @@ const initialFormValues = {
   country: "",
   password: "",
   confirmpassword: "",
+  comment: "",
 };
 const useInput = (validate) => {
   const [values, setValues] = useState(initialFormValues);

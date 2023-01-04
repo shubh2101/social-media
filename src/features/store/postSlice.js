@@ -41,6 +41,20 @@ const postSlice = createSlice({
         (bm) => bm.bookmarkId !== action.payload
       );
     },
+    addComment: (state, action) => {
+      state.posts = state.posts.map((post) => {
+        if (post.id === action.payload.id) {
+          return {
+            ...post,
+            data: {
+              ...post.data,
+              comments: [...post.data.comments, action.payload.commentData],
+            },
+          };
+        }
+        return post;
+      });
+    },
   },
   extraReducers: {
     [fetchBookmarksData.fulfilled]: (state, action) => {

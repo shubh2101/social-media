@@ -54,7 +54,8 @@ export const addPostData = async (
   firstname,
   lastname,
   username,
-  userId
+  userId,
+  comments
 ) => {
   try {
     await addDoc(collection(db, "posts"), {
@@ -64,6 +65,7 @@ export const addPostData = async (
       lastname,
       username,
       userId,
+      comments,
     });
   } catch (e) {
     console.error("Error adding Post doc: ", e);
@@ -81,7 +83,8 @@ export const getPosts = async () => {
 
 export const getAllUsers = async (userId) => {
   let users = [];
-  const q = query(collection(db, "userData"), where("userId", "!=", userId));
+  const q = query(collection(db, "userData"));
+  // const q = query(collection(db, "userData"), where("userId", "!=", userId));
   const querySnapshot = await getDocs(q);
   querySnapshot.forEach((doc) => {
     users.push({ data: doc.data() });
@@ -182,5 +185,13 @@ export const updateUnfollowData = async (userId, followUserId) => {
   });
   await updateDoc(followerRef, {
     followers: arrayRemove(userId),
+  });
+};
+
+export const updateCommentsData = async (postId, commentData) => {
+  const CommentRef = doc(db, "posts", postId);
+
+  await updateDoc(CommentRef, {
+    comments: arrayUnion(commentData),
   });
 };

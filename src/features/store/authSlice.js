@@ -1,11 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
+const API_KEY = process.env.REACT_APP_apiKey;
 const initialState = {
   token: localStorage.getItem("token"),
   isLoggedIn: !!localStorage.getItem("token"),
   userId: "",
 };
-const API_KEY = process.env.REACT_APP_apiKey;
 
 export const validateToken = createAsyncThunk(
   "authentication/validateToken",
@@ -21,7 +21,6 @@ export const validateToken = createAsyncThunk(
       }
     );
     const data = await response.json();
-    console.log(data.users[0].localId);
     return data.users[0].localId;
   }
 );
