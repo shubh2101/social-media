@@ -1,3 +1,4 @@
+import { PlayLessonTwoTone } from "@mui/icons-material";
 import {
   Avatar,
   Card,
@@ -28,7 +29,8 @@ import {
 import Comments from "./comments/Comments";
 
 const Post = ({ post }) => {
-  const { postText, dateCreated, firstname, lastname } = post?.data || {};
+  const { postText, dateCreated, firstname, lastname, comments } =
+    post?.data || {};
   const postId = post?.id || {};
   const postDate = new Date(dateCreated);
   const bookmarks = useSelector((state) => state.post.bookmarks);
@@ -39,7 +41,11 @@ const Post = ({ post }) => {
 
   const isBookmarked = bookmarks?.find((bm) => bm.postId === post.id);
   const isLiked = likes?.find((like) => like.userId === userId);
+  const isCommented = comments?.find(
+    (comment) => comment.commentedBy === userId
+  );
   const likeCountColor = isLiked ? "#e91e63" : "text.secondary";
+  const commentCountColor = isCommented ? "#2196f3" : "text.secondary";
 
   const formatPostDate = (postDate) => {
     const daysPassed = Math.round(
@@ -150,9 +156,16 @@ const Post = ({ post }) => {
             </Typography>
           )}
         </CardActions>
-        <IconButton aria-label="comment" onClick={addCommentHandler}>
-          <CommentIcon />
-        </IconButton>
+        <CardActions>
+          <IconButton aria-label="comment" onClick={addCommentHandler}>
+            <CommentIcon />
+          </IconButton>
+          {comments !== null && comments.length > 0 && (
+            <Typography varient="body2" color={commentCountColor}>
+              {comments?.length}
+            </Typography>
+          )}
+        </CardActions>
         <IconButton
           aria-label="bookmark"
           onClick={isBookmarked ? deleteBookmarkHandler : addBookmarkHandler}
