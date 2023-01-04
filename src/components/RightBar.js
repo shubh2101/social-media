@@ -11,6 +11,10 @@ import FollowUser from "./FollowUser";
 
 const RightBar = () => {
   const users = useSelector((state) => state.users.users);
+  const loggedInUserId = useSelector((state) => state.auth.userId);
+  const otherUsers = users.filter(
+    (user) => user.data.userId !== loggedInUserId
+  );
   return (
     <Box
       flex={1}
@@ -40,7 +44,7 @@ const RightBar = () => {
             Who to Follow
           </Typography>
           <List dense disablePadding>
-            {users.map((user) => (
+            {otherUsers.map((user) => (
               <FollowUser user={user.data} key={user.data.userId} />
             ))}
           </List>
