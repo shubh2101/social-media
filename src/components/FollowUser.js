@@ -14,6 +14,8 @@ const FollowUser = ({ user }) => {
   const followUserName = `${user.firstname} ${user.lastname}`;
   const followUserId = user.userId;
   const isFollowing = following.includes(followUserId);
+  const loggedInUserId = useSelector((state) => state.auth.userId);
+
   const navigate = useNavigate();
 
   return (
@@ -33,7 +35,9 @@ const FollowUser = ({ user }) => {
           <Typography p={2}> {followUserName}</Typography>
         </Box>
       </ListItemButton>
-      <FollowButton isFollowing={isFollowing} followUserId={followUserId} />
+      {followUserId !== loggedInUserId && (
+        <FollowButton isFollowing={isFollowing} followUserId={followUserId} />
+      )}
     </ListItem>
   );
 };

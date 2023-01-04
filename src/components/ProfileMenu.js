@@ -16,6 +16,7 @@ const MenuBar = () => {
   const { userId } = useParams();
   const { following } = useSelector((state) => state.user.userData);
   const isFollowing = following.includes(userId);
+  const loggedInUserId = useSelector((state) => state.auth.userId);
 
   return (
     <Box position="relative">
@@ -44,7 +45,9 @@ const MenuBar = () => {
             </Link>
           </Box>
           <Box position="absolute" right={0}>
-            <FollowButton isFollowing={isFollowing} followUserId={userId} />
+            {loggedInUserId !== userId && (
+              <FollowButton isFollowing={isFollowing} followUserId={userId} />
+            )}
           </Box>
         </StyledToolbar>
       </AppBar>
