@@ -55,7 +55,8 @@ export const addPostData = async (
   lastname,
   username,
   userId,
-  comments
+  comments,
+  imgURL
 ) => {
   try {
     await addDoc(collection(db, "posts"), {
@@ -66,6 +67,7 @@ export const addPostData = async (
       username,
       userId,
       comments,
+      imgURL,
     });
   } catch (e) {
     console.error("Error adding Post doc: ", e);

@@ -1,10 +1,10 @@
-import { PlayLessonTwoTone } from "@mui/icons-material";
 import {
   Avatar,
   Card,
   CardActions,
   CardContent,
   CardHeader,
+  CardMedia,
   IconButton,
   Typography,
 } from "@mui/material";
@@ -29,7 +29,7 @@ import {
 import Comments from "./comments/Comments";
 
 const Post = ({ post }) => {
-  const { postText, dateCreated, firstname, lastname, comments } =
+  const { postText, dateCreated, firstname, lastname, comments, imgURL } =
     post?.data || {};
   const postId = post?.id || {};
   const postDate = new Date(dateCreated);
@@ -122,13 +122,13 @@ const Post = ({ post }) => {
         title={firstname + " " + lastname}
         subheader={formatPostDate(postDate)}
       />
-      {/* <CardMedia
+      <CardMedia
         sx={{ objectFit: "contain", maxHeight: 400 }}
         component="img"
         height="20%"
-        image="https://d3nfwcxd527z59.cloudfront.net/content/uploads/2021/10/11111531/jose-mourinho-chelsea-2005-1104x630.jpg"
+        image={imgURL}
         alt="mourinho"
-      /> */}
+      />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
           {postText}
