@@ -10,7 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import { amber } from "@mui/material/colors";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   EmojiEmotionsIcon,
@@ -19,8 +19,7 @@ import {
 } from "../assets/MUI/icons";
 import { fetchPosts } from "../features/store/postSlice";
 import { addPostData } from "../firebase-calls";
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import { storage } from "../firebase-config";
+import useUploadImg from "../hooks/useUploadImg";
 
 const SytledModal = styled(Modal)({
   display: "flex",
@@ -35,41 +34,13 @@ const Icons = styled(Box)(() => ({
 
 const AddPost = ({ isOpen, onClose }) => {
   const [postText, setPostText] = useState("");
-  const [imgURL, setImgURL] = useState("");
-  const [file, setFile] = useState("");
-  const [perc, setPerc] = useState(null);
+  const [file, setFile] = useState(null);
   const dispatch = useDispatch();
   const { firstname, lastname, username, userId, following } = useSelector(
     (state) => state.user.userData
   );
+  const { imgURL, percent } = useUploadImg(file);
   let comments = [];
-
-  const UploadImg = useCallback(() => {
-    const storageRef = ref(storage, file.name);
-    const uploadTask = uploadBytesResumable(storageRef, file);
-
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        const progress =
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        setPerc(progress);
-      },
-      (error) => {
-        console.log(error);
-      },
-
-      () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          setImgURL(downloadURL);
-        });
-      }
-    );
-  }, [file]);
-
-  useEffect(() => {
-    file && UploadImg();
-  }, [file, UploadImg]);
 
   const addPostHandler = async () => {
     addPostData(
@@ -156,7 +127,7 @@ const AddPost = ({ isOpen, onClose }) => {
             </Icons>
             <Button
               variant="contained"
-              disabled={perc !== null && perc < 100}
+              disabled={percent !== null && percent < 100}
               onClick={addPostHandler}
             >
               Post
