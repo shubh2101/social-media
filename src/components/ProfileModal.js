@@ -13,7 +13,7 @@ import { updateProfilePic } from "../firebase-calls";
 import useUploadImg from "../hooks/useUploadImg";
 
 const ProfileModal = () => {
-  const { firstname, lastname, dob, country, profilePicURL } = useSelector(
+  const { firstname, lastname, dob, country, profilePicURL, bio } = useSelector(
     (state) => state.user.profileData
   );
   const userId = useSelector((state) => state.auth.userId);
@@ -66,7 +66,7 @@ const ProfileModal = () => {
             color="text.secondary"
             sx={{ textAlign: "center" }}
           >
-            "Add a Bio"
+           { bio ||"Add a Bio"}
           </Typography>
           <Box
             sx={{

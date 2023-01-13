@@ -52,7 +52,7 @@ export const updateUserdata = async (
   country,
   profilePicURL,
   coverPicURL,
-  // bio,
+  bio,
   userId
 ) => {
   await updateDoc(doc(db, "userData", userId), {
@@ -62,7 +62,7 @@ export const updateUserdata = async (
     country,
     profilePicURL,
     coverPicURL,
-    // bio,
+    bio,
   });
 };
 export const updateProfilePic = async (userId, profilePicURL) => {

@@ -34,7 +34,7 @@ const EditProfileModal = ({ isOpen, closeHandler }) => {
     coverPicURL: prevCoverURL,
     bio,
   } = useSelector((state) => state.user.userData);
-  
+
   const userId = useSelector((state) => state.auth.userId);
   const [profileImg, setprofileImg] = useState(null);
   const [coverImg, setcoverImg] = useState(null);
@@ -75,7 +75,7 @@ const EditProfileModal = ({ isOpen, closeHandler }) => {
   }, [getAllCountries]);
 
   const updateDetailesHandler = async () => {
-    const { firstname, lastname, dob, country } = values;
+    const { firstname, lastname, dob, country , bio} = values;
     await updateUserdata(
       firstname,
       lastname,
@@ -83,6 +83,7 @@ const EditProfileModal = ({ isOpen, closeHandler }) => {
       country,
       profilePicURL,
       coverPicURL,
+      bio,
       userId
     );
     closeHandler();
@@ -205,15 +206,15 @@ const EditProfileModal = ({ isOpen, closeHandler }) => {
           </Box>
           <Box>
             <TextField
-              type="bio"
+              type="text"
               name="bio"
               label="Bio"
               variant="outlined"
               margin="normal"
               size="small"
               fullWidth
-              onChange={valueChangeHandler}
               value={values.bio}
+              onChange={valueChangeHandler}
             />
           </Box>
           <TextField
