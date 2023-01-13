@@ -12,9 +12,10 @@ import {
   Typography,
 } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import useInput from "../features/Authentication/useInput";
 import Validate from "../features/Authentication/validateInput";
+import { fetchProfileData } from "../features/store/userDataSlice";
 import { updateUserdata } from "../firebase-calls";
 import useUploadImg from "../hooks/useUploadImg";
 import getCountries from "./Countries";
@@ -38,6 +39,7 @@ const EditProfileModal = ({ isOpen, closeHandler }) => {
   const userId = useSelector((state) => state.auth.userId);
   const [profileImg, setprofileImg] = useState(null);
   const [coverImg, setcoverImg] = useState(null);
+  const dispatch = useDispatch();
 
   const { imgURL: profilePicURL, percent: profilePicPercent } = useUploadImg(
     profileImg,
@@ -75,7 +77,7 @@ const EditProfileModal = ({ isOpen, closeHandler }) => {
   }, [getAllCountries]);
 
   const updateDetailesHandler = async () => {
-    const { firstname, lastname, dob, country , bio} = values;
+    const { firstname, lastname, dob, country, bio } = values;
     await updateUserdata(
       firstname,
       lastname,
@@ -86,6 +88,7 @@ const EditProfileModal = ({ isOpen, closeHandler }) => {
       bio,
       userId
     );
+    dispatch(fetchProfileData(userId));
     closeHandler();
   };
 

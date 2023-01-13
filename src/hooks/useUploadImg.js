@@ -2,8 +2,8 @@ import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { useEffect, useState } from "react";
 import { storage } from "../firebase-config";
 
-const useUploadImg = (file, prevURL) => {
-  const [imgURL, setImgURL] = useState(prevURL || "");
+const useUploadImg = (file, prevURL = "") => {
+  const [imgURL, setImgURL] = useState(prevURL);
   const [percent, setPercent] = useState(null);
 
   useEffect(() => {
