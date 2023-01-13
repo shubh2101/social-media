@@ -2,13 +2,13 @@ import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { useEffect, useState } from "react";
 import { storage } from "../firebase-config";
 
-const useUploadImg = (file) => {
-  const [imgURL, setImgURL] = useState("");
+const useUploadImg = (file, prevURL) => {
+  const [imgURL, setImgURL] = useState(prevURL || "");
   const [percent, setPercent] = useState(null);
 
   useEffect(() => {
     if (file === null) return;
-    const storageRef = ref(storage, file.name);
+    const storageRef = ref(storage, `images/${file.name}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
     uploadTask.on(
       "state_changed",

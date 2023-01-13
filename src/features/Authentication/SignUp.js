@@ -47,6 +47,9 @@ const SignUp = () => {
   const followers = [];
   const following = [];
   const username = `${firstname}${lastname}`;
+  let profilePicURL = "";
+  let coverPicURL = "";
+  let bio = "";
 
   const getAllCountries = useCallback(async () => {
     const data = await getCountries();
@@ -76,7 +79,10 @@ const SignUp = () => {
         username,
         userId,
         followers,
-        following
+        following,
+        coverPicURL,
+        bio,
+        profilePicURL
       );
     } catch (error) {
       let errorMessage = "failed to sign up !";
@@ -164,6 +170,7 @@ const SignUp = () => {
           variant="outlined"
           margin="normal"
           size="small"
+          InputLabelProps={{ shrink: true }}
           onChange={valueChangeHandler}
           value={values.dob}
         />

@@ -1,17 +1,6 @@
 import { useState } from "react";
 
-const initialFormValues = {
-  firstname: "",
-  lastname: "",
-  email: "",
-  dob: "1996-01-01",
-  gender: "female",
-  country: "",
-  password: "",
-  confirmpassword: "",
-  comment: "",
-};
-const useInput = (validate) => {
+const useInput = (validate, initialFormValues = "") => {
   const [values, setValues] = useState(initialFormValues);
   const [errors, setErrors] = useState("");
   const [passwordShow, setPasswordShow] = useState(false);

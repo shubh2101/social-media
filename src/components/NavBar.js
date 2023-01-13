@@ -12,6 +12,7 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
+import { useSelector } from "react-redux";
 
 const Icons = styled(Box)(() => ({
   alignItems: "center",
@@ -25,6 +26,7 @@ const StyledToolbar = styled(Toolbar)({
 });
 
 const NavBar = () => {
+  const { profilePicURL } = useSelector((state) => state.user.userData);
   return (
     <AppBar position="sticky" color="primary" enableColorOnDark>
       <StyledToolbar>
@@ -45,10 +47,7 @@ const NavBar = () => {
           <Badge badgeContent={17} color="error">
             <NotificationsIcon />
           </Badge>
-          <Avatar
-            alt="Jose"
-            src="https://editorial.uefa.com/resources/01de-0e7311a0c694-24ea806e4996-1000/format/wide1/jose_mourinho_wants_his_inter_side_to_follow_on_from_their_weekend_victory.jpeg?imwidth=2048"
-          />
+          <Avatar alt="Jose" src={profilePicURL} />
         </Icons>
       </StyledToolbar>
     </AppBar>

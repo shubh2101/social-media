@@ -1,28 +1,63 @@
-import { Avatar, Box, Card, CardContent, Typography } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Card,
+  CardContent,
+  IconButton,
+  Typography,
+} from "@mui/material";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { DobIcon, LocationIcon } from "../assets/MUI/icons";
+import { updateProfilePic } from "../firebase-calls";
+import useUploadImg from "../hooks/useUploadImg";
 
 const ProfileModal = () => {
-  const { firstname, lastname, dob, country } = useSelector(
+  const { firstname, lastname, dob, country, profilePicURL } = useSelector(
     (state) => state.user.profileData
   );
+  const userId = useSelector((state) => state.auth.userId);
+  const [profileImg, setprofileImg] = useState(null);
+  const { imgURL } = useUploadImg(profileImg);
+
+  useEffect(() => {
+    if (imgURL) {
+      updateProfilePic(userId, imgURL);
+    }
+  }, [imgURL, userId]);
 
   return (
     <Box flex={1} p={2} position="relative" top={-100} sx={{ ml: 6 }}>
       <Card sx={{ maxWidth: 300, borderRadius: "20px" }} elevation={8}>
-        <Box p={2}>
-          <Avatar
-            src="https://editorial.uefa.com/resources/01de-0e7311a0c694-24ea806e4996-1000/format/wide1/jose_mourinho_wants_his_inter_side_to_follow_on_from_their_weekend_victory.jpeg?imwidth=2048"
-            alt={firstname}
-            sx={{ width: 100, height: 100, display: "block", margin: "auto" }}
-          />
+        <Box
+          p={2}
+          sx={{ width: "50%", height: 100, display: "block", margin: "auto" }}
+        >
+          <IconButton aria-label="upload picture" component="label">
+            <input
+              hidden
+              accept="image/*"
+              type="file"
+              onChange={(event) => {
+                setprofileImg(event.target.files[0]);
+              }}
+            />
+            <Avatar
+              src={imgURL || profilePicURL}
+              alt={firstname}
+              sx={{
+                width: 100,
+                height: 100,
+              }}
+            />
+          </IconButton>
         </Box>
         <CardContent>
           <Typography
             gutterBottom
             variant="h5"
             component="div"
-            sx={{ textAlign: "center", fontWeight: "bold" }}
+            sx={{ textAlign: "center", fontWeight: "bold", pt: 2 }}
           >
             {firstname + " " + lastname}
           </Typography>

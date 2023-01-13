@@ -1,6 +1,8 @@
 import { Box } from "@mui/material";
+import { useSelector } from "react-redux";
 
 const CoverProfile = () => {
+  const { coverPicURL } = useSelector((state) => state.user.profileData);
   return (
     <Box
       component="img"
@@ -9,7 +11,7 @@ const CoverProfile = () => {
         width: "100%",
       }}
       alt="The house from the offer."
-      src="https://wallpapercave.com/wp/wp4286413.jpg"
+      src={coverPicURL || "https://wallpapercave.com/wp/wp4286413.jpg"}
     />
   );
 };

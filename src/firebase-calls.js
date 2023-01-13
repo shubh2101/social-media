@@ -23,7 +23,10 @@ export const addUserData = async (
   username,
   userId,
   followers,
-  following
+  following,
+  profilePicURL,
+  coverPicURL,
+  bio
 ) => {
   const userData = {
     firstname,
@@ -35,8 +38,37 @@ export const addUserData = async (
     userId,
     followers,
     following,
+    profilePicURL,
+    coverPicURL,
+    bio,
   };
   await setDoc(doc(db, "userData", userId), userData);
+};
+
+export const updateUserdata = async (
+  firstname,
+  lastname,
+  dob,
+  country,
+  profilePicURL,
+  coverPicURL,
+  // bio,
+  userId
+) => {
+  await updateDoc(doc(db, "userData", userId), {
+    firstname,
+    lastname,
+    dob,
+    country,
+    profilePicURL,
+    coverPicURL,
+    // bio,
+  });
+};
+export const updateProfilePic = async (userId, profilePicURL) => {
+  await updateDoc(doc(db, "userData", userId), {
+    profilePicURL,
+  });
 };
 
 export const getUserData = async (userId) => {

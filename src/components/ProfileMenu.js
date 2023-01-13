@@ -67,7 +67,7 @@ const MenuBar = () => {
           </StyledToolbar>
         </AppBar>
       </Box>
-      <EditProfileModal isOpen={isOpen} closeHandler={closeHandler} />
+      <EditProfileModal isOpen={isOpen} closeHandler={closeHandler} openHandler={openHandler} />
     </div>
   );
 };
