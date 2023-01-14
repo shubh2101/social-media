@@ -1,55 +1,62 @@
-import { alpha, InputBase, styled } from "@mui/material";
-import { SearchIcon } from "../assets/MUI/icons";
-
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.35),
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.45),
-  },
-  marginRight: theme.spacing(2),
-  width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(3),
-    width: "auto",
-  },
-}));
-
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: "20ch",
-    },
-  },
-}));
+import {
+  Autocomplete,
+  Avatar,
+  ListItem,
+  ListItemAvatar,
+  ListItemButton,
+  ListItemText,
+  TextField,
+} from "@mui/material";
+import { Box } from "@mui/system";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const SearchBar = () => {
+  const users = useSelector((state) => state.users.users);
+  const [inputValue, setinputValue] = useState("");
+  const options = users.map((user) => user.data);
+  const navigate = useNavigate();
+
   return (
-    <Search>
-      <SearchIconWrapper>
-        <SearchIcon />
-      </SearchIconWrapper>
-      <StyledInputBase
-        placeholder="Search…"
-        inputProps={{ "aria-label": "search" }}
-      />
-    </Search>
+    <Autocomplete
+      freeSolo
+      autoHighlight
+      sx={{ width: 300 }}
+      id="search"
+      name="search"
+      options={options}
+      getOptionLabel={(option) => `${option.firstname} ${option.lastname}`}
+      inputValue={inputValue}
+      onInputChange={(e, value) => setinputValue(value)}
+      open={inputValue.length > 0}
+      renderInput={(params, option) => (
+        <TextField {...params} key={option} label="Search..." />
+      )}
+      renderOption={(props, option) => (
+        <ListItem disableGutters>
+          <ListItemButton
+            onClick={() => {
+              navigate(`/profile/${option.userId}`);
+            }}
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              paddingLeft: 1,
+            }}
+          >
+            <Box sx={{ display: "flex", alignItems: "center", px: 2 }}>
+              <ListItemAvatar>
+                <Avatar alt={option.firstname} src={option.profilePicURL} />
+              </ListItemAvatar>
+              <ListItemText
+                primary={`${option.firstname} ${option.lastname}`}
+              />
+            </Box>
+          </ListItemButton>
+        </ListItem>
+      )}
+    />
   );
 };
 
