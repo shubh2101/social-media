@@ -13,6 +13,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useSelector } from "react-redux";
+import SearchBar from "./SearchBar";
 
 const Icons = styled(Box)(() => ({
   alignItems: "center",
@@ -39,7 +40,7 @@ const NavBar = () => {
             La familia
           </Typography>
         </Badge>
-
+        <SearchBar />
         <Icons sx={{ px: 10 }}>
           <Badge badgeContent={4} color="error">
             <MailIcon />

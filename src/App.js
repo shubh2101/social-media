@@ -1,7 +1,7 @@
 import { Route, Routes, Navigate } from "react-router-dom";
-import HomePage from "./pages/HomePage";
 import LogInPage from "./pages/LogInPage";
 import SignUpPage from "./pages/SignUpPage";
+import HomePage from "./pages/HomePage";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions, validateToken } from "./features/store/authSlice";
@@ -48,8 +48,9 @@ function App() {
 
   return (
     <Routes>
+      <Route path="/" element={<Navigate to="/login" />}/>
       <Route path="/" element={<ProtectedRoutes />}>
-        <Route path="/" element={<HomePage />}>
+        <Route path="/home" element={<HomePage />}>
           <Route index element={<Timeline />} />
           <Route path="bookmarks" element={<Bookmarks />} />
         </Route>
@@ -67,7 +68,7 @@ function App() {
       </Route>
       <Route
         path="/login"
-        element={!isLoggedIn ? <LogInPage /> : <Navigate to="/" />}
+        element={!isLoggedIn ? <LogInPage /> : <Navigate to="/home" />}
       />
       <Route path="/signup" element={<SignUpPage />} />
       <Route path="*" element={<Navigate to="/" />} />
