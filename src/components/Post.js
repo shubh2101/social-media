@@ -122,13 +122,15 @@ const Post = ({ post }) => {
         title={firstname + " " + lastname}
         subheader={formatPostDate(postDate)}
       />
-      <CardMedia
-        sx={{ objectFit: "contain", maxHeight: 400 }}
-        component="img"
-        height="20%"
-        image={imgURL}
-        alt="mourinho"
-      />
+      {imgURL && (
+        <CardMedia
+          sx={{ objectFit: "contain", maxHeight: 400 }}
+          component="img"
+          height="20%"
+          image={imgURL}
+          alt={`${firstname}'s post`}
+        />
+      )}
       <CardContent>
         <Typography variant="body2" color="text.secondary">
           {postText}

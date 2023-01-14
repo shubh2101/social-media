@@ -48,7 +48,7 @@ const SideBar = ({ onOpen }) => {
       <Box position="fixed">
         <List>
           <ListItem>
-            <ListItemButton onClick={() => navigate("/")}>
+            <ListItemButton onClick={() => navigate("/home")}>
               <ListItemIcon>
                 <HomeIcon />
               </ListItemIcon>
@@ -56,7 +56,7 @@ const SideBar = ({ onOpen }) => {
             </ListItemButton>
           </ListItem>
           <ListItem>
-            <ListItemButton>
+            <ListItemButton onClick={() => navigate("/explore")}>
               <ListItemIcon>
                 <ExploreIcon />
               </ListItemIcon>
