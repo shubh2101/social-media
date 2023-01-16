@@ -27,7 +27,9 @@ import { useNavigate } from "react-router-dom";
 const SideBar = ({ onOpen }) => {
   const dispatch = useDispatch();
   const { toggleColorMode } = useContext(ColorModeContext);
-  const { firstname, lastname, profilePicURL} = useSelector((state) => state.user.userData);
+  const { firstname, lastname, profilePicURL } = useSelector(
+    (state) => state.user.userData
+  );
   const navigate = useNavigate();
   const userId = useSelector((state) => state.auth.userId);
 

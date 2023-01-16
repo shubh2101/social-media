@@ -1,5 +1,6 @@
 import { Box, Card, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
+import { useSearchParams } from "react-router-dom";
 import FollowUser from "./FollowUser";
 
 const Explore = () => {
@@ -8,6 +9,13 @@ const Explore = () => {
   const otherUsers = users.filter(
     (user) => user.data.userId !== loggedInUserId
   );
+
+  const [searchParams] = useSearchParams();
+  const searchQuery = searchParams.get("filter");
+  const newFilterUsers = otherUsers.filter((user) => {
+    const name = `${user.data.firstname} ${user.data.lastname}`;
+    return searchQuery ? name.toLowerCase().includes(searchQuery) : true;
+  });
   return (
     <Box display="flex" justifyContent="center" alignItems="center" mt={8}>
       <Card
@@ -21,7 +29,7 @@ const Explore = () => {
           People
         </Typography>
 
-        {otherUsers.map((user) => (
+        {newFilterUsers.map((user) => (
           <FollowUser user={user.data} key={user.data.userId} />
         ))}
       </Card>

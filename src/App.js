@@ -54,6 +54,7 @@ function App() {
           <Route index element={<Timeline />} />
           <Route path="bookmarks" element={<Bookmarks />} />
           <Route path="explore" element={<Explore />} />
+          {/* <Route path="explore/:searchQuery" element={<Explore />} /> */}
         </Route>
         <Route path="/profile/:userId" element={<ProfileLayout />}>
           <Route index element={<UserPosts />} />
