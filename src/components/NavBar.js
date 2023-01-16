@@ -13,7 +13,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useSelector } from "react-redux";
-import SearchBar from "./SearchBar";
+import SearchBar from "./search/SearchBar";
 
 const Icons = styled(Box)(() => ({
   alignItems: "center",
