@@ -29,16 +29,25 @@ import {
 import Comments from "./comments/Comments";
 
 const Post = ({ post }) => {
-  const { postText, dateCreated, firstname, lastname, comments, imgURL } =
-    post?.data || {};
+  const {
+    postText,
+    dateCreated,
+    comments,
+    imgURL,
+    userId: postedById,
+  } = post?.data || {};
   const postId = post?.id || {};
   const postDate = new Date(dateCreated);
   const bookmarks = useSelector((state) => state.post.bookmarks);
- 
+
   const userId = useSelector((state) => state.auth.userId);
   const dispatch = useDispatch();
   const [likes, setLikes] = useState(null);
   const [isCommenting, setIsCommenting] = useState(false);
+
+  const users = useSelector((state) => state.users.users);
+  const postBy = users.find((user) => user.data.userId === postedById);
+  const { firstname, lastname, profilePicURL } = postBy.data;
 
   const isBookmarked = bookmarks?.find((bm) => bm.postId === post.id);
   const isLiked = likes?.find((like) => like.userId === userId);
@@ -114,7 +123,7 @@ const Post = ({ post }) => {
       elevation={8}
     >
       <CardHeader
-        avatar={<Avatar alt={firstname} src="/" />}
+        avatar={<Avatar alt={firstname} src={profilePicURL} />}
         action={
           <IconButton aria-label="settings">
             <MoreVertIcon />

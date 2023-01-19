@@ -81,22 +81,11 @@ export const getUserData = async (userId) => {
   return userDetails;
 };
 
-export const addPostData = async (
-  postText,
-  firstname,
-  lastname,
-  username,
-  userId,
-  comments,
-  imgURL
-) => {
+export const addPostData = async (postText, userId, comments, imgURL) => {
   try {
     await addDoc(collection(db, "posts"), {
       dateCreated: new Date().toLocaleString(),
       postText,
-      firstname,
-      lastname,
-      username,
       userId,
       comments,
       imgURL,
