@@ -7,7 +7,7 @@ import { updateCommentsData } from "../../../firebase-calls";
 const AddNewComment = ({ post }) => {
   const [commentText, setCommentText] = useState("");
   const dispatch = useDispatch();
-  const { firstname, username, userId } = useSelector(
+  const { firstname, username, userId, profilePicURL } = useSelector(
     (state) => state.user.userData
   );
   const dateCreated = new Date().toLocaleString();
@@ -27,7 +27,7 @@ const AddNewComment = ({ post }) => {
 
   return (
     <CardActions sx={{ justifyContent: "space-between", margin: 1 }}>
-      <Avatar alt={firstname} src="/" />
+      <Avatar alt={firstname} src={profilePicURL} />
       <TextField
         sx={{ width: "100%", paddingX: 2 }}
         margin="dense"

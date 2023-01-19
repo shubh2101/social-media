@@ -62,7 +62,7 @@ const userDataSlice = createSlice({
     },
   },
   extraReducers: {
-    [fetchUserData.pending]: (state, action) => {
+    [fetchUserData.pending]: (state) => {
       state.status = "loading";
     },
     [fetchUserData.fulfilled]: (state, action) => {

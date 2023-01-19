@@ -12,12 +12,12 @@ const CommentItem = (props) => {
   const { text, commentedBy } = props;
   const users = useSelector((state) => state.users.users);
   const user = users.filter((user) => user.data.userId === commentedBy);
-  const { firstname, lastname } = user[0].data;
+  const { firstname, lastname, profilePicURL } = user[0].data;
 
   return (
     <ListItem alignItems="flex-start">
       <ListItemAvatar>
-        <Avatar alt={firstname} src="/" />
+        <Avatar alt={firstname} src={profilePicURL} />
       </ListItemAvatar>
       <Paper sx={{ paddingX: 2, borderRadius: 4 }} elevation={24}>
         <ListItemText
