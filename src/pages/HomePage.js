@@ -1,8 +1,8 @@
 import { Box, Divider, Stack } from "@mui/material";
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
-import AddPost from "../components/AddPost";
 import NavBar from "../components/NavBar";
+import AddPost from "../components/posts/AddPost";
 import RightBar from "../components/RightBar";
 import SideBar from "../components/SideBar";
 

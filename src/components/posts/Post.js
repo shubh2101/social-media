@@ -17,15 +17,15 @@ import {
   BookmarkedIcon,
   FavoriteBorderIcon,
   CommentIcon,
-} from "../assets/MUI/icons";
-import { postActions } from "../features/store/postSlice";
+} from "../../assets/MUI/icons";
+import { postActions } from "../../features/store/postSlice";
 import {
   addBookmarks,
   addLikes,
   deleteBookmark,
   deleteLike,
   getLikes,
-} from "../firebase-calls";
+} from "../../firebase-calls";
 import Comments from "./comments/Comments";
 
 const Post = ({ post }) => {
@@ -34,6 +34,7 @@ const Post = ({ post }) => {
   const postId = post?.id || {};
   const postDate = new Date(dateCreated);
   const bookmarks = useSelector((state) => state.post.bookmarks);
+ 
   const userId = useSelector((state) => state.auth.userId);
   const dispatch = useDispatch();
   const [likes, setLikes] = useState(null);

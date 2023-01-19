@@ -23,6 +23,7 @@ import { authActions } from "../features/store/authSlice";
 import { useContext } from "react";
 import { ColorModeContext } from "./DarkMode";
 import { useNavigate } from "react-router-dom";
+import { postActions } from "../features/store/postSlice";
 
 const SideBar = ({ onOpen }) => {
   const dispatch = useDispatch();
@@ -36,6 +37,7 @@ const SideBar = ({ onOpen }) => {
   const logOutHandler = (event) => {
     event.preventDefault();
     dispatch(authActions.loggedOut());
+    dispatch(postActions.resetPosts())
   };
 
   return (

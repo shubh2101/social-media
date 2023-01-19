@@ -11,34 +11,19 @@ import { fetchUsers } from "./features/Users/usersSlice";
 import FollowingPage from "./pages/FollowingPage";
 import FollowersPage from "./pages/FollowersPage";
 import ProfileLayout from "./pages/ProfileLayout";
-import UserPosts from "./components/UserPosts";
-import Bookmarks from "./components/Bookmarks";
+import Bookmarks from "./components/posts/Bookmarks";
 import Timeline from "./components/Timeline";
 import Explore from "./components/Explore";
+import UserPosts from "./components/posts/UserPosts";
+import { fetchBookmarksData, fetchPosts } from "./features/store/postSlice";
 
 function App() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const userId = useSelector((state) => state.auth.userId);
   const currentToken = useSelector((state) => state.auth.token);
+  const { following } = useSelector((state) => state.user.userData);
+  const userDataStatus = useSelector((state) => state.user.status);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(authActions.userLoggedIn(currentToken));
-  }, [currentToken, dispatch]);
-
-  // Getting and storing User-Details
-  useEffect(() => {
-    if (userId) {
-      dispatch(fetchUserData(userId));
-    }
-  }, [userId, dispatch]);
-
-  // fetch users
-  useEffect(() => {
-    if (userId) {
-      dispatch(fetchUsers(userId));
-    }
-  }, [userId, dispatch]);
 
   // Validating token and getting User-Id
   useEffect(() => {
@@ -47,6 +32,34 @@ function App() {
     }
   }, [currentToken, dispatch]);
 
+  useEffect(() => {
+    dispatch(authActions.userLoggedIn(currentToken));
+  }, [currentToken, dispatch]);
+
+  useEffect(() => {
+    if (userId) {
+      dispatch(fetchUserData(userId));
+    }
+  }, [userId, dispatch]);
+
+  useEffect(() => {
+    if (userId) {
+      dispatch(fetchUsers(userId));
+    }
+  }, [userId, dispatch]);
+
+  useEffect(() => {
+    if (userId) {
+      dispatch(fetchBookmarksData(userId));
+    }
+  }, [dispatch, userId]);
+
+  useEffect(() => {
+    if (userId && userDataStatus === "succeeded") {
+      dispatch(fetchPosts({ following, userId }));
+    }
+  }, [dispatch, userId, following, userDataStatus]);
+
   return (
     <Routes>
       <Route path="/" element={<ProtectedRoutes />}>
@@ -54,7 +67,6 @@ function App() {
           <Route index element={<Timeline />} />
           <Route path="bookmarks" element={<Bookmarks />} />
           <Route path="explore" element={<Explore />} />
-          {/* <Route path="explore/:searchQuery" element={<Explore />} /> */}
         </Route>
         <Route path="/profile/:userId" element={<ProfileLayout />}>
           <Route index element={<UserPosts />} />

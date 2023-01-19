@@ -16,10 +16,10 @@ import {
   EmojiEmotionsIcon,
   InsertPhotoIcon,
   PersonAddAlt1Icon,
-} from "../assets/MUI/icons";
-import { fetchPosts } from "../features/store/postSlice";
-import { addPostData } from "../firebase-calls";
-import useUploadImg from "../hooks/useUploadImg";
+} from "../../assets/MUI/icons";
+import { fetchPosts } from "../../features/store/postSlice";
+import { addPostData } from "../../firebase-calls";
+import useUploadImg from "../../hooks/useUploadImg";
 
 const SytledModal = styled(Modal)({
   display: "flex",

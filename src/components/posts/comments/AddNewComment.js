@@ -1,8 +1,8 @@
 import { Avatar, Button, CardActions, TextField } from "@mui/material";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { postActions } from "../../features/store/postSlice";
-import { updateCommentsData } from "../../firebase-calls";
+import { postActions } from "../../../features/store/postSlice";
+import { updateCommentsData } from "../../../firebase-calls";
 
 const AddNewComment = ({ post }) => {
   const [commentText, setCommentText] = useState("");

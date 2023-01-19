@@ -1,26 +1,10 @@
-import { Box } from "@mui/material";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchBookmarksData, fetchPosts } from "../features/store/postSlice";
-import Post from "./Post";
+import { Box, Typography } from "@mui/material";
+import { useSelector } from "react-redux";
+import Post from "./posts/Post";
 
 const Timeline = () => {
   const posts = useSelector((state) => state.post.posts);
-  const userId = useSelector((state) => state.auth.userId);
-  const { following } = useSelector((state) => state.user.userData);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (userId) {
-      dispatch(fetchBookmarksData(userId));
-    }
-  }, [dispatch, userId]);
-
-  useEffect(() => {
-    if (userId) {
-      dispatch(fetchPosts({ following, userId }));
-    }
-  }, [dispatch, userId, following]);
+  const postStatus = useSelector((state) => state.post.status);
 
   const sortedPosts = posts?.slice().sort((a, b) => {
     return (
@@ -31,9 +15,15 @@ const Timeline = () => {
 
   return (
     <Box flex={2} p={2}>
-      {sortedPosts?.map((post) => (
-        <Post post={post} key={post.id} />
-      ))}
+      {postStatus === "loading" ? (
+        <Box sx={{ textAlign: "center" }}>
+          <Typography variant="body1" color="text.secondary">
+            Loading...
+          </Typography>
+        </Box>
+      ) : (
+        sortedPosts?.map((post) => <Post post={post} key={post.id} />)
+      )}
     </Box>
   );
 };

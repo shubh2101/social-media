@@ -31,6 +31,7 @@ const initialState = {
     coverPicURL: "",
     bio: "",
   },
+  status: "idle",
 };
 export const fetchUserData = createAsyncThunk(
   "userData/fetchUserData",
@@ -61,7 +62,11 @@ const userDataSlice = createSlice({
     },
   },
   extraReducers: {
+    [fetchUserData.pending]: (state, action) => {
+      state.status = "loading";
+    },
     [fetchUserData.fulfilled]: (state, action) => {
+      state.status = "succeeded"
       state.userData = action.payload;
     },
     [fetchProfileData.fulfilled]: (state, action) => {

@@ -5,7 +5,7 @@ export const Search = styled("div")(({ theme }) => ({
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.white, 0.35),
   "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.45),
+    backgroundColor: alpha(theme.palette.common.white, 0.65),
   },
   marginRight: theme.spacing(2),
   width: "100%",

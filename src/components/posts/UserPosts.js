@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { fetchBookmarksData, fetchPosts } from "../features/store/postSlice";
+import { fetchBookmarksData, fetchPosts } from "../../features/store/postSlice";
 import Post from "./Post";
 
 const UserPosts = () => {

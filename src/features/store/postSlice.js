@@ -3,6 +3,7 @@ import { getBookmarks, getPosts } from "../../firebase-calls";
 
 const initialState = {
   posts: [],
+  status: "idle",
   bookmarks: [],
 };
 
@@ -18,13 +19,13 @@ export const fetchPosts = createAsyncThunk(
   async (ids) => {
     const { following, userId } = ids;
     const data = await getPosts();
-    const postsByUser = data.filter((post) => post.data.userId === userId);
-    const postsFollowing = data
-      .filter((post) => {
-        return following.includes(post.data.userId);
-      })
-      .concat(postsByUser);
-    return postsFollowing;
+
+    const postsTimeline = data.filter((post) => {
+      return (
+        following.includes(post.data.userId) || post.data.userId === userId
+      );
+    });
+    return [...new Set([...postsTimeline])];
   }
 );
 
@@ -55,12 +56,17 @@ const postSlice = createSlice({
         return post;
       });
     },
+    resetPosts: () => initialState,
   },
   extraReducers: {
     [fetchBookmarksData.fulfilled]: (state, action) => {
       state.bookmarks = action.payload;
     },
+    [fetchPosts.pending]: (state) => {
+      state.status = "loading";
+    },
     [fetchPosts.fulfilled]: (state, action) => {
+      state.status = "succeeded";
       state.posts = action.payload;
     },
   },
