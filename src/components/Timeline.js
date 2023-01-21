@@ -1,5 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
+import NoPosts from "./posts/NoPosts";
 import Post from "./posts/Post";
 
 const Timeline = () => {
@@ -12,6 +13,10 @@ const Timeline = () => {
       new Date(a.data.dateCreated).getTime()
     );
   });
+
+  if (sortedPosts?.length === 0 && postStatus === "succeeded") {
+    return <NoPosts />;
+  }
 
   return (
     <Box flex={2} p={2}>

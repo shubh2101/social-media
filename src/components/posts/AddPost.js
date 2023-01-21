@@ -36,22 +36,14 @@ const AddPost = ({ isOpen, onClose }) => {
   const [postText, setPostText] = useState("");
   const [file, setFile] = useState(null);
   const dispatch = useDispatch();
-  const { firstname, lastname, username, userId, following, profilePicURL } = useSelector(
+  const { firstname, userId, following, profilePicURL } = useSelector(
     (state) => state.user.userData
   );
   const { imgURL, percent } = useUploadImg(file);
   let comments = [];
 
   const addPostHandler = async () => {
-    addPostData(
-      postText,
-      firstname,
-      lastname,
-      username,
-      userId,
-      comments,
-      imgURL
-    );
+    addPostData(postText, userId, comments, imgURL);
     dispatch(fetchPosts({ following, userId }));
     setPostText("");
     onClose();
@@ -85,10 +77,7 @@ const AddPost = ({ isOpen, onClose }) => {
           >
             Create Post
           </Typography>
-          <Avatar
-            alt={firstname}
-            src={profilePicURL}
-          />
+          <Avatar alt={firstname} src={profilePicURL} />
           <TextField
             sx={{ width: "100%" }}
             margin="normal"
