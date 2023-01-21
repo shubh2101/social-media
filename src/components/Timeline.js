@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 import { useSelector } from "react-redux";
 import NoPosts from "./posts/NoPosts";
 import Post from "./posts/Post";
@@ -22,9 +22,7 @@ const Timeline = () => {
     <Box flex={2} p={2}>
       {postStatus === "loading" ? (
         <Box sx={{ textAlign: "center" }}>
-          <Typography variant="body1" color="text.secondary">
-            Loading...
-          </Typography>
+          <CircularProgress color="success" />
         </Box>
       ) : (
         sortedPosts?.map((post) => <Post post={post} key={post.id} />)

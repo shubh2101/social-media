@@ -5,6 +5,7 @@ import {
   Button,
   FormControl,
   IconButton,
+  LinearProgress,
   Modal,
   Paper,
   styled,
@@ -19,6 +20,7 @@ import { fetchProfileData } from "../features/store/userDataSlice";
 import { updateUserdata } from "../firebase-calls";
 import useUploadImg from "../hooks/useUploadImg";
 import getCountries from "./Countries";
+import Spinner from "./Spinner";
 
 const SytledModal = styled(Modal)({
   display: "flex",
@@ -114,10 +116,8 @@ const EditProfileModal = ({ isOpen, closeHandler }) => {
               color="success"
               variant="contained"
               disabled={
-                profilePicPercent !== null &&
-                profilePicPercent < 100 &&
-                coverImgPercent !== null &&
-                coverImgPercent < 100
+                (profilePicPercent !== null && profilePicPercent < 100) ||
+                (coverImgPercent !== null && coverImgPercent < 100)
               }
               onClick={updateDetailesHandler}
             >
@@ -134,53 +134,57 @@ const EditProfileModal = ({ isOpen, closeHandler }) => {
                   setcoverImg(event.target.files[0]);
                 }}
               />
-              {prevCoverURL !== "" && (
-                <Box
-                  component="img"
-                  sx={{
-                    height: 150,
-                    width: "100%",
-                  }}
-                  alt="cover photo"
-                  src={coverPicURL || prevCoverURL}
-                />
-              )}
-              {prevCoverURL === "" && (
-                <Box
-                  component="img"
-                  sx={{
-                    height: 150,
-                    width: "100%",
-                  }}
-                  alt="cover photo"
-                  src="https://wallpapercave.com/wp/wp4286413.jpg"
-                />
-              )}
+              <Box
+                component="img"
+                sx={{
+                  height: 150,
+                  width: 435,
+                  objectFit: "cover",
+                }}
+                alt="cover photo"
+                src={
+                  coverPicURL ||
+                  prevCoverURL ||
+                  "https://wallpapercave.com/wp/wp4286413.jpg"
+                }
+              />
             </IconButton>
+            {coverImgPercent !== null && coverImgPercent <= 100 && (
+              <LinearProgress
+                variant="determinate"
+                color="success"
+                value={coverImgPercent}
+              />
+            )}
           </Box>
           <Box p={2}>
-            <IconButton aria-label="upload picture" component="label">
-              <input
-                hidden
-                accept="image/*"
-                type="file"
-                onChange={(event) => {
-                  setprofileImg(event.target.files[0] || prevProfileURL);
-                }}
-              />
-              <Avatar
-                src={profilePicURL || prevProfileURL}
-                alt={firstname}
-                sx={{
-                  width: 100,
-                  height: 100,
-                  display: "block",
-                  margin: "auto",
-                }}
-              />
-            </IconButton>
+            <Spinner
+              value={profilePicPercent}
+              content={
+                <IconButton aria-label="upload picture" component="label">
+                  <input
+                    hidden
+                    accept="image/*"
+                    type="file"
+                    onChange={(event) => {
+                      setprofileImg(event.target.files[0] || prevProfileURL);
+                    }}
+                  />
+                  <Avatar
+                    src={profilePicURL || prevProfileURL}
+                    alt={firstname}
+                    sx={{
+                      width: 100,
+                      height: 100,
+                      display: "block",
+                      margin: "auto",
+                    }}
+                  />
+                </IconButton>
+              }
+            />
           </Box>
-          <Box gap={2} sx={{ display: "flex", flexDirection: "row" }}>
+          <Box gap={4} sx={{ display: "flex", flexDirection: "row" }}>
             <TextField
               type="text"
               name="firstname"
@@ -244,7 +248,14 @@ const EditProfileModal = ({ isOpen, closeHandler }) => {
               onChange={countryValueHandler}
               onBlur={countryBlurHandler}
               renderInput={(params, option) => (
-                <TextField {...params} key={option} label="Country" fullWidth />
+                <TextField
+                  {...params}
+                  key={option}
+                  label="Country"
+                  fullWidth
+                  size="small"
+                  sx={{ mt: 2 }}
+                />
               )}
             />
           </FormControl>
