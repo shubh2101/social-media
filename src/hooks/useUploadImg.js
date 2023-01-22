@@ -5,9 +5,11 @@ import { storage } from "../firebase-config";
 const useUploadImg = (file, prevURL = "") => {
   const [imgURL, setImgURL] = useState(prevURL);
   const [percent, setPercent] = useState(null);
+  const [isUploading, setIsUploading] = useState(false);
 
   useEffect(() => {
     if (file === null) return;
+    setIsUploading(true);
     const storageRef = ref(storage, `images/${file.name}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
     uploadTask.on(
@@ -24,6 +26,7 @@ const useUploadImg = (file, prevURL = "") => {
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           setImgURL(downloadURL);
+          setIsUploading(false);
         });
       }
     );
@@ -32,6 +35,8 @@ const useUploadImg = (file, prevURL = "") => {
   return {
     imgURL,
     percent,
+    setImgURL,
+    isUploading,
   };
 };
 
