@@ -19,6 +19,7 @@ import {
 import { postActions } from "../../features/store/postSlice";
 import { addBookmarks, deleteBookmark } from "../../firebase-calls";
 import Comments from "./comments/Comments";
+import { formatDate } from "./FormatDate";
 import Likes from "./Likes";
 
 const Post = ({ post }) => {
@@ -50,28 +51,6 @@ const Post = ({ post }) => {
 
   const commentCountColor = isCommented ? "#2196f3" : "text.secondary";
 
-  const formatPostDate = (postDate) => {
-    const daysPassed = Math.round(
-      Math.abs((new Date() - postDate) / (1000 * 24 * 3600))
-    );
-    const hourPassed = Math.round(
-      Math.abs((new Date() - postDate) / (1000 * 3600))
-    );
-    const minsPassed = Math.round(
-      Math.abs((new Date() - postDate) / (1000 * 60))
-    );
-
-    if (minsPassed === 0) return "Just now";
-    if (minsPassed < 60) return `${minsPassed} mins ago`;
-    if (hourPassed < 24) return `${hourPassed} hr ago`;
-    if (daysPassed === 1) return "Yesterday";
-    if (daysPassed <= 7) return `${daysPassed} days ago`;
-    const day = `${postDate.getDate()}`.padStart(2, 0);
-    const month = `${postDate.getMonth()}`.padStart(2, 0);
-    const year = postDate.getFullYear();
-    return `${day}/${month}/${year}`;
-  };
-
   const addBookmarkHandler = async () => {
     const docId = await addBookmarks(userId, postId);
     const payload = { postId: postId, bookmarkId: docId } || {};
@@ -100,7 +79,7 @@ const Post = ({ post }) => {
           </IconButton>
         }
         title={firstname + " " + lastname}
-        subheader={formatPostDate(postDate)}
+        subheader={formatDate(postDate)}
       />
       {imgURL && (
         <CardMedia
