@@ -8,25 +8,18 @@ import {
   IconButton,
   Typography,
 } from "@mui/material";
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   BookmarkBorderIcon,
-  FavoriteIcon,
   MoreVertIcon,
   BookmarkedIcon,
-  FavoriteBorderIcon,
   CommentIcon,
 } from "../../assets/MUI/icons";
 import { postActions } from "../../features/store/postSlice";
-import {
-  addBookmarks,
-  addLikes,
-  deleteBookmark,
-  deleteLike,
-  getLikes,
-} from "../../firebase-calls";
+import { addBookmarks, deleteBookmark } from "../../firebase-calls";
 import Comments from "./comments/Comments";
+import Likes from "./Likes";
 
 const Post = ({ post }) => {
   const {
@@ -42,19 +35,19 @@ const Post = ({ post }) => {
 
   const userId = useSelector((state) => state.auth.userId);
   const dispatch = useDispatch();
-  const [likes, setLikes] = useState(null);
+
   const [isCommenting, setIsCommenting] = useState(false);
 
   const users = useSelector((state) => state.users.users);
-  const postBy = users?.find((user) => user.data.userId === postedById); 
+  const postBy = users?.find((user) => user.data.userId === postedById);
   const { firstname, lastname, profilePicURL } = postBy?.data;
 
   const isBookmarked = bookmarks?.find((bm) => bm.postId === post.id);
-  const isLiked = likes?.find((like) => like.userId === userId);
+
   const isCommented = comments?.find(
     (comment) => comment.commentedBy === userId
   );
-  const likeCountColor = isLiked ? "#e91e63" : "text.secondary";
+
   const commentCountColor = isCommented ? "#2196f3" : "text.secondary";
 
   const formatPostDate = (postDate) => {
@@ -90,29 +83,6 @@ const Post = ({ post }) => {
     dispatch(postActions.deleteBookmark(deleteBookmarkId));
   };
 
-  const addLikeHandler = async () => {
-    const addLikeId = await addLikes(userId, post.id);
-    if (userId) {
-      setLikes((prev) =>
-        prev
-          ? [...prev, { userId: userId, likeId: addLikeId }]
-          : [{ userId: userId, likeId: addLikeId }]
-      );
-    }
-  };
-  const getAllLikes = useCallback(async () => {
-    const data = await getLikes(post.id);
-    setLikes(data);
-  }, [post.id]);
-
-  useEffect(() => {
-    getAllLikes(post.id);
-  }, [post.id, getAllLikes]);
-
-  const deleteLikeHandler = async () => {
-    const deletePostId = await deleteLike(post.id, userId);
-    setLikes((prev) => prev.filter((like) => like.likeId !== deletePostId));
-  };
   const addCommentHandler = () => {
     isCommenting ? setIsCommenting(false) : setIsCommenting(true);
   };
@@ -147,27 +117,7 @@ const Post = ({ post }) => {
         </Typography>
       </CardContent>
       <CardActions sx={{ justifyContent: "space-around" }}>
-        <CardActions>
-          <IconButton
-            aria-label="add to favorites"
-            onClick={isLiked ? deleteLikeHandler : addLikeHandler}
-          >
-            {isLiked ? (
-              <FavoriteIcon
-                sx={{
-                  color: "#ec407a",
-                }}
-              />
-            ) : (
-              <FavoriteBorderIcon />
-            )}
-          </IconButton>
-          {likes !== null && likes.length > 0 && (
-            <Typography varient="body2" color={likeCountColor}>
-              {likes?.length}
-            </Typography>
-          )}
-        </CardActions>
+        <Likes postId={postId} />
         <CardActions>
           <IconButton aria-label="comment" onClick={addCommentHandler}>
             <CommentIcon />

@@ -11,11 +11,11 @@ const Timeline = () => {
 
   const filterAndSortPosts = (entities, userId) => {
     let filteredPosts = entities;
-    // filter current-user posts
+    // filter current-user posts (profile-page)
     if (userId) {
       filteredPosts = entities.filter((post) => post.data.userId === userId);
     }
-    // all posts
+    // all posts (home-page)
     return filteredPosts.slice().sort((a, b) => {
       return (
         new Date(b.data.dateCreated).getTime() -
