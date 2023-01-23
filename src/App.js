@@ -14,7 +14,6 @@ import ProfileLayout from "./pages/ProfileLayout";
 import Bookmarks from "./components/posts/Bookmarks";
 import Timeline from "./components/Timeline";
 import Explore from "./components/Explore";
-import UserPosts from "./components/posts/UserPosts";
 import { fetchBookmarksData, fetchPosts } from "./features/store/postSlice";
 
 function App() {
@@ -69,7 +68,7 @@ function App() {
           <Route path="explore" element={<Explore />} />
         </Route>
         <Route path="/profile/:userId" element={<ProfileLayout />}>
-          <Route index element={<UserPosts />} />
+          <Route index element={<Timeline />} />
           <Route
             path="/profile/:userId/following"
             element={<FollowingPage />}

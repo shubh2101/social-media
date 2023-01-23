@@ -1,20 +1,32 @@
 import { Box, CircularProgress } from "@mui/material";
 import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import NoPosts from "./posts/NoPosts";
 import Post from "./posts/Post";
 
 const Timeline = () => {
   const posts = useSelector((state) => state.post.posts);
   const postStatus = useSelector((state) => state.post.status);
+  const { userId } = useParams();
 
-  const sortedPosts = posts?.slice().sort((a, b) => {
-    return (
-      new Date(b.data.dateCreated).getTime() -
-      new Date(a.data.dateCreated).getTime()
-    );
-  });
+  const filterAndSortPosts = (entities, userId) => {
+    let filteredPosts = entities;
+    // filter current-user posts
+    if (userId) {
+      filteredPosts = entities.filter((post) => post.data.userId === userId);
+    }
+    // all posts
+    return filteredPosts.slice().sort((a, b) => {
+      return (
+        new Date(b.data.dateCreated).getTime() -
+        new Date(a.data.dateCreated).getTime()
+      );
+    });
+  };
 
-  if (sortedPosts?.length === 0 && postStatus === "succeeded") {
+  const postsReq = filterAndSortPosts(posts, userId);
+
+  if (postsReq?.length === 0 && postStatus === "succeeded") {
     return <NoPosts />;
   }
 
@@ -25,7 +37,7 @@ const Timeline = () => {
           <CircularProgress color="success" />
         </Box>
       ) : (
-        sortedPosts?.map((post) => <Post post={post} key={post.id} />)
+        postsReq?.map((post) => <Post post={post} key={post.id} />)
       )}
     </Box>
   );

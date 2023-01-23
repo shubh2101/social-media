@@ -46,8 +46,8 @@ const Post = ({ post }) => {
   const [isCommenting, setIsCommenting] = useState(false);
 
   const users = useSelector((state) => state.users.users);
-  const postBy = users.find((user) => user.data.userId === postedById);
-  const { firstname, lastname, profilePicURL } = postBy.data;
+  const postBy = users?.find((user) => user.data.userId === postedById); 
+  const { firstname, lastname, profilePicURL } = postBy?.data;
 
   const isBookmarked = bookmarks?.find((bm) => bm.postId === post.id);
   const isLiked = likes?.find((like) => like.userId === userId);
