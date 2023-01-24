@@ -10,7 +10,7 @@ const CoverProfile = () => {
         height: 300,
         width: "100%",
       }}
-      alt="The house from the offer."
+      alt="cover picture"
       src={coverPicURL || "https://wallpapercave.com/wp/wp4286413.jpg"}
     />
   );

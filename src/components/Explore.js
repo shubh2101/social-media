@@ -19,7 +19,7 @@ const Explore = () => {
   return (
     <Box display="flex" justifyContent="center" alignItems="center" mt={8}>
       <Card
-        sx={{ width: 500, p: 2, borderRadius: "20px", mt: 8 }}
+        sx={{ width: 500, p: 2, borderRadius: "10px", mt: 8 }}
         elevation={8}
       >
         <Typography

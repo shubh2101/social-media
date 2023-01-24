@@ -9,10 +9,10 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import FollowButton from "./FollowButton";
 
-const FollowUser = ({ user }) => {
+const FollowUser = ({user}) => {
   const { following } = useSelector((state) => state.user.userData);
-  const followUserName = `${user.firstname} ${user.lastname}`;
-  const followUserId = user.userId;
+  const { firstname, lastname, profilePicURL, userId: followUserId } = user;
+  const followUserName = `${firstname} ${lastname}`;
   const isFollowing = following.includes(followUserId);
   const loggedInUserId = useSelector((state) => state.auth.userId);
 
@@ -31,7 +31,7 @@ const FollowUser = ({ user }) => {
         }}
       >
         <Box sx={{ display: "flex", alignItems: "center" }}>
-          <Avatar alt={user.firstname} src="/" />
+          <Avatar alt={user.firstname} src={profilePicURL} />
           <Typography p={2}> {followUserName}</Typography>
         </Box>
       </ListItemButton>
