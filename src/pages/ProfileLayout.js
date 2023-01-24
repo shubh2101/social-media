@@ -1,11 +1,11 @@
 import { Box, Stack } from "@mui/material";
 import NavBar from "../components/NavBar";
-import ProfileModal from "../components/ProfileModal";
 import MenuBar from "../components/ProfileMenu";
 import { useEffect } from "react";
 import { fetchProfileData } from "../features/store/userDataSlice";
 import { useDispatch } from "react-redux";
 import { Outlet, useParams } from "react-router-dom";
+import ProfileCard from "../components/ProfileCard";
 
 const ProfileLayout = () => {
   const dispatch = useDispatch();
@@ -20,7 +20,7 @@ const ProfileLayout = () => {
       <NavBar />
       <MenuBar />
       <Stack direction="row" spacing={1} justifyContent="center">
-        <ProfileModal />
+        <ProfileCard />
         <Outlet />
       </Stack>
     </Box>

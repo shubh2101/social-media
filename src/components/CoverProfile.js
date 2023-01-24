@@ -7,7 +7,7 @@ const CoverProfile = () => {
     <Box
       component="img"
       sx={{
-        height: 250,
+        height: 300,
         width: "100%",
       }}
       alt="The house from the offer."

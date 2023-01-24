@@ -1,74 +1,56 @@
-import { AppBar, Box, Button, styled, Toolbar } from "@mui/material";
+import { AppBar, Box, styled, Tab, Tabs, Toolbar } from "@mui/material";
 import { useState } from "react";
-import { useSelector } from "react-redux";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { StyledNavButton } from "../assets/MUI/components/Button";
+import { Link, useParams } from "react-router-dom";
 import CoverProfile from "./CoverProfile";
-import EditProfileModal from "./EditProfileModal";
-import FollowButton from "./FollowButton";
 
 const StyledToolbar = styled(Toolbar)({
   display: "flex",
   justifyContent: "center",
 });
 
+const StyledTab = styled(Tab)(({ theme }) => ({
+  marginLeft: theme.spacing(10),
+}));
+
 const MenuBar = () => {
-  const navigate = useNavigate();
+  const [value, setValue] = useState(0);
   const { userId } = useParams();
-  const { following } = useSelector((state) => state.user.userData);
-  const isFollowing = following.includes(userId);
-  const loggedInUserId = useSelector((state) => state.auth.userId);
 
-  const [isOpen, setIsOpen] = useState(false);
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
 
-  const openHandler = () => {
-    return setIsOpen(true);
-  };
-  const closeHandler = () => {
-    return setIsOpen(false);
-  };
   return (
-    <div>
-      <Box position="relative">
+    <>
+      <Box>
         <CoverProfile />
+      </Box>
+      <Box>
         <AppBar
           color="transparent"
           elevation={0}
           position="absolute"
-          sx={{ bottom: "-190px", zIndex: "0" }}
+          sx={{ bottom: "-80px", zIndex: "0" }}
         >
           <StyledToolbar sx={{ flexGrow: 1 }}>
-            <Box sx={{ ml: 6 }}>
-              <StyledNavButton
-                onClick={() => {
-                  navigate(`/profile/${userId}`);
-                }}
-              >
-                Posts
-              </StyledNavButton>
-
-              <Link to="followers">
-                <StyledNavButton>Followers</StyledNavButton>
-              </Link>
-              <Link to="following">
-                <StyledNavButton>Following</StyledNavButton>
-              </Link>
-            </Box>
-            <Box position="absolute" right={0}>
-              {loggedInUserId !== userId && (
-                <FollowButton isFollowing={isFollowing} followUserId={userId} />
-              )}
-              {loggedInUserId === userId && (
-                <Button onClick={openHandler} color={"success"}>
-                  Edit Profile
-                </Button>
-              )}
-            </Box>
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              aria-label="profile nav tabs"
+              sx={{ px: 6 }}
+            >
+              <StyledTab
+                label="Posts"
+                component={Link}
+                to={`/profile/${userId}`}
+              />
+              <StyledTab label="Followers" component={Link} to="followers" />
+              <StyledTab label="Following" component={Link} to="following" />
+            </Tabs>
           </StyledToolbar>
         </AppBar>
       </Box>
-      <EditProfileModal isOpen={isOpen} closeHandler={closeHandler} openHandler={openHandler} />
-    </div>
+    </>
   );
 };
 export default MenuBar;
