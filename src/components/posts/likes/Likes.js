@@ -1,8 +1,8 @@
 import { CardActions, IconButton, Typography } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { FavoriteBorderIcon, FavoriteIcon } from "../../assets/MUI/icons";
-import { addLikes, deleteLike, getLikes } from "../../firebase-calls";
+import { FavoriteBorderIcon, FavoriteIcon } from "../../../assets/MUI/icons";
+import { addLikes, deleteLike, getLikes } from "../../../firebase-calls";
 
 const Likes = ({ postId }) => {
   const [likes, setLikes] = useState(null);
@@ -36,27 +36,27 @@ const Likes = ({ postId }) => {
 
   return (
     <CardActions>
-          <IconButton
-            aria-label="add to favorites"
-            onClick={isLiked ? deleteLikeHandler : addLikeHandler}
-          >
-            {isLiked ? (
-              <FavoriteIcon
-                sx={{
-                  color: "#ec407a",
-                }}
-              />
-            ) : (
-              <FavoriteBorderIcon />
-            )}
-          </IconButton>
-          {likes !== null && likes.length > 0 && (
-            <Typography varient="body2" color={likeCountColor}>
-              {likes?.length}
-            </Typography>
-          )}
-        </CardActions>
+      <IconButton
+        aria-label="add to favorites"
+        onClick={isLiked ? deleteLikeHandler : addLikeHandler}
+      >
+        {isLiked ? (
+          <FavoriteIcon
+            sx={{
+              color: "#ec407a",
+            }}
+          />
+        ) : (
+          <FavoriteBorderIcon />
+        )}
+      </IconButton>
+      {likes !== null && likes.length > 0 && (
+        <Typography varient="body2" color={likeCountColor}>
+          {likes?.length}
+        </Typography>
+      )}
+    </CardActions>
   );
 };
 
-export default Likes
+export default Likes;

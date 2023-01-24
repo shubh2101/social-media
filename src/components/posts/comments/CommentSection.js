@@ -2,7 +2,7 @@ import CommentsList from "./CommentList";
 import AddNewComment from "./AddNewComment";
 import { Divider } from "@mui/material";
 
-const Comments = ({ post }) => {
+const CommentSection = ({ post }) => {
   return (
     <>
       <Divider variant="middle" />
@@ -12,4 +12,4 @@ const Comments = ({ post }) => {
   );
 };
 
-export default Comments;
+export default CommentSection;

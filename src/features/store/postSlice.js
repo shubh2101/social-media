@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getBookmarks, getPosts } from "../../firebase-calls";
+import { deleteBookmark, getBookmarks, getPosts } from "../../firebase-calls";
 
 const initialState = {
   posts: [],
@@ -14,6 +14,15 @@ export const fetchBookmarksData = createAsyncThunk(
     return data;
   }
 );
+export const deleteBookmarkdata = createAsyncThunk(
+  "postData/deleteBookmarks",
+  async (payload) => {
+    const { postId, userId } = payload;
+    const deleteBookmarkId = await deleteBookmark(postId, userId);
+    return deleteBookmarkId;
+  }
+);
+
 export const fetchPosts = createAsyncThunk(
   "postData/fetchPosts",
   async (ids) => {
@@ -33,14 +42,9 @@ const postSlice = createSlice({
   name: "postData",
   initialState,
   reducers: {
-    bookmark: (state, action) => {
+    setBookmark: (state, action) => {
       const { postId, bookmarkId } = action.payload;
-      state.bookmarks = [...state.bookmarks, { postId, bookmarkId }];
-    },
-    deleteBookmark: (state, action) => {
-      state.bookmarks = state.bookmarks.filter(
-        (bm) => bm.bookmarkId !== action.payload
-      );
+      state.bookmarks.push({ postId, bookmarkId });
     },
     addComment: (state, action) => {
       state.posts = state.posts.map((post) => {
@@ -61,6 +65,9 @@ const postSlice = createSlice({
   extraReducers: {
     [fetchBookmarksData.fulfilled]: (state, action) => {
       state.bookmarks = action.payload;
+    },
+    [deleteBookmarkdata.fulfilled]: (state, action) => {
+      state.bookmarks.filter((bm) => bm.bookmarkId !== action.payload);
     },
     [fetchPosts.pending]: (state) => {
       state.status = "loading";

@@ -9,18 +9,13 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  BookmarkBorderIcon,
-  MoreVertIcon,
-  BookmarkedIcon,
-  CommentIcon,
-} from "../../assets/MUI/icons";
-import { postActions } from "../../features/store/postSlice";
-import { addBookmarks, deleteBookmark } from "../../firebase-calls";
-import Comments from "./comments/Comments";
+import { useSelector } from "react-redux";
+import { MoreVertIcon } from "../../assets/MUI/icons";
+import Bookmark from "./bookmark/Bookmark";
+import Comment from "./comments/Comment";
+import CommentSection from "./comments/CommentSection";
 import { formatDate } from "./FormatDate";
-import Likes from "./Likes";
+import Likes from "./likes/Likes";
 
 const Post = ({ post }) => {
   const {
@@ -31,39 +26,17 @@ const Post = ({ post }) => {
     userId: postedById,
   } = post?.data || {};
   const postId = post?.id || {};
+
   const postDate = new Date(dateCreated);
   const bookmarks = useSelector((state) => state.post.bookmarks);
-
-  const userId = useSelector((state) => state.auth.userId);
-  const dispatch = useDispatch();
-
   const [isCommenting, setIsCommenting] = useState(false);
 
   const users = useSelector((state) => state.users.users);
   const postBy = users?.find((user) => user.data.userId === postedById);
   const { firstname, lastname, profilePicURL } = postBy?.data;
 
-  const isBookmarked = bookmarks?.find((bm) => bm.postId === post.id);
-
-  const isCommented = comments?.find(
-    (comment) => comment.commentedBy === userId
-  );
-
-  const commentCountColor = isCommented ? "#2196f3" : "text.secondary";
-
-  const addBookmarkHandler = async () => {
-    const docId = await addBookmarks(userId, postId);
-    const payload = { postId: postId, bookmarkId: docId } || {};
-    dispatch(postActions.bookmark(payload));
-  };
-
-  const deleteBookmarkHandler = async () => {
-    const deleteBookmarkId = await deleteBookmark(postId, userId);
-    dispatch(postActions.deleteBookmark(deleteBookmarkId));
-  };
-
-  const addCommentHandler = () => {
-    isCommenting ? setIsCommenting(false) : setIsCommenting(true);
+  const toggleComment = () => {
+    setIsCommenting(!isCommenting);
   };
 
   return (
@@ -97,28 +70,10 @@ const Post = ({ post }) => {
       </CardContent>
       <CardActions sx={{ justifyContent: "space-around" }}>
         <Likes postId={postId} />
-        <CardActions>
-          <IconButton aria-label="comment" onClick={addCommentHandler}>
-            <CommentIcon />
-          </IconButton>
-          {comments !== null && comments.length > 0 && (
-            <Typography varient="body2" color={commentCountColor}>
-              {comments?.length}
-            </Typography>
-          )}
-        </CardActions>
-        <IconButton
-          aria-label="bookmark"
-          onClick={isBookmarked ? deleteBookmarkHandler : addBookmarkHandler}
-        >
-          {isBookmarked ? (
-            <BookmarkedIcon color="secondary" />
-          ) : (
-            <BookmarkBorderIcon />
-          )}
-        </IconButton>
+        <Comment comments={comments} toggleComment={toggleComment} />
+        <Bookmark postId={postId} bookmarks={bookmarks} />
       </CardActions>
-      {isCommenting && <Comments post={post} />}
+      {isCommenting && <CommentSection post={post} />}
     </Card>
   );
 };

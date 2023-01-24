@@ -1,8 +1,8 @@
 import { Box } from "@mui/material";
 import { useSelector } from "react-redux";
-import Post from "./Post";
+import Post from "../components/posts/Post";
 
-const Bookmarks = () => {
+const BookmarksPage = () => {
   const posts = useSelector((state) => state.post.posts);
   const bookmarks = useSelector((state) => state.post.bookmarks);
 
@@ -19,4 +19,4 @@ const Bookmarks = () => {
   );
 };
 
-export default Bookmarks;
+export default BookmarksPage;

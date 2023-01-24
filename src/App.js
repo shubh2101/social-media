@@ -11,10 +11,10 @@ import { fetchUsers } from "./features/Users/usersSlice";
 import FollowingPage from "./pages/FollowingPage";
 import FollowersPage from "./pages/FollowersPage";
 import ProfileLayout from "./pages/ProfileLayout";
-import Bookmarks from "./components/posts/Bookmarks";
 import Timeline from "./components/Timeline";
 import Explore from "./components/Explore";
 import { fetchBookmarksData, fetchPosts } from "./features/store/postSlice";
+import BookmarksPage from "./pages/BookmarksPage";
 
 function App() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
@@ -64,7 +64,7 @@ function App() {
       <Route path="/" element={<ProtectedRoutes />}>
         <Route path="/" element={<HomePage />}>
           <Route index element={<Timeline />} />
-          <Route path="bookmarks" element={<Bookmarks />} />
+          <Route path="bookmarks" element={<BookmarksPage />} />
           <Route path="explore" element={<Explore />} />
         </Route>
         <Route path="/profile/:userId" element={<ProfileLayout />}>
