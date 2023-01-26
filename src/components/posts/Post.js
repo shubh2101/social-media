@@ -54,6 +54,11 @@ const Post = ({ post }) => {
         title={firstname + " " + lastname}
         subheader={formatDate(postDate)}
       />
+      <CardContent>
+        <Typography variant="body1" color="text.secondary">
+          {postText}
+        </Typography>
+      </CardContent>
       {imgURL && (
         <CardMedia
           sx={{ objectFit: "contain", maxHeight: 400 }}
@@ -63,11 +68,6 @@ const Post = ({ post }) => {
           alt={`${firstname}'s post`}
         />
       )}
-      <CardContent>
-        <Typography variant="body1" color="text.secondary">
-          {postText}
-        </Typography>
-      </CardContent>
       <CardActions sx={{ justifyContent: "space-around" }}>
         <Likes postId={postId} />
         <Comment comments={comments} toggleComment={toggleComment} />

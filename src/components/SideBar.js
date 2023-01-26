@@ -8,6 +8,7 @@ import {
   ListItemText,
   Typography,
   Avatar,
+  styled,
 } from "@mui/material";
 import {
   AddCircleOutlineIcon,
@@ -20,24 +21,38 @@ import {
 import MUISwitch from "../assets/MUI/components/MuiSwitch";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../features/store/authSlice";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { ColorModeContext } from "./DarkMode";
 import { useNavigate } from "react-router-dom";
 import { postActions } from "../features/store/postSlice";
 
+const StyledListButton = styled(ListItemButton)(({ theme }) => ({
+  "&.Mui-selected": {
+    backgroundColor: theme.palette.primary.main,
+
+    "& .MuiListItemText-primary": {
+      fontWeight: "bold",
+    },
+  },
+}));
+
 const SideBar = ({ onOpen }) => {
-  const dispatch = useDispatch();
+  const [selectedIndex, setSelectedIndex] = useState(0);
   const { toggleColorMode } = useContext(ColorModeContext);
+  const userId = useSelector((state) => state.auth.userId);
   const { firstname, lastname, profilePicURL } = useSelector(
     (state) => state.user.userData
   );
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const userId = useSelector((state) => state.auth.userId);
 
   const logOutHandler = (event) => {
     event.preventDefault();
     dispatch(authActions.loggedOut());
-    dispatch(postActions.resetPosts())
+    dispatch(postActions.resetPosts());
+  };
+  const handleListItemClick = (event, index) => {
+    setSelectedIndex(index);
   };
 
   return (
@@ -52,28 +67,46 @@ const SideBar = ({ onOpen }) => {
       <Box position="fixed">
         <List>
           <ListItem>
-            <ListItemButton onClick={() => navigate("/home")}>
+            <StyledListButton
+              selected={selectedIndex === 0}
+              onClick={(event) => {
+                handleListItemClick(event, 0);
+                navigate("/");
+              }}
+            >
               <ListItemIcon>
                 <HomeIcon />
               </ListItemIcon>
               <ListItemText primary="Home" />
-            </ListItemButton>
+            </StyledListButton>
           </ListItem>
           <ListItem>
-            <ListItemButton onClick={() => navigate("/explore")}>
+            <StyledListButton
+              selected={selectedIndex === 1}
+              onClick={(event) => {
+                handleListItemClick(event, 1);
+                navigate("/explore");
+              }}
+            >
               <ListItemIcon>
                 <ExploreIcon />
               </ListItemIcon>
               <ListItemText primary="Explore" />
-            </ListItemButton>
+            </StyledListButton>
           </ListItem>
           <ListItem>
-            <ListItemButton onClick={() => navigate("/bookmarks")}>
+            <StyledListButton
+              selected={selectedIndex === 2}
+              onClick={(event) => {
+                handleListItemClick(event, 2);
+                navigate("/bookmarks");
+              }}
+            >
               <ListItemIcon>
                 <BookmarkBorderIcon />
               </ListItemIcon>
               <ListItemText primary="Bookmarks" />
-            </ListItemButton>
+            </StyledListButton>
           </ListItem>
           <ListItem>
             <ListItemButton onClick={onOpen}>

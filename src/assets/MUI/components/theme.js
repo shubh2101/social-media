@@ -6,13 +6,30 @@ export const theme = (mode) =>
       mode: mode,
       primary: {
         main: "#003892",
-        light: "#348892",
-        dark: "#014A53",
+        light: "#4d61c3",
+        dark: "#001463",
       },
       secondary: {
         main: "#003892",
         light: "#FFCF33",
         dark: "#003892",
+      },
+    },
+    overrides: {
+      MuiListItem: {
+        root: {
+          "&$selected": {
+            backgroundColor: "red",
+            "&:hover": {
+              backgroundColor: "orange",
+            },
+          },
+        },
+        button: {
+          "&:hover": {
+            backgroundColor: "yellow",
+          },
+        },
       },
     },
   });
