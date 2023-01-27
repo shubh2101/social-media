@@ -60,7 +60,6 @@ const postSlice = createSlice({
         return post;
       });
     },
-    resetPosts: () => initialState,
   },
   extraReducers: {
     [fetchBookmarksData.fulfilled]: (state, action) => {

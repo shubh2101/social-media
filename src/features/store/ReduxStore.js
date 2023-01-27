@@ -3,6 +3,7 @@ import authReducer from "./authSlice";
 import userReducer from "./userDataSlice";
 import postReducer from "./postSlice";
 import usersReducer from "../Users/usersSlice";
+import activePageReducer from "./activePageSlice"
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     user: userReducer,
     post: postReducer,
     users: usersReducer,
+    activePage : activePageReducer,
   },
 });
 

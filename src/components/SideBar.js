@@ -21,10 +21,10 @@ import {
 import MUISwitch from "../assets/MUI/components/MuiSwitch";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../features/store/authSlice";
-import { useContext, useState } from "react";
+import { useContext, useEffect } from "react";
 import { ColorModeContext } from "./DarkMode";
 import { useNavigate } from "react-router-dom";
-import { postActions } from "../features/store/postSlice";
+import { activeAction } from "../features/store/activePageSlice";
 
 const StyledListButton = styled(ListItemButton)(({ theme }) => ({
   "&.Mui-selected": {
@@ -37,9 +37,9 @@ const StyledListButton = styled(ListItemButton)(({ theme }) => ({
 }));
 
 const SideBar = ({ onOpen }) => {
-  const [selectedIndex, setSelectedIndex] = useState(0);
   const { toggleColorMode } = useContext(ColorModeContext);
   const userId = useSelector((state) => state.auth.userId);
+  const selectedIndex = useSelector((state) => state.activePage.selectedIndex);
   const { firstname, lastname, profilePicURL } = useSelector(
     (state) => state.user.userData
   );
@@ -48,12 +48,16 @@ const SideBar = ({ onOpen }) => {
 
   const logOutHandler = (event) => {
     event.preventDefault();
+    dispatch(activeAction.removeIndex());
     dispatch(authActions.loggedOut());
-    dispatch(postActions.resetPosts());
   };
-  const handleListItemClick = (event, index) => {
-    setSelectedIndex(index);
-  };
+  useEffect(() => {
+    // Retrieve the selectedIndex from local storage when the component is rendered
+    const storedIndex = localStorage.getItem("selectedIndex");
+    if (storedIndex) {
+      dispatch(activeAction.selectIndex(JSON.parse(storedIndex)));
+    }
+  }, [dispatch]);
 
   return (
     <Box
@@ -69,8 +73,8 @@ const SideBar = ({ onOpen }) => {
           <ListItem>
             <StyledListButton
               selected={selectedIndex === 0}
-              onClick={(event) => {
-                handleListItemClick(event, 0);
+              onClick={() => {
+                dispatch(activeAction.selectIndex(0));
                 navigate("/");
               }}
             >
@@ -83,8 +87,8 @@ const SideBar = ({ onOpen }) => {
           <ListItem>
             <StyledListButton
               selected={selectedIndex === 1}
-              onClick={(event) => {
-                handleListItemClick(event, 1);
+              onClick={() => {
+                dispatch(activeAction.selectIndex(1));
                 navigate("/explore");
               }}
             >
@@ -97,8 +101,8 @@ const SideBar = ({ onOpen }) => {
           <ListItem>
             <StyledListButton
               selected={selectedIndex === 2}
-              onClick={(event) => {
-                handleListItemClick(event, 2);
+              onClick={() => {
+                dispatch(activeAction.selectIndex(2));
                 navigate("/bookmarks");
               }}
             >
