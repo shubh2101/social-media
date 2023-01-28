@@ -1,6 +1,6 @@
 import { AppBar, Box, styled, Tab, Tabs, Toolbar } from "@mui/material";
-import { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useLocation, useParams } from "react-router-dom";
 import CoverProfile from "./CoverProfile";
 
 const StyledToolbar = styled(Toolbar)({
@@ -15,10 +15,26 @@ const StyledTab = styled(Tab)(({ theme }) => ({
 const MenuBar = () => {
   const [value, setValue] = useState(0);
   const { userId } = useParams();
+  const location = useLocation();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  useEffect(() => {
+    const path = location.pathname.split("/");
+    const lastPartURL = path.at(-1);
+    switch (lastPartURL) {
+      case "followers":
+        setValue(1);
+        break;
+      case "following":
+        setValue(2);
+        break;
+      default:
+        setValue(0);
+    }
+  }, [location.pathname]);
 
   return (
     <>
