@@ -38,7 +38,7 @@ const StyledListButton = styled(ListItemButton)(({ theme }) => ({
 
 const SideBar = ({ onOpen }) => {
   const { toggleColorMode } = useContext(ColorModeContext);
-  const userId = useSelector((state) => state.auth.userId);
+  const loggedInUserId = useSelector((state) => state.auth.userId);
   const selectedIndex = useSelector((state) => state.activePage.selectedIndex);
   const { firstname, lastname, profilePicURL } = useSelector(
     (state) => state.user.userData
@@ -148,7 +148,7 @@ const SideBar = ({ onOpen }) => {
         <Box sx={{ marginTop: "140px" }}>
           <ListItemButton
             onClick={() => {
-              navigate(`/profile/${userId}`);
+              navigate(`/profile/${loggedInUserId}`);
             }}
           >
             <Avatar alt={firstname} src={profilePicURL} />
