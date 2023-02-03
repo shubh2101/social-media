@@ -107,7 +107,6 @@ export const getPosts = async () => {
 export const getAllUsers = async (userId) => {
   let users = [];
   const q = query(collection(db, "userData"));
-  // const q = query(collection(db, "userData"), where("userId", "!=", userId));
   const querySnapshot = await getDocs(q);
   querySnapshot.forEach((doc) => {
     users.push({ data: doc.data() });
