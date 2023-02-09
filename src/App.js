@@ -15,6 +15,7 @@ import Timeline from "./components/Timeline";
 import Explore from "./components/Explore";
 import { fetchBookmarksData, fetchPosts } from "./features/store/postSlice";
 import BookmarksPage from "./pages/BookmarksPage";
+import LandingPage from "./pages/LandingPage";
 
 function App() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
@@ -84,6 +85,10 @@ function App() {
         element={!isLoggedIn ? <LogInPage /> : <Navigate to="/" />}
       />
       <Route path="/signup" element={<SignUpPage />} />
+      <Route
+        path="/home"
+        element={!isLoggedIn ? <LandingPage /> : <Navigate to="/" />}
+      />
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );

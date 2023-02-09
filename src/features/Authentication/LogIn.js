@@ -46,61 +46,65 @@ const LogIn = () => {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <Box
-        component="form"
-        onSubmit={submitHandler}
-        borderRadius={5}
-        boxShadow={"5px 5px 10px #ccc"}
-        p={3}
-        sx={{
-          mt: 10,
-          display: "flex",
-          flexDirection: "column",
-          ":hover": { boxShadow: "10px 10px 20px #ccc" },
-        }}
-      >
-        <Typography variant="h5" textAlign="center">
-          Welcome back
-        </Typography>
-
-        <TextField
-          type="email"
-          name="email"
-          label="Email"
-          variant="outlined"
-          margin="normal"
-          size="small"
-          value={values.email}
-          onChange={valueChangeHandler}
-          required
-        />
-
-        <TextField
-          type="password"
-          name="password"
-          label="Password"
-          variant="outlined"
-          margin="normal"
-          size="small"
-          value={values.password}
-          onChange={valueChangeHandler}
-          required
-        />
-
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          sx={{ mt: 3, borderRadius: 5 }}
+    <Box component="section">
+      <Container component="main" maxWidth="xs">
+        <Box
+          component="form"
+          onSubmit={submitHandler}
+          borderRadius={5}
+          boxShadow={"5px 5px 10px #ccc"}
+          p={3}
+          sx={{
+            mt: 10,
+            display: "flex",
+            flexDirection: "column",
+            background:
+              "linear-gradient(to bottom right, transparent 0%, rgba(0, 0, 0, 0.8) 100%), linear-gradient(to top, transparent 0%, rgba(0, 0, 0, 0.8) 100%)",
+            ":hover": { boxShadow: "10px 10px 20px #ccc" },
+          }}
         >
-          Log In
-        </Button>
-        <Typography display="flex" justifyContent="center" gap={2} mt={3}>
-          Don't have an account ?<Link to="/signup">Sign Up</Link>
-        </Typography>
-      </Box>
-    </Container>
+          <Typography variant="h5" textAlign="center">
+            Welcome back
+          </Typography>
+
+          <TextField
+            type="email"
+            name="email"
+            label="Email"
+            variant="outlined"
+            margin="normal"
+            size="small"
+            value={values.email}
+            onChange={valueChangeHandler}
+            required
+          />
+
+          <TextField
+            type="password"
+            name="password"
+            label="Password"
+            variant="outlined"
+            margin="normal"
+            size="small"
+            value={values.password}
+            onChange={valueChangeHandler}
+            required
+          />
+
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            sx={{ mt: 3, borderRadius: 5 }}
+          >
+            Log In
+          </Button>
+          <Typography display="flex" justifyContent="center" gap={2} mt={3}>
+            Don't have an account ?<Link to="/signup">Sign Up</Link>
+          </Typography>
+        </Box>
+      </Container>
+    </Box>
   );
 };
 
