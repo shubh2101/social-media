@@ -19,7 +19,7 @@ const MainRoutes = () => {
 
   return (
     <Routes>
-      <Route path="/" element={!isLoggedIn && <LandingPage />} />
+      <Route path="/" element={<LandingPage />} />
       <Route element={<ProtectedRoutes />}>
         <Route path="/home" element={<HomePage />}>
           <Route index element={<Timeline />} />
