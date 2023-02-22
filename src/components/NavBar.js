@@ -57,7 +57,7 @@ const NavBar = () => {
           sx={{ ml: 8 }}
           onClick={() => {
             dispatch(activeAction.selectIndex(0));
-            navigate("/");
+            navigate("/home");
           }}
         >
           <Badge sx={{ alignItems: "center" }}>
