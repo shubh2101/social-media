@@ -75,7 +75,8 @@ const SideBar = ({ onOpen }) => {
               selected={selectedIndex === 0}
               onClick={() => {
                 dispatch(activeAction.selectIndex(0));
-                navigate("/");
+                // navigate("/");
+                navigate("/home");
               }}
             >
               <ListItemIcon>
@@ -89,7 +90,7 @@ const SideBar = ({ onOpen }) => {
               selected={selectedIndex === 1}
               onClick={() => {
                 dispatch(activeAction.selectIndex(1));
-                navigate("/explore");
+                navigate("/home/explore");
               }}
             >
               <ListItemIcon>
@@ -103,7 +104,7 @@ const SideBar = ({ onOpen }) => {
               selected={selectedIndex === 2}
               onClick={() => {
                 dispatch(activeAction.selectIndex(2));
-                navigate("/bookmarks");
+                navigate("/home/bookmarks");
               }}
             >
               <ListItemIcon>

@@ -34,7 +34,8 @@ const LogIn = () => {
         values.password
       );
       dispatch(authActions.loggedIn(user._tokenResponse.idToken));
-      navigate("/");
+      // navigate("/");
+      navigate("/home");
     } catch (error) {
       let errorMessage = "failed to login !";
       if (error.message) {

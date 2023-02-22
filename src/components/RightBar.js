@@ -41,7 +41,7 @@ const RightBar = () => {
             color={"success"}
             onClick={() => {
               dispatch(activeAction.selectIndex(1));
-              navigate("/explore");
+              navigate("/home/explore");
             }}
           >
             Show More
