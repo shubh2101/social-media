@@ -27,11 +27,18 @@ const SearchBar = () => {
       </SearchIconWrapper>
       <Autocomplete
         clearOnBlur
-        sx={{ width: 300 }}
+        sx={{ width: "100%" }}
         id="search"
         name="search"
         options={options}
         getOptionLabel={(option) => `${option.firstname} ${option.lastname}`}
+        componentsProps={{
+          paper: {
+            sx: {
+              width: { xs: "120%", sm: "100%" },
+            },
+          },
+        }}
         inputValue={inputValue}
         onInputChange={(e, value) => {
           setinputValue(value);
@@ -72,10 +79,16 @@ const SearchBar = () => {
               sx={{
                 display: "flex",
                 justifyContent: "space-between",
-                paddingLeft: 1,
+                paddingLeft: { xs: 0, sm: 1 },
               }}
             >
-              <Box sx={{ display: "flex", alignItems: "center", px: 2 }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  pl: { xs: 0.5, sm: 2 },
+                }}
+              >
                 <ListItemAvatar>
                   <Avatar alt={option.firstname} src={option.profilePicURL} />
                 </ListItemAvatar>

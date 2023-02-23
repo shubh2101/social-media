@@ -1,8 +1,4 @@
-import {
-  MailIcon,
-  Diversity1Icon,
-  NotificationsIcon,
-} from "../assets/MUI/icons";
+import { Diversity1Icon } from "../assets/MUI/icons";
 import {
   AppBar,
   Avatar,
@@ -54,7 +50,7 @@ const NavBar = () => {
         <IconButton
           disableRipple
           size="small"
-          sx={{ ml: 8 }}
+          sx={{ ml: { xs: 1, sm: 8 } }}
           onClick={() => {
             dispatch(activeAction.selectIndex(0));
             navigate("/home");
@@ -71,13 +67,7 @@ const NavBar = () => {
           </Badge>
         </IconButton>
         <SearchBar />
-        <Icons sx={{ mr: 8 }}>
-          <Badge badgeContent={4} color="error">
-            <MailIcon />
-          </Badge>
-          <Badge badgeContent={17} color="error">
-            <NotificationsIcon />
-          </Badge>
+        <Icons sx={{ mr: { xs: 1, sm: 4, md: 8 } }}>
           <IconButton
             onClick={handleClick}
             size="small"

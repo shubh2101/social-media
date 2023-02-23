@@ -9,9 +9,17 @@ export const Search = styled("div")(({ theme }) => ({
   },
   marginRight: theme.spacing(2),
   width: "100%",
+  [theme.breakpoints.down("sm")]: {
+    marginLeft: theme.spacing(3),
+    width: "50%",
+  },
   [theme.breakpoints.up("sm")]: {
     marginLeft: theme.spacing(3),
-    width: "auto",
+    width: 200,
+  },
+  [theme.breakpoints.up("md")]: {
+    marginLeft: theme.spacing(3),
+    width: 300,
   },
 }));
 

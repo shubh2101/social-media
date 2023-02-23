@@ -1,7 +1,4 @@
 import { Route, Routes, Navigate } from "react-router-dom";
-
-import { useSelector } from "react-redux";
-
 import ProtectedRoutes from "./ProtectedRoutes";
 import LandingPage from "../pages/LandingPage";
 import HomePage from "../pages/HomePage";
@@ -15,8 +12,6 @@ import SignUpPage from "../pages/SignUpPage";
 import Explore from "../components/Explore";
 
 const MainRoutes = () => {
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-
   return (
     <Routes>
       <Route path="/" element={<LandingPage />} />
