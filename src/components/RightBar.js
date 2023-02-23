@@ -22,17 +22,20 @@ const RightBar = () => {
   return (
     <Box
       flex={1}
-      p={2}
-      pr={6}
-      sx={{ display: { xs: "none", sm: "none", md: "none", lg: "block" } }}
+      pt={3}
+      sx={{
+        display: { xs: "none", sm: "none", md: "block" },
+        pr: { md: 0, lg: 12 },
+      }}
     >
       <Box position="fixed">
-        <Typography variant="h6" fontWeight="bold">
-          Who to Follow
-        </Typography>
+        <Box mb={2} sx={{ display: "flex", justifyContent: "center" }}>
+          <Typography variant="h6" fontWeight="bold">
+            Who to Follow
+          </Typography>
+        </Box>
         <List dense disablePadding>
           {otherUsers.map((user) => (
-            // <FollowUser user={user.data} key={user.data.userId} />
             <WhoToFollow user={user.data} key={user.data.userId} />
           ))}
         </List>

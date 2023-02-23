@@ -20,7 +20,7 @@ const WhoToFollow = ({ user }) => {
   const navigate = useNavigate();
 
   return (
-    <ListItem disableGutters>
+    <ListItem  disableGutters>
       <ListItemButton
         onClick={() => {
           navigate(`/profile/${followUserId}`);
@@ -28,14 +28,24 @@ const WhoToFollow = ({ user }) => {
         sx={{
           display: "flex",
           justifyContent: "space-between",
-          paddingLeft: 1,
         }}
       >
-        <Box sx={{ display: "flex", alignItems: "center" }}>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            flexDirection: { md: "column", lg: "row" },
+          }}
+        >
           <ListItemAvatar>
             <Avatar alt={user.firstname} src={user.profilePicURL} />
           </ListItemAvatar>
-          <Typography p={2}> {followUserName}</Typography>
+          <Typography p={2} sx={{ display: { md: "none", lg: "block" } }}>
+            {followUserName}
+          </Typography>
+          <Typography pt={2} sx={{ display: { md: "block", lg: "none" } }}>
+            {user.lastname}
+          </Typography>
         </Box>
       </ListItemButton>
       {followUserId !== loggedInUserId && (

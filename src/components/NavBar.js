@@ -1,4 +1,4 @@
-import { Diversity1Icon } from "../assets/MUI/icons";
+import { Diversity1Icon, MenuIcon } from "../assets/MUI/icons";
 import {
   AppBar,
   Avatar,
@@ -27,7 +27,7 @@ const StyledToolbar = styled(Toolbar)({
   justifyContent: "space-between",
 });
 
-const NavBar = () => {
+const NavBar = ({ handleDrawerToggle }) => {
   const { firstname, profilePicURL } = useSelector(
     (state) => state.user.userData
   );
@@ -45,8 +45,22 @@ const NavBar = () => {
   };
 
   return (
-    <AppBar position="sticky" color="primary" enableColorOnDark>
+    <AppBar
+      position="sticky"
+      color="primary"
+      enableColorOnDark
+      sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+    >
       <StyledToolbar>
+        <IconButton
+          color="inherit"
+          aria-label="open drawer"
+          edge="start"
+          onClick={handleDrawerToggle}
+          sx={{ mr: 1, display: { sm: "none" } }}
+        >
+          <MenuIcon />
+        </IconButton>
         <IconButton
           disableRipple
           size="small"

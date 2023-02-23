@@ -9,6 +9,7 @@ import {
   Typography,
   Avatar,
   styled,
+  Drawer,
 } from "@mui/material";
 import {
   AddCircleOutlineIcon,
@@ -36,7 +37,7 @@ const StyledListButton = styled(ListItemButton)(({ theme }) => ({
   },
 }));
 
-const SideBar = ({ onOpen }) => {
+const SideBar = ({ onOpen, drawerOpen, handleDrawerToggle }) => {
   const { toggleColorMode } = useContext(ColorModeContext);
   const loggedInUserId = useSelector((state) => state.auth.userId);
   const selectedIndex = useSelector((state) => state.activePage.selectedIndex);
@@ -59,104 +60,132 @@ const SideBar = ({ onOpen }) => {
     }
   }, [dispatch]);
 
-  return (
-    <Box
-      flex={1}
-      p={2}
-      marginLeft={6}
-      sx={{
-        display: { xs: "none", sm: "block" },
-      }}
-    >
-      <Box position="fixed">
-        <List>
-          <ListItem>
-            <StyledListButton
-              selected={selectedIndex === 0}
-              onClick={() => {
-                dispatch(activeAction.selectIndex(0));
-                // navigate("/");
-                navigate("/home");
-              }}
-            >
-              <ListItemIcon>
-                <HomeIcon />
-              </ListItemIcon>
-              <ListItemText primary="Home" />
-            </StyledListButton>
-          </ListItem>
-          <ListItem>
-            <StyledListButton
-              selected={selectedIndex === 1}
-              onClick={() => {
-                dispatch(activeAction.selectIndex(1));
-                navigate("/home/explore");
-              }}
-            >
-              <ListItemIcon>
-                <ExploreIcon />
-              </ListItemIcon>
-              <ListItemText primary="Explore" />
-            </StyledListButton>
-          </ListItem>
-          <ListItem>
-            <StyledListButton
-              selected={selectedIndex === 2}
-              onClick={() => {
-                dispatch(activeAction.selectIndex(2));
-                navigate("/home/bookmarks");
-              }}
-            >
-              <ListItemIcon>
-                <BookmarkBorderIcon />
-              </ListItemIcon>
-              <ListItemText primary="Bookmarks" />
-            </StyledListButton>
-          </ListItem>
-          <ListItem>
-            <ListItemButton onClick={onOpen}>
-              <ListItemIcon>
-                <AddCircleOutlineIcon />
-              </ListItemIcon>
-              <ListItemText primary="Add Post" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem>
-            <ListItemButton onClick={logOutHandler}>
-              <ListItemIcon>
-                <LogoutIcon />
-              </ListItemIcon>
-              <ListItemText primary="Logout" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem>
-            <ListItemButton>
-              <ListItemIcon>
-                <NightlightIcon />
-              </ListItemIcon>
-              <FormControlLabel
-                control={
-                  <MUISwitch
-                    sx={{ m: 1 }}
-                    onClick={toggleColorMode}
-                    defaultChecked
-                  />
-                }
-              />
-            </ListItemButton>
-          </ListItem>
-        </List>
-        <Box sx={{ marginTop: "140px" }}>
-          <ListItemButton
+  const drawerContent = (
+    <Box position="fixed" mt={8} sx={{ ml: { xs: 0, sm: 6 } }}>
+      <List>
+        <ListItem>
+          <StyledListButton
+            selected={selectedIndex === 0}
             onClick={() => {
-              navigate(`/profile/${loggedInUserId}`);
+              dispatch(activeAction.selectIndex(0));
+              navigate("/home");
             }}
           >
-            <Avatar alt={firstname} src={profilePicURL} />
-            <Typography p={2}>{firstname + " " + lastname}</Typography>
+            <ListItemIcon>
+              <HomeIcon />
+            </ListItemIcon>
+            <ListItemText primary="Home" />
+          </StyledListButton>
+        </ListItem>
+        <ListItem>
+          <StyledListButton
+            selected={selectedIndex === 1}
+            onClick={() => {
+              dispatch(activeAction.selectIndex(1));
+              navigate("/home/explore");
+            }}
+          >
+            <ListItemIcon>
+              <ExploreIcon />
+            </ListItemIcon>
+            <ListItemText primary="Explore" />
+          </StyledListButton>
+        </ListItem>
+        <ListItem>
+          <StyledListButton
+            selected={selectedIndex === 2}
+            onClick={() => {
+              dispatch(activeAction.selectIndex(2));
+              navigate("/home/bookmarks");
+            }}
+          >
+            <ListItemIcon>
+              <BookmarkBorderIcon />
+            </ListItemIcon>
+            <ListItemText primary="Bookmarks" />
+          </StyledListButton>
+        </ListItem>
+        <ListItem>
+          <ListItemButton onClick={onOpen}>
+            <ListItemIcon>
+              <AddCircleOutlineIcon />
+            </ListItemIcon>
+            <ListItemText primary="Add Post" />
           </ListItemButton>
-        </Box>
+        </ListItem>
+        <ListItem>
+          <ListItemButton onClick={logOutHandler}>
+            <ListItemIcon>
+              <LogoutIcon />
+            </ListItemIcon>
+            <ListItemText primary="Logout" />
+          </ListItemButton>
+        </ListItem>
+        <ListItem>
+          <ListItemButton>
+            <ListItemIcon>
+              <NightlightIcon />
+            </ListItemIcon>
+            <FormControlLabel
+              control={
+                <MUISwitch
+                  sx={{ m: 1 }}
+                  onClick={toggleColorMode}
+                  defaultChecked
+                />
+              }
+            />
+          </ListItemButton>
+        </ListItem>
+      </List>
+      <Box sx={{ marginTop: "140px" }}>
+        <ListItemButton
+          onClick={() => {
+            navigate(`/profile/${loggedInUserId}`);
+          }}
+        >
+          <Avatar alt={firstname} src={profilePicURL} />
+          <Typography p={2}>{firstname + " " + lastname}</Typography>
+        </ListItemButton>
       </Box>
+    </Box>
+  );
+
+  return (
+    <Box
+      aria-label="mailbox folders"
+      sx={{
+        width: { sm: 240 },
+        ml: { xs: 0, sm: 6, lg: 22 },
+      }}
+    >
+      <Drawer
+        variant="temporary"
+        open={drawerOpen}
+        onClose={handleDrawerToggle}
+        ModalProps={{
+          keepMounted: true, // Better open performance on mobile.
+        }}
+        sx={{
+          display: { xs: "block", sm: "none" },
+          "& .MuiDrawer-paper": { boxSizing: "border-box", width: 220 },
+        }}
+      >
+        {drawerContent}
+      </Drawer>
+      <Drawer
+        variant="permanent"
+        sx={{
+          display: { xs: "none", sm: "block" },
+          "& .MuiDrawer-paper": {
+            boxSizing: "border-box",
+            width: { sm: 300, lg: 350 },
+          },
+        }}
+        open
+      >
+        {drawerContent}
+      </Drawer>
     </Box>
   );
 };

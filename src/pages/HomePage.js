@@ -1,4 +1,4 @@
-import { Box, Divider, Stack } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import NavBar from "../components/NavBar";
@@ -16,17 +16,22 @@ const HomePage = () => {
     return setIsOpen(false);
   };
 
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const handleDrawerToggle = () => {
+    setDrawerOpen(!drawerOpen);
+  };
+
   return (
     <Box>
-      <NavBar />
+      <NavBar handleDrawerToggle={handleDrawerToggle} />
       <AddPost onClose={closeHandler} isOpen={isOpen} />
-      <Stack
-        direction="row"
-        spacing={2}
-        justifyContent="space-between"
-        divider={<Divider orientation="vertical" flexItem />}
-      >
-        <SideBar onOpen={openHandler} />
+      <Stack direction="row" spacing={2} justifyContent="space-between">
+        <SideBar
+          onOpen={openHandler}
+          drawerOpen={drawerOpen}
+          handleDrawerToggle={handleDrawerToggle}
+        />
         {<Outlet />}
         <RightBar />
       </Stack>

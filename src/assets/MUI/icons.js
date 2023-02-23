@@ -20,6 +20,7 @@ import LocationIcon from "@mui/icons-material/LocationOnOutlined";
 import DobIcon from "@mui/icons-material/CakeOutlined";
 import CommentIcon from "@mui/icons-material/ModeCommentOutlined";
 import SearchIcon from '@mui/icons-material/Search';
+import MenuIcon from '@mui/icons-material/Menu';
 
 export {
   MailIcon,
@@ -44,4 +45,5 @@ export {
   DobIcon,
   CommentIcon,
   SearchIcon,
+  MenuIcon,
 };
