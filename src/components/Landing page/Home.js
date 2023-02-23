@@ -57,13 +57,21 @@ const LandingHome = () => {
             >
               WELCOME TO LA FAMILIA
             </Typography>
-            <Title variant="h1">
-              Connecting you to the <br />
-              world, one post at a time <br />
-              sharing life's moments <br />
-              on our platform.
-            </Title>
-            <Box pt={4} gap={4} sx={{ display: "flex", flexDirection: "row" }}>
+            <Box sx={{ maxWidth: 700 }}>
+              <Title variant="h1">
+                Connecting you to the world, one post at a time sharing life's
+                moments on our platform.
+              </Title>
+            </Box>
+            <Box
+              pt={4}
+              gap={4}
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: { xs: "space-evenly", sm: "start" },
+              }}
+            >
               <StyledButton
                 variant="outlined"
                 size="large"

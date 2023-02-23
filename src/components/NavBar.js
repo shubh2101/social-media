@@ -1,13 +1,11 @@
-import { Diversity1Icon, MenuIcon } from "../assets/MUI/icons";
+import { MenuIcon } from "../assets/MUI/icons";
 import {
   AppBar,
   Avatar,
-  Badge,
   Box,
   IconButton,
   styled,
   Toolbar,
-  Typography,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import SearchBar from "./search/SearchBar";
@@ -15,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { activeAction } from "../features/store/activePageSlice";
 import { useState } from "react";
 import NavMenu from "./NavMenu";
+import Logo from "../assets/images/logo.png";
 
 const Icons = styled(Box)(() => ({
   alignItems: "center",
@@ -70,15 +69,7 @@ const NavBar = ({ handleDrawerToggle }) => {
             navigate("/home");
           }}
         >
-          <Badge sx={{ alignItems: "center" }}>
-            <Diversity1Icon />
-            <Typography
-              variant="h6"
-              sx={{ display: { xs: "none", sm: "block" }, ml: 2 }}
-            >
-              La familia
-            </Typography>
-          </Badge>
+          <Box component="img" sx={{ height: 45 }} alt="Logo" src={Logo} />
         </IconButton>
         <SearchBar />
         <Icons sx={{ mr: { xs: 1, sm: 4, md: 8 } }}>

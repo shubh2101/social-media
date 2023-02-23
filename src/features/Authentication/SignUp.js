@@ -286,7 +286,7 @@ const SignUp = () => {
           </Button>
           <Typography display="flex" justifyContent="center" gap={2} mt={3}>
             Already have an account?
-            <Link to="/">Log In</Link>
+            <Link to="/login">Log In</Link>
           </Typography>
         </Box>
       </Container>
