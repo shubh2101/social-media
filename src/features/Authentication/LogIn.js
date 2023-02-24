@@ -1,4 +1,12 @@
-import { Box, Button, Container, TextField, Typography } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  Button,
+  Container,
+  IconButton,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -6,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { authActions } from "../store/authSlice";
 import { auth } from "../../firebase-config";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import Logo from "../../assets/images/logo.png";
 
 const initialFormValues = {
   email: "",
@@ -48,6 +57,26 @@ const LogIn = () => {
 
   return (
     <Box component="section">
+      <AppBar color="transparent" elevation={0} position="absolute">
+        <IconButton
+          disableRipple
+          size="small"
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          <Box
+            component="img"
+            m={4}
+            sx={{
+              height: 40,
+              width: 100,
+            }}
+            alt="Logo"
+            src={Logo}
+          />
+        </IconButton>
+      </AppBar>
       <Container component="main" maxWidth="xs">
         <Box
           component="form"
@@ -56,7 +85,8 @@ const LogIn = () => {
           boxShadow={"5px 5px 10px #ccc"}
           p={3}
           sx={{
-            mt: 10,
+            mt: 15,
+            mx: 1,
             display: "flex",
             flexDirection: "column",
             background:

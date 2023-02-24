@@ -1,4 +1,5 @@
 import {
+  AppBar,
   Autocomplete,
   Box,
   Button,
@@ -26,6 +27,7 @@ import validate from "./validateInput";
 import { addUserData } from "../../firebase-calls";
 import { useCallback, useEffect, useState } from "react";
 import getCountries from "../../components/Countries";
+import Logo from "../../assets/images/logo.png";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -96,6 +98,26 @@ const SignUp = () => {
 
   return (
     <Box component="section">
+      <AppBar color="transparent" elevation={0} position="absolute">
+        <IconButton
+          disableRipple
+          size="small"
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          <Box
+            component="img"
+            m={4}
+            sx={{
+              height: 40,
+              width: 100,
+            }}
+            alt="Logo"
+            src={Logo}
+          />
+        </IconButton>
+      </AppBar>
       <Container component="main" maxWidth="xs">
         <Box
           component="form"
@@ -104,7 +126,7 @@ const SignUp = () => {
           boxShadow={"5px 5px 10px #ccc"}
           p={3}
           sx={{
-            mt: 5,
+            mt: 10,
             display: "flex",
             flexDirection: "column",
             background:
