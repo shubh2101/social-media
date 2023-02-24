@@ -14,6 +14,7 @@ import { activeAction } from "../features/store/activePageSlice";
 import { useState } from "react";
 import NavMenu from "./NavMenu";
 import Logo from "../assets/images/logo.png";
+import Logoplayer from "../assets/images/logo-player.png";
 
 const Icons = styled(Box)(() => ({
   alignItems: "center",
@@ -56,20 +57,31 @@ const NavBar = ({ handleDrawerToggle }) => {
           aria-label="open drawer"
           edge="start"
           onClick={handleDrawerToggle}
-          sx={{ mr: 1, display: { sm: "none" } }}
+          sx={{ display: { sm: "none" } }}
         >
           <MenuIcon />
         </IconButton>
         <IconButton
           disableRipple
           size="small"
-          sx={{ ml: { xs: 1, sm: 8 } }}
+          sx={{ ml: { xs: 0, sm: 8 } }}
           onClick={() => {
             dispatch(activeAction.selectIndex(0));
             navigate("/home");
           }}
         >
-          <Box component="img" sx={{ height: 50 }} alt="Logo" src={Logo} />
+          <Box
+            component="img"
+            sx={{ height: 50, display: { xs: "none", sm: "block" } }}
+            alt="Logo"
+            src={Logo}
+          />
+          <Box
+            component="img"
+            sx={{ height: 50, display: { xs: "block", sm: "none" } }}
+            alt="Logo"
+            src={Logoplayer}
+          />
         </IconButton>
         <SearchBar />
         <Icons sx={{ mr: { xs: 1, sm: 4, md: 8 } }}>

@@ -5,6 +5,7 @@ import {
   ListItemAvatar,
   ListItemButton,
   ListItemText,
+  Popper,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { useState } from "react";
@@ -20,6 +21,10 @@ const SearchBar = () => {
   const options = users.map((user) => user.data);
   const navigate = useNavigate();
 
+  const PopperMy = function (props) {
+    return <Popper {...props} style={{ width: 250 }} placement="bottom" />;
+  };
+  
   return (
     <Search>
       <SearchIconWrapper>
@@ -32,13 +37,7 @@ const SearchBar = () => {
         name="search"
         options={options}
         getOptionLabel={(option) => `${option.firstname} ${option.lastname}`}
-        componentsProps={{
-          paper: {
-            sx: {
-              width: { xs: "120%", sm: "100%" },
-            },
-          },
-        }}
+        PopperComponent={PopperMy}
         inputValue={inputValue}
         onInputChange={(e, value) => {
           setinputValue(value);

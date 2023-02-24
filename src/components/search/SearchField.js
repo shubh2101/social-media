@@ -21,10 +21,10 @@ export const Search = styled("div")(({ theme }) => ({
     marginLeft: theme.spacing(3),
     width: 300,
   },
-  [theme.breakpoints.up("lg")]: {
-    marginLeft: theme.spacing(3),
-    width: 400,
-  },
+  // [theme.breakpoints.up("lg")]: {
+  //   marginLeft: theme.spacing(3),
+  //   width: 400,
+  // },
 }));
 
 export const SearchIconWrapper = styled("div")(({ theme }) => ({
