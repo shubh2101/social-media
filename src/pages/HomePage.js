@@ -24,7 +24,7 @@ const HomePage = () => {
 
   return (
     <Box>
-      <NavBar handleDrawerToggle={handleDrawerToggle} />
+      <NavBar handleDrawerToggle={handleDrawerToggle} drawerOpen={drawerOpen} />
       <AddPost onClose={closeHandler} isOpen={isOpen} />
       <Stack direction="row" spacing={2} justifyContent="space-between">
         <SideBar

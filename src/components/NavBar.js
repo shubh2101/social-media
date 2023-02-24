@@ -27,7 +27,7 @@ const StyledToolbar = styled(Toolbar)({
   justifyContent: "space-between",
 });
 
-const NavBar = ({ handleDrawerToggle }) => {
+const NavBar = ({drawerOpen, handleDrawerToggle }) => {
   const { firstname, profilePicURL } = useSelector(
     (state) => state.user.userData
   );
@@ -68,6 +68,7 @@ const NavBar = ({ handleDrawerToggle }) => {
           onClick={() => {
             dispatch(activeAction.selectIndex(0));
             navigate("/home");
+            if (drawerOpen) handleDrawerToggle();
           }}
         >
           <Box
