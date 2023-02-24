@@ -63,26 +63,29 @@ const SideBar = ({ onOpen, drawerOpen, handleDrawerToggle }) => {
   const drawerContent = (
     <Box position="fixed" mt={8} sx={{ ml: { xs: 0, sm: 6 } }}>
       <List>
-        <ListItem>
-          <StyledListButton
-            selected={selectedIndex === 0}
-            onClick={() => {
-              dispatch(activeAction.selectIndex(0));
-              navigate("/home");
-            }}
-          >
-            <ListItemIcon>
-              <HomeIcon />
-            </ListItemIcon>
-            <ListItemText primary="Home" />
-          </StyledListButton>
-        </ListItem>
+        {!drawerOpen && (
+          <ListItem>
+            <StyledListButton
+              selected={selectedIndex === 0}
+              onClick={() => {
+                dispatch(activeAction.selectIndex(0));
+                navigate("/home");
+              }}
+            >
+              <ListItemIcon>
+                <HomeIcon />
+              </ListItemIcon>
+              <ListItemText primary="Home" />
+            </StyledListButton>
+          </ListItem>
+        )}
         <ListItem>
           <StyledListButton
             selected={selectedIndex === 1}
             onClick={() => {
               dispatch(activeAction.selectIndex(1));
               navigate("/home/explore");
+              if (drawerOpen) handleDrawerToggle();
             }}
           >
             <ListItemIcon>
@@ -97,6 +100,7 @@ const SideBar = ({ onOpen, drawerOpen, handleDrawerToggle }) => {
             onClick={() => {
               dispatch(activeAction.selectIndex(2));
               navigate("/home/bookmarks");
+              if (drawerOpen) handleDrawerToggle();
             }}
           >
             <ListItemIcon>
@@ -106,7 +110,12 @@ const SideBar = ({ onOpen, drawerOpen, handleDrawerToggle }) => {
           </StyledListButton>
         </ListItem>
         <ListItem>
-          <ListItemButton onClick={onOpen}>
+          <ListItemButton
+            onClick={() => {
+              onOpen();
+              if (drawerOpen) handleDrawerToggle();
+            }}
+          >
             <ListItemIcon>
               <AddCircleOutlineIcon />
             </ListItemIcon>
@@ -130,7 +139,10 @@ const SideBar = ({ onOpen, drawerOpen, handleDrawerToggle }) => {
               control={
                 <MUISwitch
                   sx={{ m: 1 }}
-                  onClick={toggleColorMode}
+                  onClick={() => {
+                    toggleColorMode();
+                    if (drawerOpen) handleDrawerToggle();
+                  }}
                   defaultChecked
                 />
               }
@@ -138,7 +150,7 @@ const SideBar = ({ onOpen, drawerOpen, handleDrawerToggle }) => {
           </ListItemButton>
         </ListItem>
       </List>
-      <Box sx={{ marginTop: "140px" }}>
+      <Box sx={{ marginTop: { xs: 0, sm: "140px" } }}>
         <ListItemButton
           onClick={() => {
             navigate(`/profile/${loggedInUserId}`);
