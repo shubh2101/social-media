@@ -20,7 +20,13 @@ const FollowersFollowing = ({ connectedPeople }) => {
   return (
     <Box flex={2} pt={1}>
       <Card
-        sx={{ width: 500, p: 2, borderRadius: "10px", mt: 8 }}
+        sx={{
+          maxWidth: 500,
+          p: 2,
+          borderRadius: "10px",
+          mt: { xs: 2, sm: 9 },
+          mx: 5,
+        }}
         elevation={8}
       >
         <List dense disablePadding>

@@ -41,7 +41,7 @@ const Post = ({ post }) => {
 
   return (
     <Card
-      sx={{ marginBottom: "2em", borderRadius: "20px", maxWidth: 600 }}
+      sx={{ marginBottom: "2em", borderRadius: "20px", maxWidth: 600,  }}
       elevation={8}
     >
       <CardHeader

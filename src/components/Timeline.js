@@ -31,7 +31,7 @@ const Timeline = () => {
   }
 
   return (
-    <Box flex={2} p={2} pt={{ xs: 2, sm: 9 }}>
+    <Box flex={2} p={2} pt={{ xs: 2, sm: 9 }} mx={2}>
       {postStatus !== "succeeded" ? (
         <Box sx={{ textAlign: "center" }}>
           <CircularProgress color="success" />
