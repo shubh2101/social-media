@@ -10,6 +10,9 @@ const StyledToolbar = styled(Toolbar)({
 
 const StyledTab = styled(Tab)(({ theme }) => ({
   marginLeft: theme.spacing(5),
+  [theme.breakpoints.down("sm")]: {
+    marginLeft: theme.spacing(1),
+  },
 }));
 
 const MenuBar = () => {

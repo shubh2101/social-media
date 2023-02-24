@@ -24,7 +24,7 @@ const SearchBar = () => {
   const PopperMy = function (props) {
     return <Popper {...props} style={{ width: 250 }} placement="bottom" />;
   };
-  
+
   return (
     <Search>
       <SearchIconWrapper>
@@ -59,7 +59,7 @@ const SearchBar = () => {
                 if (e.key === "Enter" && e.target.value) {
                   e.preventDefault();
                   const options = {
-                    pathname: "/explore",
+                    pathname: "/home/explore",
                     search: `?${createSearchParams({ filter: inputValue })}`,
                   };
                   navigate(options, { replace: true });
