@@ -19,7 +19,10 @@ const ProfileLayout = () => {
     <Box>
       <NavBar />
       <MenuBar />
-      <Stack direction="row" spacing={1} justifyContent="center">
+      <Stack
+        justifyContent="flex-start"
+        direction={{ xs: "column", sm: "row" }}
+      >
         <ProfileCard />
         <Outlet />
       </Stack>

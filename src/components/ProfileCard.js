@@ -44,11 +44,22 @@ const ProfileCard = () => {
 
   return (
     <>
-      <Box flex={1} p={2} position="relative" top={-100} sx={{ ml: 6 }}>
-        <Card sx={{ maxWidth: 300, borderRadius: "20px" }} elevation={8}>
+      <Box
+        flex={1}
+        p={2}
+        position="relative"
+        top={-100}
+        sx={{ ml: { xs: 1, sm: 4, md: 6 } }}
+      >
+        <Card sx={{ width: 300, borderRadius: "20px" }} elevation={8}>
           <Box
             p={2}
-            sx={{ width: "50%", height: 100, display: "block", margin: "auto" }}
+            sx={{
+              width: "50%",
+              height: 100,
+              display: "block",
+              margin: "auto",
+            }}
           >
             <IconButton aria-label="upload picture" component="label">
               <input

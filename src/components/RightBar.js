@@ -30,7 +30,13 @@ const RightBar = () => {
     >
       <Box position="fixed">
         <Box mb={2} sx={{ display: "flex", justifyContent: "center" }}>
-          <Typography variant="h6" fontWeight="bold">
+          <Typography
+            variant="h6"
+            sx={{
+              fontWeight: "600",
+              letterSpacing: ".25rem",
+            }}
+          >
             Who to Follow
           </Typography>
         </Box>

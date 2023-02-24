@@ -9,7 +9,7 @@ const StyledToolbar = styled(Toolbar)({
 });
 
 const StyledTab = styled(Tab)(({ theme }) => ({
-  marginLeft: theme.spacing(10),
+  marginLeft: theme.spacing(5),
 }));
 
 const MenuBar = () => {
@@ -46,14 +46,14 @@ const MenuBar = () => {
           color="transparent"
           elevation={0}
           position="absolute"
-          sx={{ bottom: "-80px", zIndex: "0" }}
+          sx={{ bottom: { xs: "-700px", sm: "-80px" }, zIndex: "0" }}
         >
           <StyledToolbar sx={{ flexGrow: 1 }}>
             <Tabs
               value={value}
               onChange={handleChange}
               aria-label="profile nav tabs"
-              sx={{ px: 6 }}
+              centered
             >
               <StyledTab
                 label="Posts"
