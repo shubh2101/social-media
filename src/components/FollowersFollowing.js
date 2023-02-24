@@ -25,7 +25,7 @@ const FollowersFollowing = ({ connectedPeople }) => {
           p: 2,
           borderRadius: "10px",
           mt: { xs: 2, sm: 9 },
-          mx: 5,
+          mx: 2,
         }}
         elevation={8}
       >
