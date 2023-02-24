@@ -27,7 +27,7 @@ const StyledToolbar = styled(Toolbar)({
   justifyContent: "space-between",
 });
 
-const NavBar = ({drawerOpen, handleDrawerToggle }) => {
+const NavBar = ({ drawerOpen, handleDrawerToggle }) => {
   const { firstname, profilePicURL } = useSelector(
     (state) => state.user.userData
   );
@@ -85,7 +85,7 @@ const NavBar = ({drawerOpen, handleDrawerToggle }) => {
           />
         </IconButton>
         <SearchBar />
-        <Icons sx={{ mr: { xs: 1, sm: 4, md: 8 } }}>
+        <Icons sx={{ mr: { xs: 0, sm: 4, md: 8 } }}>
           <IconButton
             onClick={handleClick}
             size="small"

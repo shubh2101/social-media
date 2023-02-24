@@ -17,17 +17,22 @@ const Explore = () => {
     return searchQuery ? name.toLowerCase().includes(searchQuery) : true;
   });
   return (
-    <Box display="flex" justifyContent="center" alignItems="center" mt={8}>
+    <Box flex={2} p={2} mt={4}>
       <Card
-        sx={{ width: 500, p: 2, borderRadius: "10px", mt: 8 }}
+        sx={{ maxWidth: 500, p: 1, borderRadius: "10px", mt: 4 }}
         elevation={8}
       >
-        <Typography
-          variant="h6"
-          sx={{ display: { xs: "none", sm: "block" }, px: 4 }}
-        >
-          People
-        </Typography>
+        <Box display="flex" justifyContent="center">
+          <Typography
+            variant="h6"
+            sx={{
+              fontWeight: "600",
+              letterSpacing: ".25rem",
+            }}
+          >
+            People
+          </Typography>
+        </Box>
 
         {newFilterUsers.map((user) => (
           <FollowUser user={user.data} key={user.data.userId} />

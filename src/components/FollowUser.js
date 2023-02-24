@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import FollowButton from "./FollowButton";
 
-const FollowUser = ({user}) => {
+const FollowUser = ({ user }) => {
   const { following } = useSelector((state) => state.user.userData);
   const { firstname, lastname, profilePicURL, userId: followUserId } = user;
   const followUserName = `${firstname} ${lastname}`;
@@ -19,7 +19,7 @@ const FollowUser = ({user}) => {
   const navigate = useNavigate();
 
   return (
-    <ListItem disableGutters>
+    <ListItem dense>
       <ListItemButton
         onClick={() => {
           navigate(`/profile/${followUserId}`);
