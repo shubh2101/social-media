@@ -69,7 +69,7 @@ const NavBar = ({ handleDrawerToggle }) => {
             navigate("/home");
           }}
         >
-          <Box component="img" sx={{ height: 45 }} alt="Logo" src={Logo} />
+          <Box component="img" sx={{ height: 50 }} alt="Logo" src={Logo} />
         </IconButton>
         <SearchBar />
         <Icons sx={{ mr: { xs: 1, sm: 4, md: 8 } }}>

@@ -1,16 +1,31 @@
 import React from "react";
-import { Box, Typography, Button, styled, Container } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Button,
+  styled,
+  Container,
+  AppBar,
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import Logo from "../../assets/images/logo.png";
 
 const CustomBox = styled(Box)(({ theme }) => ({
   display: "flex",
   justifyContent: "center",
   gap: theme.spacing(5),
-  marginTop: theme.spacing(3),
+  marginTop: theme.spacing(6),
   [theme.breakpoints.down("md")]: {
     flexDirection: "column",
     alignItems: "center",
     textAlign: "center",
+  },
+}));
+const StyledAppBar = styled(AppBar)(({ theme }) => ({
+  [theme.breakpoints.down("sm")]: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   },
 }));
 
@@ -41,6 +56,19 @@ const LandingHome = () => {
   const navigate = useNavigate();
   return (
     <Box component={"section"}>
+      <StyledAppBar color="transparent" elevation={0} position="absolute">
+        <Box
+          component="img"
+          m={4}
+          sx={{
+            height: 40,
+            width: 100,
+          }}
+          alt="Logo"
+          src={Logo}
+        />
+      </StyledAppBar>
+
       <Container>
         <CustomBox>
           <Box sx={{ flex: "1" }}>
