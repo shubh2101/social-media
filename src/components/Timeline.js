@@ -17,11 +17,7 @@ const Timeline = () => {
     }
     // all posts (home-page)
     return filteredPosts.slice().sort((a, b) => {
-      return (
-        // new Date(b.data.dateCreated).getTime() -
-        // new Date(a.data.dateCreated).getTime()
-        b.data.dateCreated - a.data.dateCreated
-      );
+      return b.data.dateCreated - a.data.dateCreated;
     });
   };
 

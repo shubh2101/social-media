@@ -84,7 +84,6 @@ export const getUserData = async (userId) => {
 export const addPostData = async (postText, userId, comments, imgURL) => {
   try {
     await addDoc(collection(db, "posts"), {
-      // dateCreated: new Date(),
       dateCreated: Date.now(),
       postText,
       userId,

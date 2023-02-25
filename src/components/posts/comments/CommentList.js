@@ -3,9 +3,7 @@ import CommentItem from "./CommentItem";
 
 const CommentsList = ({ comments }) => {
   const sortedComments = comments?.slice().sort((a, b) => {
-    return (
-      new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime()
-    );
+    return b.dateCreated - a.dateCreated;
   });
   return (
     <List>

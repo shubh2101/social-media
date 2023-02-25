@@ -10,7 +10,7 @@ const AddNewComment = ({ post }) => {
   const { firstname, username, userId, profilePicURL } = useSelector(
     (state) => state.user.userData
   );
-  const dateCreated = new Date().toLocaleString();
+  const dateCreated = Date.now()
   const commentData = {
     commentText,
     dateCreated,
