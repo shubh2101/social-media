@@ -11,7 +11,7 @@ const StyledToolbar = styled(Toolbar)({
 const StyledTab = styled(Tab)(({ theme }) => ({
   marginLeft: theme.spacing(5),
   [theme.breakpoints.down("sm")]: {
-    marginLeft: theme.spacing(1),
+    marginLeft: theme.spacing(0),
   },
 }));
 
@@ -51,12 +51,9 @@ const MenuBar = () => {
           position="absolute"
           sx={{
             top: { xs: 280, md: 0 },
-            transform: {
-              sm: "translate(-5%, 0%)",
-              md: "translate(10%, 0%)",
-              lg: "translate(5%, 0%)",
-            },
             zIndex: "0",
+            pl:{md : 25},
+            // ml:{sm : 10}
           }}
         >
           <StyledToolbar sx={{ flexGrow: 1 }}>
