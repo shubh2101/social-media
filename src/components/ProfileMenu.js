@@ -44,12 +44,20 @@ const MenuBar = () => {
       <Box>
         <CoverProfile />
       </Box>
-      <Box>
+      <Box position="relative">
         <AppBar
           color="transparent"
           elevation={0}
           position="absolute"
-          sx={{ bottom: { xs: "-700px", sm: "-80px" }, zIndex: "0" }}
+          sx={{
+            top: { xs: 280, md: 0 },
+            transform: {
+              sm: "translate(-5%, 0%)",
+              md: "translate(10%, 0%)",
+              lg: "translate(5%, 0%)",
+            },
+            zIndex: "0",
+          }}
         >
           <StyledToolbar sx={{ flexGrow: 1 }}>
             <Tabs

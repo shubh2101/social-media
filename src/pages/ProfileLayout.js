@@ -21,7 +21,7 @@ const ProfileLayout = () => {
       <MenuBar />
       <Stack
         justifyContent="flex-start"
-        direction={{ xs: "column", sm: "row" }}
+        direction={{ xs: "column", md: "row" }}
       >
         <ProfileCard />
         <Outlet />
