@@ -100,9 +100,13 @@ const EditProfileModal = ({ isOpen, closeHandler }) => {
       onClose={closeHandler}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
+      sx={{}}
     >
-      <Paper elevation={8}>
-        <Box width={500} p={3} borderRadius={5}>
+      <Paper
+        elevation={8}
+        sx={{ width: { xs: "80%", sm: "90%" }, maxWidth: 500 }}
+      >
+        <Box p={3} borderRadius={5}>
           <Box sx={{ display: "flex", justifyContent: "space-between" }} pb={2}>
             <Typography
               id="modal-modal-title"
@@ -138,7 +142,7 @@ const EditProfileModal = ({ isOpen, closeHandler }) => {
                 component="img"
                 sx={{
                   height: 150,
-                  width: 435,
+                  width: { xs: "100%", sm: 435 },
                   objectFit: "cover",
                 }}
                 alt="cover photo"
@@ -157,7 +161,7 @@ const EditProfileModal = ({ isOpen, closeHandler }) => {
               />
             )}
           </Box>
-          <Box p={2}>
+          <Box p={2} display="flex" justifyContent="center">
             <Spinner
               value={profilePicPercent}
               content={
