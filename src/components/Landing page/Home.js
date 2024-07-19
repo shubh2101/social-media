@@ -57,7 +57,7 @@ const LandingHome = () => {
   const navigate = useNavigate();
   return (
     <Box component={'section'}>
-      <Helmet>
+      {/* <Helmet>
         <title>LA FAMILIA</title>
         <meta property="og:site_name" content="La familia: Social app" />
         <meta property="og:title" content="familia title" />
@@ -75,7 +75,7 @@ const LandingHome = () => {
         <meta itemprop="name" content="Your Page Title" />
         <meta itemprop="description" content="A description of your page." />
         <meta itemprop="image" content="/images/hero-bg.jpg" />
-      </Helmet>
+      </Helmet> */}
       <StyledAppBar color="transparent" elevation={0} position="absolute">
         <Box
           component="img"
