@@ -59,11 +59,22 @@ const LandingHome = () => {
     <Box component={'section'}>
       <Helmet>
         <title>LA FAMILIA</title>
+        <meta property="og:site_name" content="La familia: Social app" />
+        <meta property="og:title" content="familia title" />
+        <meta
+          property="og:description"
+          content="Welcome to La familia and connects with your friends."
+        />
         <meta
           property="og:image"
           itemprop="image"
-          content="http://www.thehonestco.in/static/media/Article1.6bd756733d9fbd04e9fb.jpg"
+          content="/images/hero-bg.jpg"
         />
+        <meta property="og:type" content="website" />
+
+        <meta itemprop="name" content="Your Page Title" />
+        <meta itemprop="description" content="A description of your page." />
+        <meta itemprop="image" content="/images/hero-bg.jpg" />
       </Helmet>
       <StyledAppBar color="transparent" elevation={0} position="absolute">
         <Box
